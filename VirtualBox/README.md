@@ -1,4 +1,4 @@
-##Install CentOS 7 
+## Install CentOS 7 
 
 
-##Network adaptor setting 
+## Network adaptor setting 
