@@ -18,7 +18,7 @@ Click "Installation Destination"
 ![installation](img/Snipaste_5.png)
 
 Click "Done" and confirm the destination VDI you created in previous steps during a VM creation.   
-![installation](img/Snipaste_6 .png)
+![installation](img/Snipaste_6.png)
 
 Enter your root password  
 ![installation](img/Snipaste_7.png)
