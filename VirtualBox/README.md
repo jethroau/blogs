@@ -5,7 +5,7 @@ Click "New" to create a Virtual machines
 Click "Start" to install  
 ![installation](img/Snipaste_1a.png)
 
-Open chrome to download CentOS 7 Minimal ISO file from [URL](https://www.centos.org/download/)  
+Open chrome to download CentOS 7 Minimal ISO file from [https://www.centos.org/download/](https://www.centos.org/download/)  
 ![installation](img/Snipaste_4.png)
 
 Client "folder" button   
@@ -18,7 +18,7 @@ Click "Installation Destination"
 ![installation](img/Snipaste_5.png)
 
 Click "Done" and confirm the destination VDI you created in previous steps during a VM creation.   
-![installation](img/Snipaste_6.png)
+![installation](img/Snipaste_6 .png)
 
 Enter your root password  
 ![installation](img/Snipaste_7.png)
