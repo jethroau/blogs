@@ -20,9 +20,13 @@ Click "Installation Destination"
 Click "Done" and confirm the destination VDI you created in previous steps during a VM creation.   
 ![installation](img/Snipaste_6.png)
 
-
+Enter your root password  
 ![installation](img/Snipaste_7.png)
+
+Click "Reboot" after installation is completed  
 ![installation](img/Snipaste_8.png)
+
+Installation is successful when you see below screen. 
 ![installation](img/Snipaste_9.png)
 
 ## Network adaptor setting 
