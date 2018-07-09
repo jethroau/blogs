@@ -4,6 +4,7 @@ docker pull registry:tag
 docker image ls/rm  
 docker image ls -f dangling=true
 docker image prune
+docker image rm <registry:tag>/<IMAGE ID>
 docker run -it registry:tag bash
 ```
 > **-f dangling=true**， list all <none> images  
