@@ -9,6 +9,8 @@ If you are an SSL Server you will use private key during key exchange algorithm 
 >* **TrustStore** stores public key or certificates from CA (Certificate Authorities) which is used to trust remote party or SSL connection.
 
 ### Reference
+http://www.cnblogs.com/beiyan/p/6248187.html  
 https://communities.ca.com/docs/DOC-231162731  
 http://www.cnblogs.com/devinzhang/archive/2012/02/28/2371631.html  
 http://yqbjtu.blog.163.com/blog/static/52942620134121109547/
+https://blog.csdn.net/fw0124/article/details/40889167
