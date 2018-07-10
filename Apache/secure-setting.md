@@ -50,12 +50,12 @@ Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
 Header always append X-Frame-Options SAMEORIGIN
 ```
 
-# enable XSS protection
+## enable XSS protection
 ```apache
 Header set X-XSS-Protection "1; mode=block"
 ```
 
-# Disable HTTP 1.0 Protocol
+## disable HTTP 1.0 Protocol
 ```apache
 RewriteEngine On
 RewriteCond %{THE_REQUEST} !HTTP/1.1$
@@ -66,7 +66,7 @@ RewriteRule .* - [F]
 ```apache
 Timeout 60
 ```
-## disable keepalive (option) if apache is used to proxy or dynamic content (JSP)
+### disable keepalive (option) if apache is used to proxy or dynamic content (JSP)
 ```apache
 KeepAlive Off
 ```
