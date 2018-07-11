@@ -21,3 +21,4 @@ docker exec -it webserver bash
 > **bash**， first execute command when container starts  
 > **name**, container name  
 > **-p**, enable outside port from docker   
+> **-d**, run as background job
