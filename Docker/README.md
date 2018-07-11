@@ -15,7 +15,7 @@ docker image rm <name:tag>/<IMAGE ID>
 ```Docker
 docker run -it name:tag bash
 docker run --name webserver -d -p 80:80 nginx
-docker exec -it webserver bash
+docker exec -it webserver/<container id> bash
 docker ps 
 docker logs <container id>
 ```
@@ -24,6 +24,7 @@ docker logs <container id>
 > **name**, container name  
 > **-p**, enable outside port from docker   
 > **-d**, run as background job
+> **exec**, enter terminal mode and its exit will not stop container   
 
 ## build
 ```Docker
