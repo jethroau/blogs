@@ -1,10 +1,10 @@
 ## image 
 ```docker
-docker pull registry:tag  
+docker pull name:tag  
 docker image ls/rm  
 docker image ls -f dangling=true
 docker image prune
-docker image rm <registry:tag>/<IMAGE ID>
+docker image rm <name:tag>/<IMAGE ID>
 
 ```
 > **-f dangling=true**， list all <none> images  
@@ -13,7 +13,7 @@ docker image rm <registry:tag>/<IMAGE ID>
 
 ## container 
 ```Docker
-docker run -it registry:tag bash
+docker run -it name:tag bash
 docker run --name webserver -d -p 80:80 nginx
 docker exec -it webserver bash
 ```
@@ -22,3 +22,10 @@ docker exec -it webserver bash
 > **name**, container name  
 > **-p**, enable outside port from docker   
 > **-d**, run as background job
+
+## build
+```Docker
+docker build -t name:tag . 
+```
+> **-t** specify new image name and tag  
+> **.** contenxt to build image 
