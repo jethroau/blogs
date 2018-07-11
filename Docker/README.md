@@ -16,6 +16,8 @@ docker image rm <name:tag>/<IMAGE ID>
 docker run -it name:tag bash
 docker run --name webserver -d -p 80:80 nginx
 docker exec -it webserver bash
+docker ps 
+docker logs <container id>
 ```
 > **-t**， terminal  
 > **bash**， first execute command when container starts  
