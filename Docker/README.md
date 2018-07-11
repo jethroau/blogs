@@ -29,3 +29,14 @@ docker build -t name:tag .
 ```
 > **-t** specify new image name and tag  
 > **.** contenxt to build image 
+
+## Dockerfile
+```Docker
+FROM name:tag
+ADD / COPY
+WORKDIR
+RUN / CMD / ENTRYPOINT  <exec>/<shell>
+```
+> **ADD**, can auto-uncompress tar/gz/zip files  
+> **WORKDIR**, switch current working path  
+> **ENTRYPOINT**, can include argruments from outside  
