@@ -7,6 +7,7 @@ docker image prune
 docker image rm <name:tag>/<IMAGE ID>
 
 ```
+> **pull**, download image to local 
 > **-f dangling=true**， list all <none> images  
 > **prune**， remove all <none> images  
 > **-i**， interactive  
@@ -31,7 +32,7 @@ docker logs <container id>
 docker build -t name:tag . 
 ```
 > **-t** specify new image name and tag  
-> **.** contenxt to build image 
+> **.** context to build image 
 
 ## Dockerfile
 ```Docker
