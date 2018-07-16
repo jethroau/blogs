@@ -25,3 +25,20 @@
 	<plugins>	
 </build>
 ```
+
+## new src/main/docker/Dockerfile
+```docker
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+ADD spp_springboot_hello-1.0.jar app.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+```
+
+## vi $MAVEN_HOME/conf/setting.xml
+```xml
+<pluginGroups>  
+    <pluginGroup>com.spotify</pluginGroup>  
+</pluginGroups>
+```
+
+
