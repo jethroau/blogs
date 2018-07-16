@@ -6,6 +6,12 @@ ExecStart=/usr/bin/dockerd-current \
           ...
 ```
 
+## reload daemon & start docker service
+```
+systemctl daemon-reload
+systemctl start docker
+```
+
 
 ## reference
 https://www.cyberciti.biz/faq/install-use-setup-docker-on-rhel7-centos7-linux/  
