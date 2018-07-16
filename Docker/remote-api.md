@@ -9,7 +9,15 @@ ExecStart=/usr/bin/dockerd-current \
 ## reload daemon & start docker service
 ```
 systemctl daemon-reload
-systemctl start docker
+systemctl restart docker
+```
+
+## test remote access
+```
+netstat -ln  | grep 4243
+docker version
+docker -H localhost:4243 version
+curl http://127.0.0.1:4243/version
 ```
 
 
