@@ -22,5 +22,6 @@
 				</resources>
 			</configuration>
 		</plugin>
+	<plugins>	
 </build>
 ```
