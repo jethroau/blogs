@@ -41,12 +41,12 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 </pluginGroups>
 ```
 
-# build docker image
+## build docker image
 ````
 mvn clean package docker:build
 ````
 
-# run docker image
+## run docker image
 ```
 docker run -p 80:8080 -t springboot/spp_springboot_hello
 ```
