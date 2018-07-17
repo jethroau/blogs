@@ -73,6 +73,9 @@ docker run -p 80:8080 -t springboot/spp_springboot_hello
 ## reference
 http://www.ityouknow.com/springboot/2018/03/19/spring-boot-docker.html
 http://www.cnblogs.com/rongfengliang/p/6669152.html  
-https://blog.csdn.net/lvyuan1234/article/details/69255944
+https://blog.csdn.net/lvyuan1234/article/details/69255944  
+
+## push to private hub
+https://blog.csdn.net/hxpjava1/article/details/79695529
 
 
