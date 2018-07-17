@@ -62,9 +62,17 @@ docker run -p 80:8080 -t springboot/spp_springboot_hello
  docker ps
  docker stop springboot-hello
  ```
+ 
+ ## remote build
+ ADD DOCKER_HOST environment variable 
+ > enable your docker remote api first if you have not.
+ 
+
+ 
 
 ## reference
 http://www.ityouknow.com/springboot/2018/03/19/spring-boot-docker.html
-http://www.cnblogs.com/rongfengliang/p/6669152.html
+http://www.cnblogs.com/rongfengliang/p/6669152.html  
+https://blog.csdn.net/lvyuan1234/article/details/69255944
 
 
