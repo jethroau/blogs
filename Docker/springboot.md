@@ -66,7 +66,7 @@ docker run -p 80:8080 -t springboot/spp_springboot_hello
  ## remote build
  ADD DOCKER_HOST environment variable 
  > enable your docker remote api first if you have not.
- ![installation](img/Snipaste_1.png)
+ ![setenv](img/Snipaste_1.png)
 
  
 
