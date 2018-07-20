@@ -15,10 +15,10 @@
 		<dockerHost>tcp://192.168.50.104:4243</dockerHost>
 		<images>
 			<image>
-				<name>${project.name}:${project.version}</name>
+				<name>${project.artifactId}:${project.version}</name>
 				<build>
 					<from>openjdk:8-jdk-alpine</from>
-					<maintainer>jethroau@163.com</maintainer>
+					<maintainer>jethro</maintainer>
 					<assembly>
 						<descriptorRef>artifact</descriptorRef>
 					</assembly>
@@ -37,7 +37,7 @@
 							<arg>java</arg>
 							<arg>-Djava.security.egd=file:/dev/./urandom</arg>
 							<arg>-jar</arg>
-							<arg>/maven/${project.name}-${project.version}.jar</arg>
+							<arg>/maven/${project.artifactId}-${project.version}.jar</arg>
 						</exec>
 					</entryPoint>
 				</build>
