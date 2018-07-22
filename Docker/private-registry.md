@@ -10,5 +10,10 @@
 ```
   
 ## create a hostnamne
+```
 vi /etc/host
 127.0.0.1 registry.jethro.com
+```
+
+## reference 
+https://docs.docker.com/registry/deploying/#run-an-externally-accessible-registry
