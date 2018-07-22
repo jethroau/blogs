@@ -61,13 +61,22 @@ docker rmi hello:1.0
 docker pull hello:1.0
 ```
 
+# Web UI
 
 ## list registry image
 Listing Repositories 
 http://192.168.50.5:5000/v2/_catalog  
 
-
-
+## install a Web UI
+```
+docker pull konradkleine/docker-registry-frontend:v2 
+docker run \
+  -d \
+  -e ENV_DOCKER_REGISTRY_HOST=192.168.50.104 \
+  -e ENV_DOCKER_REGISTRY_PORT=5000 \
+  -p 8080:80 \  
+```
+> open browser and enter http://192.168.50.104:8080
 
 
 ## reference 
