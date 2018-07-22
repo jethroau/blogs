@@ -1,4 +1,4 @@
-
+# Registry Server 
 ## create registry and customize the storage location. 
 ```
  docker run -d \
@@ -28,13 +28,39 @@ docker inspect registry
 ...
 ```
 
-##
-  
+# Docker client
+## /etc/sysconfig/docker
+```
+OPTIONS='--selinux-enabled --log-driver=journald --signature-verification=false --add-registry registry.jethro.io:5000'
+```
+## /etc/docker/daemon.json
+```
+{
+    "registry-mirrors": [
+        "http://xxx.m.daocloud.io"
+    ],
+    "insecure-registries": [
+        "192.168.50.5:5000", "registry.jethro.io:5000"
+    ]
+}
+
+```
+
 ## create a hostnamne
 ```
 vi /etc/host
-127.0.0.1 registry.jethro.com
+192.168.50.5 registry.jethro.io
 ```
+
+## docker push / pull
+```docker
+docker tag hello:1.0 hello-world:latest
+docker push hello:1.0
+docker rmi hello:1.0
+
+docker pull hello:1.0
+```
+
 
 ## list registry image
 Listing Repositories 
