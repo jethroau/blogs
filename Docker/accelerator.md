@@ -4,7 +4,7 @@ http://hub-mirror.c.163.com/
 
 ## daocloud.io
 https://www.daocloud.io/mirror#accelerator-doc
-github account login
+> github account login
 
 ## centos
 ```
