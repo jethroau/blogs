@@ -54,7 +54,7 @@ vi /etc/host
 
 ## docker push / pull
 ```docker
-docker tag hello:1.0 hello-world:latest
+docker tag hello-world:latest hello:1.0 
 docker push hello:1.0
 docker rmi hello:1.0
 
