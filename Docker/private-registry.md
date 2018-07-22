@@ -1,4 +1,4 @@
-# Registry Server 
+# Registry Server (192.168.50.5)
 ## create registry and customize the storage location. 
 ```
  docker run -d \
@@ -28,7 +28,7 @@ docker inspect registry
 ...
 ```
 
-# Docker client
+# Docker client (192.168.50.104）
 ## /etc/sysconfig/docker
 ```
 OPTIONS='--selinux-enabled --log-driver=journald --signature-verification=false --add-registry registry.jethro.io:5000'
