@@ -81,7 +81,7 @@ docker run \
 
 ## reference 
 https://docs.docker.com/registry/deploying/#run-an-externally-accessible-registry
-https://blog.csdn.net/mideagroup/article/details/52052618
-https://github.com/kwk/docker-registry-frontend
+https://blog.csdn.net/mideagroup/article/details/52052618  
+https://github.com/kwk/docker-registry-frontend  
 https://github.com/mkuchin/docker-registry-web  
 
