@@ -74,7 +74,7 @@ docker run \
   -d \
   -e ENV_DOCKER_REGISTRY_HOST=192.168.50.104 \
   -e ENV_DOCKER_REGISTRY_PORT=5000 \
-  -p 8080:80 \  
+  -p 8080:80 konradkleine/docker-registry-frontend:v2
 ```
 > open browser and enter http://192.168.50.104:8080
 
