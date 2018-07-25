@@ -16,7 +16,7 @@ openssl x509 -req -days 3650 -in "root-ca.csr" \
 -extfile "root-ca.cnf" -extensions root_ca
 
 
-openssl genrsa -out "registry.hkbn.net.key" 4096
+openssl genrsa -out "registry.jethro.io.key" 4096
 
 
 openssl req -new -key "registry.hkbn.net.key" -out "registry.csr" -sha256 \
