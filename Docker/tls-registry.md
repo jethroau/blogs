@@ -67,13 +67,56 @@ cd registry.jethro.io
 scp root@192.168.x.x:/etc/docker/ssl/root-ca.crt ./ca.crt
 ```
 
-## test docker push & pull
+### test docker push & pull
 ```
 docker tag spp-hello:1.0 registry.jethro.io/spp-hello
 docker push registry.jethro.io/spp-hello
 docker image rm registry.jethro.io/spp-hello
 docker pull registry.jethro.io/spp-hello
 ```
+
+# Restricting access at Server side
+### Basic auth
+
+``` 
+cd /etc/docker
+mkdir auth
+
+docker run \
+  --entrypoint htpasswd \
+  --name gen-htpasswd
+  registry:2 -Bbn jethro jethro > auth/htpasswd
+  
+docker container rm gen-htpasswd
+```
+
+### start registry with TLS and basic auth
+```
+docker run -d \
+  --restart=always \
+  --name tls-auth-registry  \
+  -v /home/tls-auth-registry:/var/lib/registry  \
+  -v /etc/docker/auth:/auth \
+  -e "REGISTRY_AUTH=htpasswd" \
+  -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
+  -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+  -v /etc/docker/ssl:/certs \
+  -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
+  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.jethro.io.crt \
+  -e REGISTRY_HTTP_TLS_KEY=/certs/registry.jethro.io.key \
+  -p 443:443 \
+  registry:2
+```
+
+### Open URL in browser
+https://registry.jethro.io/v2/_catalog  
+
+### Login in docker client
+```
+docker login registry.jethro.io
+```
+
+
 
 # Reference
 https://docs.docker.com/registry/deploying/#support-for-lets-encrypt  
