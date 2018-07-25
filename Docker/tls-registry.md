@@ -74,3 +74,6 @@ docker push registry.jethro.io/spp-hello
 docker image rm registry.jethro.io/spp-hello
 docker pull registry.jethro.io/spp-hello
 ```
+
+# Reference
+https://docs.docker.com/registry/deploying/#support-for-lets-encrypt  
