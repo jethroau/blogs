@@ -1,11 +1,11 @@
 
 ## create a folder 
-```
+```bash
 mkdir spp_phyon
 ```
 
 ## vi app.py
-```
+```python
 from flask import Flask
 from redis import Redis
 
@@ -21,7 +21,7 @@ if __name__ == "__main__":
 ```
 
 ## Dockerfile
-```
+```dockerfile
 FROM python:3.6-alpine
 ADD . /code
 WORKDIR /code
@@ -43,7 +43,7 @@ services:
 ```
 
 ##  Create and start containers
-```
+```bash
 docker-compose up
 ```
 ## list container
@@ -61,6 +61,12 @@ Starting redis ... done
 [root@docker spp_python]# docker-compose stop
 Stopping spp_python_web_1   ... done
 Stopping spp_python_redis_1 ... done
+
+[root@docker spp_python]# docker-compose images
+    Container          Repository       Tag       Image Id      Size
+----------------------------------------------------------------------
+spp_python_redis_1   docker.io/redis   alpine   80581db8c700   27.3 MB
+spp_python_web_1     spp_python_web    latest   400ef8aacb80   82.4 MB
 
 ```
 
