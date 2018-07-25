@@ -46,3 +46,21 @@ services:
 ```
 docker-compose up
 ```
+## list container
+```bash
+[root@docker spp_python]#docker-compose ps
+       Name                     Command               State    Ports
+--------------------------------------------------------------------
+spp_python_redis_1   docker-entrypoint.sh redis ...   Exit 0
+spp_python_web_1     python app.py                    Exit 0
+
+[root@docker spp_python]# docker-compose start
+Starting web   ... done
+Starting redis ... done
+
+[root@docker spp_python]# docker-compose stop
+Stopping spp_python_web_1   ... done
+Stopping spp_python_redis_1 ... done
+
+```
+
