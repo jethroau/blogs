@@ -120,3 +120,4 @@ docker login registry.jethro.io
 
 # Reference
 https://docs.docker.com/registry/deploying/#support-for-lets-encrypt  
+https://docs.docker.com/registry/insecure/  
