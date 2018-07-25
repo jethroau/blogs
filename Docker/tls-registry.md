@@ -111,7 +111,7 @@ docker run -d \
 ### Open URL in browser
 https://registry.jethro.io/v2/_catalog  
 
-### Login in docker client
+### Login in regitry via a docker client
 ```
 docker login registry.jethro.io
 ```
