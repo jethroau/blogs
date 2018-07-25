@@ -29,7 +29,7 @@ RUN pip install redis flask
 CMD ["python", "app.py"]
 ```
 
-## docker-compopse.yml
+## docker-compose.yml
 ```yml
 version: '3'
 services:
