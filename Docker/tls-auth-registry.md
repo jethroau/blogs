@@ -98,7 +98,7 @@ docker run -d \
   -v /home/tls-auth-registry:/var/lib/registry  \
   -v /etc/docker/auth:/auth \
   -e "REGISTRY_AUTH=htpasswd" \
-  -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
+  -e "REGISTRY_AUTH_HTPASSWD_REALM=registry-realm" \
   -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
   -v /etc/docker/ssl:/certs \
   -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
