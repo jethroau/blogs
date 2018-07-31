@@ -115,7 +115,9 @@ https://registry.jethro.io/v2/_catalog
 ```
 docker login registry.jethro.io
 ```
-
+### install cert for docker client
+Copy the registry.jethro.crt file to /etc/docker/certs.d/registry.jethro.crt/ca.crt on every Docker host.  
+You do not need to restart Docker.
 
 
 # Reference
