@@ -26,7 +26,7 @@ openssl x509 -req -days 3650 -in "root-ca.csr" \
 
 openssl genrsa -out "registry.jethro.io.key" 4096
 
-openssl req -new -key "registry.hkbn.net.key" -out "registry.csr" -sha256 \
+openssl req -new -key "registry.jethro.io.key" -out "registry.csr" -sha256 \
 -subj '/C=CN/ST=GD/L=GZ/O=JETHRO/CN=registry.jethro.io'
 
 #registry.cnf
@@ -35,7 +35,7 @@ authorityKeyIdentifier=keyid,issuer
 basicConstraints = critical,CA:FALSE
 extendedKeyUsage=serverAuth
 keyUsage = critical, digitalSignature, keyEncipherment
-subjectAltName = DNS:registry.hkbn.net, IP:192.168.50.5
+subjectAltName = DNS:registry.jethro.io, IP:192.168.50.5
 subjectKeyIdentifier=hash
 
 openssl x509 -req -days 75000 -in "registry.csr" -sha256 \
