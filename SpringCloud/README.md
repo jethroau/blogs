@@ -31,6 +31,53 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		</dependency>
 	</dependencies>
 ```
+```yml
+#src/main/resource/application.yml
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  profiles:
+     active: native
+  security:
+    user:
+      password: jethro
+
+server:
+  port: 8888  
+--------------------
+#src/main/resource/shared/application.yml
+logging:
+  level:
+    org.springframework.security: INFO
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://auth-service:5000/uaa/users/current
+
+spring:
+  rabbitmq:
+    host: rabbitmq
+```
+
 
 
 
