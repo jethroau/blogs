@@ -58,7 +58,7 @@ server:
   port: 6001
 ```
 > mvn spring-boot:run   
-> http://localhost:8888/hi-server-dev.yml/   user/jethro  
+> http://localhost:8888/hi-server-dev.yml   user/jethro  
 > http://localhost:8888/hi-server/dev   
 
 
