@@ -38,7 +38,7 @@ docker build -t name:tag .
 
 ## enter docker 
 ```
-yum install util-linux
+yum install util-linux  
 ------------
 #docker_enter.sh
 #/bin/bash
@@ -46,7 +46,7 @@ pid=`docker inspect --format "{{.State.Pid}}" $1`
 nsenter --target "$pid" --mount --uts --ipc --net --pid  /bin/su - root
 
 ```
-> docker ps
+> docker ps  
 > docker_enter.sh <container_id>
 
 
