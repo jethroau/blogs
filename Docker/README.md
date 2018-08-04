@@ -36,6 +36,22 @@ docker build -t name:tag .
 > **-t** specify new image name and tag  
 > **.** context to build image 
 
+## enter docker 
+```
+yum install util-linux
+------------
+#docker_enter.sh
+#/bin/bash
+pid=`docker inspect --format "{{.State.Pid}}" $1`
+nsenter --target "$pid" --mount --uts --ipc --net --pid  /bin/su - root
+
+```
+> docker ps
+> docker_enter.sh <container_id>
+
+
+
+
 ## Dockerfile
 ```Docker
 FROM name:tag
