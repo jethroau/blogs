@@ -70,3 +70,5 @@ spp_python_web_1     spp_python_web    latest   400ef8aacb80   82.4 MB
 
 ```
 
+## Reference 
+https://docs.docker.com/compose/compose-file/#compose-file-structure-and-examples
