@@ -62,7 +62,35 @@ server:
 > http://localhost:8888/hi-server/dev   
 
 
-
+## eureka
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class RegistryApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(RegistryApplication.class, args);
+	}
+}
+```
+```yml
+spring:
+  application:
+    name: eureka
+  cloud:
+    config:
+      uri: http://config:8888
+      fail-fast: true
+      username: jethro
+      password: jethro
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    server:
+      waitTimeInMsWhenSyncEmpty: 0
+```
 
 
 
