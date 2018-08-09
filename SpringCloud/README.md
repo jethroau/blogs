@@ -43,6 +43,7 @@ spring:
      active: native
   security:
     user:
+      name: jethro
       password: jethro
 
 server:
