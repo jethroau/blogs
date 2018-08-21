@@ -18,4 +18,6 @@ ENTRYPOINT ["java","${JAVA_OPTS}", "-Djava.security.egd=file:/dev/./urandom","-j
 
 ## Reference
 [Getting Memory Usage in Linux and Docker](https://shuheikagawa.com/blog/2017/05/27/memory-usage/)  
-[Java和Docker限制的那些事儿](http://www.techug.com/post/java-and-docker-memory-limits.html)
+[Java和Docker限制的那些事儿](http://www.techug.com/post/java-and-docker-memory-limits.html)  
+[adoptopenjdk/openjdk8-openj9](https://hub.docker.com/r/adoptopenjdk/openjdk8-openj9/)  
+[openj9](https://www.eclipse.org/openj9/docs/xxusecontainersupport/)  
