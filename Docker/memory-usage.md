@@ -21,3 +21,4 @@ ENTRYPOINT ["java","${JAVA_OPTS}", "-Djava.security.egd=file:/dev/./urandom","-j
 [Java和Docker限制的那些事儿](http://www.techug.com/post/java-and-docker-memory-limits.html)  
 [adoptopenjdk/openjdk8-openj9](https://hub.docker.com/r/adoptopenjdk/openjdk8-openj9/)  
 [openj9](https://www.eclipse.org/openj9/docs/xxusecontainersupport/)  
+[OpenJ9 versus HotSpot](http://royvanrijn.com/blog/2018/05/openj9-jvm-shootout/)
