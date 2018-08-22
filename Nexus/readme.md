@@ -1,5 +1,5 @@
 
-## run as windows service 
+## install as a windows service 
 ```
 nexus /install
 ```
