@@ -5,7 +5,7 @@ docker image ls/rm
 docker image ls -f dangling=true
 docker image prune
 docker image rm <name:tag>/<IMAGE ID>
-
+docker images -a | grep "pattern" | awk '{print $3}' | xargs docker rmi
 ```
 > **pull**, download image to local 
 > **-f dangling=true**， list all <none> images  
@@ -20,6 +20,7 @@ docker exec -it webserver/<container id> bash
 docker ps -a
 docker container rm <container id>
 docker logs <container id>
+docker rm $(docker ps -a -f status=exited -q)
 ```
 > **-t**， terminal  
 > **bash**， first execute command when container starts  
@@ -35,6 +36,11 @@ docker build -t name:tag .
 ```
 > **-t** specify new image name and tag  
 > **.** context to build image 
+
+## prune
+```Docker
+docker system prune
+```
 
 ## enter docker 
 ```
@@ -62,3 +68,6 @@ RUN / CMD / ENTRYPOINT  <exec>/<shell>
 > **ADD**, can auto-uncompress tar/gz/zip files  
 > **WORKDIR**, switch current working path  
 > **ENTRYPOINT**, can include argruments from outside  
+
+## Reference
+[How To Remove Docker Images, Containers, and Volumes](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
