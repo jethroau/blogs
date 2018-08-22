@@ -37,7 +37,7 @@ docker build -t name:tag .
 > **-t** specify new image name and tag  
 > **.** context to build image 
 
-## prune
+## system
 ```Docker
 docker system prune
 ```
@@ -70,4 +70,5 @@ RUN / CMD / ENTRYPOINT  <exec>/<shell>
 > **ENTRYPOINT**, can include argruments from outside  
 
 ## Reference
-[How To Remove Docker Images, Containers, and Volumes](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
+[How To Remove Docker Images, Containers, and Volumes](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)  
+[如何清理Docker占用的磁盘空间](http://dockone.io/article/3056)
