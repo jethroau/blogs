@@ -40,6 +40,7 @@ docker build -t name:tag .
 ## system
 ```Docker
 docker system prune
+docker system df
 ```
 
 ## enter docker 
