@@ -189,26 +189,6 @@ free memory: 7MB
 Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
         at MemEat.main(MemEat.java:10)
 
-##############################################
-8ba5912b605e:/app# java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap MemEat
-initial free memory:7MB
-current memory allocated:7MB
-total memory can allocate:25MB
-free memory: 5MB
-free memory: 3MB
-free memory: 1MB
-free memory: 6MB
-free memory: 4MB
-free memory: 2MB
-free memory: 0MB
-free memory: 8MB
-free memory: 6MB
-free memory: 4MB
-free memory: 2MB
-Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-        at MemEat.main(MemEat.java:10)
-
-
 ```
 
 ## Experiment6
@@ -234,8 +214,25 @@ free memory: 88MB
 ...
 Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
         at MemEat.main(MemEat.java:10)
-#######################
 
+##############################################
+8ba5912b605e:/app# java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap MemEat
+initial free memory:7MB
+current memory allocated:7MB
+total memory can allocate:25MB
+free memory: 5MB
+free memory: 3MB
+free memory: 1MB
+free memory: 6MB
+free memory: 4MB
+free memory: 2MB
+free memory: 0MB
+free memory: 8MB
+free memory: 6MB
+free memory: 4MB
+free memory: 2MB
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
 ```
 
 
