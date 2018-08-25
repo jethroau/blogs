@@ -53,6 +53,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 ```
 
 ## Experiment2
+CentOS7 (4GB Memory) (Docker version: 1.13.1)
 ```
 docker run -itd -m 50m --rm -v /home/spp/spp-test-jvm:/app java:openjdk-8u111
 
@@ -82,6 +83,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 ```
 
 ## Experiment3
+Docker 18.06.0-ce (1GB)
 ```
 docker run -itd -m 50m --rm -v /home/spp/spp-test-jvm:/app adoptopenjdk/openjdk8-openj9
 docker ps
@@ -135,6 +137,39 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 
 ```
+
+## Experiment4
+Docker 18.06.0-ce (1GB)
+```
+docker run -itd -m 50m --rm -v /home/spp/spp-test-jvm:/app java:openjdk-8u111
+
+
+root@3fdb53ae7125:/app# java MemEat
+initial free memory:15MB
+current memory allocated:15MB
+total memory can allocate:239MB
+free memory: 7MB
+free memory: 11MB
+free memory: 14MB
+free memory: 6MB
+free memory: 37MB
+free memory: 29MB
+free memory: 21MB
+free memory: 13MB
+free memory: 82MB
+free memory: 74MB
+free memory: 66MB
+Killed
+###################
+root@3fdb53ae7125:/app# java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap MemEat
+Unrecognized VM option 'UseCGroupMemoryLimitForHeap'
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+
+```
+
+
+
 
 ## Reference
 [Getting Memory Usage in Linux and Docker](https://shuheikagawa.com/blog/2017/05/27/memory-usage/)  
