@@ -168,7 +168,75 @@ Error: A fatal exception has occurred. Program will exit.
 
 ```
 
+## Experiment5
+```
+docker run -itd -m 50m --rm -v /home/spp/spp-test-jvm:/app adoptopenjdk/openjdk8:latest
 
+root@a5b70fbee042:/app# java -version
+Picked up JAVA_TOOL_OPTIONS: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+openjdk version "1.8.0-adoptopenjdk"
+OpenJDK Runtime Environment (build 1.8.0-adoptopenjdk-jenkins_2018_05_19_01_00-b00)
+OpenJDK 64-Bit Server VM (build 25.71-b00, mixed mode)
+
+############################################
+root@a5b70fbee042:/app# java MemEat
+Picked up JAVA_TOOL_OPTIONS: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+initial free memory:7MB
+current memory allocated:7MB
+total memory can allocate:25MB
+free memory: 7MB
+free memory: 7MB
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
+
+##############################################
+8ba5912b605e:/app# java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap MemEat
+initial free memory:7MB
+current memory allocated:7MB
+total memory can allocate:25MB
+free memory: 5MB
+free memory: 3MB
+free memory: 1MB
+free memory: 6MB
+free memory: 4MB
+free memory: 2MB
+free memory: 0MB
+free memory: 8MB
+free memory: 6MB
+free memory: 4MB
+free memory: 2MB
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
+
+
+```
+
+## Experiment6
+```
+docker run -itd -m 50m --rm -v /home/spp/spp-test-jvm:/app openjdk:8-jdk-alpine
+docker-enter 8ba5912b605e
+
+8ba5912b605e:~# java -version
+openjdk version "1.8.0_171"
+OpenJDK Runtime Environment (IcedTea 3.8.0) (Alpine 8.171.11-r0)
+OpenJDK 64-Bit Server VM (build 25.171-b11, mixed mode)
+
+####################
+8ba5912b605e:/app# java MemEat
+initial free memory:15MB
+current memory allocated:15MB
+total memory can allocate:239MB
+free memory: 13MB
+...
+free memory: 7MB
+free memory: 90MB
+free memory: 88MB
+...
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
+#######################
+
+```
 
 
 ## Reference
