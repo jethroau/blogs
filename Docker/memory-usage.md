@@ -16,6 +16,42 @@ ENV JAVA_OPTS -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
 ENTRYPOINT ["java","${JAVA_OPTS}", "-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 ```
 
+## Experiment1
+CentOS7 (4GB Memory) (Docker version: 1.13.1)
+```
+docker run -m 50m --rm -itd -v /home/spp/spp-test-jvm:/app openjdk:8 /bin/bash
+docker-enter <container-id>
+
+java -version
+openjdk version "1.8.0_181"
+########################################################
+java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap MemEat
+initial free memory:7MB
+current memory allocated:7MB
+total memory can allocate:25MB
+free memory: 7MB
+free memory: 7MB
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
+########################################################
+java MemEat
+initial free memory:57MB
+current memory allocated:58MB
+total memory can allocate:916MB
+...
+free memory: 33MB
+free memory: 25MB
+free memory: 447MB
+free memory: 439MB
+free memory: 431MB
+free memory: 423MB
+...
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
+###########################################################
+
+```
+
 ## Reference
 [Getting Memory Usage in Linux and Docker](https://shuheikagawa.com/blog/2017/05/27/memory-usage/)  
 [Java和Docker限制的那些事儿](http://www.techug.com/post/java-and-docker-memory-limits.html)  
