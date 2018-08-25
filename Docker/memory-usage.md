@@ -113,6 +113,25 @@ JVMDUMP010I Snap dump written to /app/Snap.20180825.052855.113.0004.trc
 JVMDUMP013I Processed dump event "systhrow", detail "java/lang/OutOfMemoryError".
 Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
         at MemEat.main(MemEat.java:10)
+##########################################
+root@ef57ee414766:/app# java -XX:+UseContainerSupport  MemEat
+initial free memory:6MB
+current memory allocated:8MB
+total memory can allocate:25MB
+free memory: 6MB
+free memory: 7MB
+JVMDUMP039I Processing dump event "systhrow", detail "java/lang/OutOfMemoryError" at 2018/08/25 05:30:11 - please wait.
+JVMDUMP032I JVM requested System dump using '/app/core.20180825.053011.135.0001.dmp' in response to an event
+JVMDUMP010I System dump written to /app/core.20180825.053011.135.0001.dmp
+JVMDUMP032I JVM requested Heap dump using '/app/heapdump.20180825.053011.135.0002.phd' in response to an event
+JVMDUMP010I Heap dump written to /app/heapdump.20180825.053011.135.0002.phd
+JVMDUMP032I JVM requested Java dump using '/app/javacore.20180825.053011.135.0003.txt' in response to an event
+JVMDUMP010I Java dump written to /app/javacore.20180825.053011.135.0003.txt
+JVMDUMP032I JVM requested Snap dump using '/app/Snap.20180825.053011.135.0004.trc' in response to an event
+JVMDUMP010I Snap dump written to /app/Snap.20180825.053011.135.0004.trc
+JVMDUMP013I Processed dump event "systhrow", detail "java/lang/OutOfMemoryError".
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
 
 
 ```
