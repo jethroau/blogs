@@ -83,6 +83,38 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ## Experiment3
 ```
+docker run -itd -m 50m --rm -v /home/spp/spp-test-jvm:/app adoptopenjdk/openjdk8-openj9
+docker ps
+docker exec -it <container-id> /bin/bash
+ 
+java -version
+openjdk version "1.8.0_181"
+OpenJDK Runtime Environment (build 1.8.0_181-b13)
+Eclipse OpenJ9 VM (build openj9-0.9.0, JRE 1.8.0 Linux amd64-64-Bit Compressed References 20180813_291 (JIT enabled, AOT enabled)
+OpenJ9   - 24e53631
+OMR      - fad6bf6e
+JCL      - a05586ac based on jdk8u181-b13)
+###############################
+root@ef57ee414766:/app# java MemEat
+initial free memory:6MB
+current memory allocated:8MB
+total memory can allocate:25MB
+free memory: 6MB
+free memory: 7MB
+JVMDUMP039I Processing dump event "systhrow", detail "java/lang/OutOfMemoryError" at 2018/08/25 05:28:55 - please wait.
+JVMDUMP032I JVM requested System dump using '/app/core.20180825.052855.113.0001.dmp' in response to an event
+JVMDUMP010I System dump written to /app/core.20180825.052855.113.0001.dmp
+JVMDUMP032I JVM requested Heap dump using '/app/heapdump.20180825.052855.113.0002.phd' in response to an event
+JVMDUMP010I Heap dump written to /app/heapdump.20180825.052855.113.0002.phd
+JVMDUMP032I JVM requested Java dump using '/app/javacore.20180825.052855.113.0003.txt' in response to an event
+JVMDUMP010I Java dump written to /app/javacore.20180825.052855.113.0003.txt
+JVMDUMP032I JVM requested Snap dump using '/app/Snap.20180825.052855.113.0004.trc' in response to an event
+JVMDUMP010I Snap dump written to /app/Snap.20180825.052855.113.0004.trc
+JVMDUMP013I Processed dump event "systhrow", detail "java/lang/OutOfMemoryError".
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
+
+
 ```
 
 ## Reference
