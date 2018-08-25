@@ -52,6 +52,39 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 
 ```
 
+## Experiment2
+```
+docker run -itd -m 50m --rm -v /home/spp/spp-test-jvm:/app java:openjdk-8u111
+
+java -version
+openjdk version "1.8.0_111"
+OpenJDK Runtime Environment (build 1.8.0_111-8u111-b14-2~bpo8+1-b14)
+OpenJDK 64-Bit Server VM (build 25.111-b14, mixed mode)
+########################
+root@2bc0eeedb0f9:~# java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap MemEat
+Unrecognized VM option 'UseCGroupMemoryLimitForHeap'
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+#######################
+root@2bc0eeedb0f9:/app# java MemEat
+initial free memory:57MB
+current memory allocated:58MB
+...
+free memory: 41MB
+free memory: 33MB
+free memory: 25MB
+free memory: 447MB
+free memory: 439MB
+...
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+        at MemEat.main(MemEat.java:10)
+
+```
+
+## Experiment3
+```
+```
+
 ## Reference
 [Getting Memory Usage in Linux and Docker](https://shuheikagawa.com/blog/2017/05/27/memory-usage/)  
 [Java和Docker限制的那些事儿](http://www.techug.com/post/java-and-docker-memory-limits.html)  
