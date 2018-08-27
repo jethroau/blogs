@@ -22,7 +22,7 @@ nexus /run
 
 2. Create maven proxy  
 2.1 create repository  
-2.2 sleect maven proxy  
+2.2 select maven proxy  
 2.3 input proxy name "aliyun"  
 2.4 input URL http://maven.aliyun.com/nexus/content/groups/public  
 
