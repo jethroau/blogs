@@ -15,12 +15,12 @@ nexus /run
 > input admin/admin123
 
 ## Private Maven Repo
-1.Create maven hosted  
+1. Create maven hosted  
 1.1 create repository  
 1.2 select maven hosted   
 1.3 input repo name "my-hosted"    
 
-2.Create maven proxy  
+2. Create maven proxy  
 2.1 create repository  
 2.2 sleect maven proxy  
 2.3 input proxy name "aliyun"  
