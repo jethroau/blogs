@@ -1,5 +1,6 @@
 
 ## install as a windows service 
+open cmd and click “Run as Administrator”.
 ```
 nexus /install
 ```
