@@ -1,0 +1,3 @@
+
+## Ref
+https://blog.catscarlet.com/?s=%E4%BD%BF%E7%94%A8GitLab%E3%80%81Jenkins%E3%80%81Docker%E5%BB%BA%E7%AB%8B%E5%BF%AB%E9%80%9F%E6%8C%81%E7%BB%AD%E5%8C%96%E9%9B%86%E6%88%90%E4%BA%A4%E4%BB%98%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88
