@@ -7,6 +7,8 @@ VBoxManage modifymedium --resize 12288 CentOS-7.vdi
 
 ## extend vdi new space 
 ```
+fdisk -l /dev/sda  #check existing partition
+
 fdisk /dev/sda
   n {new partition}
   p {primary partition}
