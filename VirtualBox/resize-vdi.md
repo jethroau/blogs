@@ -6,8 +6,8 @@ VBoxManage modifymedium --resize 12288 CentOS-7.vdi
 ```
 
 ## use VB menu to resize vid to 12GB
-[menu1](img/int_2018-09-26_22-52-20.png)
-[menu2](img/int_2018-09-26_22-52-21.png)
+![menu1](img/int_2018-09-26_22-52-20.png)
+![menu2](img/int_2018-09-26_22-52-21.png)
 
 
 ## extend vdi new space 
