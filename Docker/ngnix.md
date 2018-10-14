@@ -1,6 +1,6 @@
 ## Simple nginx
 ```
-docker run -d -p 8090:80 --rm -v $PWD/html:/usr/share/nginx/html nginx
+docker run -d -p 8090:80 --rm -v $PWD/html:/usr/share/nginx/html --privileged=true nginx
 ```
 
 ```
