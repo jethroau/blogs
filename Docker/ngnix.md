@@ -1,4 +1,10 @@
+## Simple nginx
 ```
+docker run -d -p 8090:80 --rm -v $PWD/html:/usr/share/nginx/html nginx
+```
+
+```
+
 docker run \
 -p 8080:80 \
 --name nginx-1 \
