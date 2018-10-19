@@ -141,7 +141,7 @@ docker run --rm --entrypoint htpasswd registry:2 -Bbn jethro jethro >> nginx.htp
 ## Dockerfile
 nginx  
 ```
-FROM nginx
+FROM nginx:alpine
 
 # Copy custom configuration file from the current directory
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -208,3 +208,7 @@ services:
 
 ```
 
+## run
+```
+docker-compose up -d
+```
