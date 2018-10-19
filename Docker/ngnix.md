@@ -7,6 +7,9 @@ docker run -d -p 8090:80 --rm -v $PWD/html:/usr/share/nginx/html --privileged=tr
 [Docker Compose + Spring Boot + Nginx + Mysql 实践](http://ityouknow.com/springboot/2018/03/28/dockercompose-springboot-mysql-nginx.html)  
 [基于Nginx、Node.js和Redis的Docker工作流](http://dockone.io/article/291)   
 [Authenticate proxy with nginx](https://docs.docker.com/registry/recipes/nginx/#setting-things-up)  
+[nginx配置文件nginx.conf超详细讲解](https://www.cnblogs.com/liang-wei/p/5849771.html)  
+[nginx超详细讲解之server,log](https://blog.csdn.net/u014459326/article/details/53366921)
+
 
 ## nginx
 ```
