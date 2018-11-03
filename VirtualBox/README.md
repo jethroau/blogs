@@ -40,6 +40,11 @@ systemctl stop firewalld
 reboot
 ```
 
+## Network restart
+```
+systemctl restart network.service 
+```
+
 ## Network adaptor setting to bridge (using router to connect internet)
 Select "bridge net-card" option to get another IP from DHCP server. 
 ![use bridge](img/Snipaste_2018-07-09_00-02-34.png)
