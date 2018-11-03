@@ -31,6 +31,12 @@ Click "Reboot" after installation is completed
 Installation is successful when you see below screen. 
 ![installation](img/Snipaste_9.png)
 
+## disable firewall servcie 
+```
+systemctl stop firewalld
+reboot
+```
+
 ## Network adaptor setting to bridge (using router to connect internet)
 Select "bridge net-card" option to get another IP from DHCP server. 
 ![use bridge](img/Snipaste_2018-07-09_00-02-34.png)
