@@ -1,15 +1,15 @@
 # Set Host-only network adapter
 
-## Click "Host-Network-Manager" and create a new Host-Only Network adapter for your PC
+### Click "Host-Network-Manager" and create a new Host-Only Network adapter for your PC
 ![alt text](img/vb-network0.png)
 
-## Client your VM setting and enable netowrk connection to "Host-only" and select the adapter you created at previous step
+### Open your VM setting, enable netowrk connection to "Host-only" and select the adapter you created at previous step
 ![alt text](img/vb-network1.png)
 
-## Open "PC netowrk & internet" setting and right click ethernet icon
+### Open "PC netowrk & internet" setting and right click ethernet icon
 ![alt text](img/vb-network2.png) 
 
-## change to share tab and enable Internet share open and select the VB network adapter 
+### change to share tab and enable Internet share open and select the VB network adapter 
 ![alt text](img/vb-network3.png)
 
 
