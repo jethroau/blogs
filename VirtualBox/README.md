@@ -1,5 +1,8 @@
 # Create a VM with CentOS and enable Internet connection.
 
+## download and install VirtualBox 
+
+
 ## Install CentOS 7 
 Click "New" to create a Virtual machines   
 ![installation](img/Snipaste_1.png)
