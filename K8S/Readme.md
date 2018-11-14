@@ -17,8 +17,8 @@ yum install -y kubectl
 ```bash
 curl -Lo minikube http://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/releases/v0.24.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
-3. install VirtulBox
-```
+3. install VirtualBox
+```bash
 cat <<EOF > /etc/yum.repos.d/virtualbox.repo
 [virtualbox]
 name=Oracle Linux / RHEL / CentOS-$releasever / $basearch - VirtualBox
