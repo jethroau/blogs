@@ -37,8 +37,7 @@ yum -y install kernel-devel-3.10.0-862.el7.x86_64
 ```
 5. start minkube
 ```bash
-minikube start --registry-mirror=https://registry.docker-cn.com
-
+minikube start --registry-mirror=https://registry.docker-cn.com  --vm-driver=none
 ```
 
 [Kubernetes 学习笔记之 MiniKube 安装](https://ehlxr.me/2018/01/12/kubernetes-minikube-installation/)  
