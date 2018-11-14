@@ -30,9 +30,15 @@ gpgkey=https://www.virtualbox.org/download/oracle_vbox.asc
 EOF
 yum install VirtualBox-5.2
 ```
-3. start minkube
+4. upgrade kernel and start virtualbox
+```bash
+yum -y install kernel-devel-3.10.0-862.el7.x86_64
+/sbin/vboxconfig
+```
+5. start minkube
 ```bash
 minikube start --registry-mirror=https://registry.docker-cn.com
+
 ```
 
 [Kubernetes 学习笔记之 MiniKube 安装](https://ehlxr.me/2018/01/12/kubernetes-minikube-installation/)  
