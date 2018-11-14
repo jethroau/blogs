@@ -1,7 +1,7 @@
 ## install minikube in virtual box. 
 [Kubernetes 学习笔记之 MiniKube 安装](https://ehlxr.me/2018/01/12/kubernetes-minikube-installation/)  
 [Minikube体验](http://www.cnblogs.com/cocowool/p/minikube_setup_and_first_sample.html)  
-
+[kubernetes安装](https://blog.csdn.net/chang_li/article/details/81185631)
 
 
 
