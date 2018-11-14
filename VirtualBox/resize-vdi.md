@@ -17,7 +17,7 @@ fdisk -l /dev/sda  #check existing partition
 fdisk /dev/sda
   n {new partition}
   p {primary partition}
-  3 {partition number}
+  3 {partition number}  #new partition number
 
   t {change partition id}
   3 {partition number}
@@ -31,7 +31,7 @@ reboot
 vgdisplay
 # copy VG Name
 
-pvcreate /dev/sda3
+pvcreate /dev/sda3  #new partition path
 vgextend #VG Name /dev/sda3
 
 lvscan
@@ -47,7 +47,6 @@ lvscan
 
 ## Example 
 ```
-
 [root@docker-ce ~]# vgdisplay
 VG Name               centos
   System ID
