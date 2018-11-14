@@ -17,6 +17,10 @@ yum install -y kubectl
 ```bash
 curl -Lo minikube http://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/releases/v0.24.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
+3. start minkube
+```bash
+minikube start --registry-mirror=https://registry.docker-cn.com
+```
 
 [Kubernetes 学习笔记之 MiniKube 安装](https://ehlxr.me/2018/01/12/kubernetes-minikube-installation/)  
 [Minikube体验](http://www.cnblogs.com/cocowool/p/minikube_setup_and_first_sample.html)  
