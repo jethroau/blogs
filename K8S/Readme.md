@@ -1,4 +1,19 @@
-## install minikube in virtual box. 
+## install minikube in centOS7. 
+1.install kubectl
+```
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+yum install -y kubectl
+```
+
 [Kubernetes 学习笔记之 MiniKube 安装](https://ehlxr.me/2018/01/12/kubernetes-minikube-installation/)  
 [Minikube体验](http://www.cnblogs.com/cocowool/p/minikube_setup_and_first_sample.html)  
 [kubernetes安装](https://blog.csdn.net/chang_li/article/details/81185631)  
