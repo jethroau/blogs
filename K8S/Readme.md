@@ -17,6 +17,19 @@ yum install -y kubectl
 ```bash
 curl -Lo minikube http://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/releases/v0.24.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
+3. install VirtulBox
+```
+cat <<EOF > /etc/yum.repos.d/virtualbox.repo
+[virtualbox]
+name=Oracle Linux / RHEL / CentOS-$releasever / $basearch - VirtualBox
+baseurl=http://download.virtualbox.org/virtualbox/rpm/el/$releasever/$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://www.virtualbox.org/download/oracle_vbox.asc
+EOF
+yum install VirtualBox-5.2
+```
 3. start minkube
 ```bash
 minikube start --registry-mirror=https://registry.docker-cn.com
