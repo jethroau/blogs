@@ -40,8 +40,12 @@ systemctl stop firewalld
 reboot
 ```
 
-## Network restart
+## Network setting
 ```
+vi /etc/sysconfig/network-script/ifcfg-enp0s3
+BOOTPROTO=dhcp
+ONBOOT=yes
+
 systemctl restart network.service 
 ```
 
