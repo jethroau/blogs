@@ -43,7 +43,8 @@ minikube start --registry-mirror=https://registry.docker-cn.com  --vm-driver=non
 [Kubernetes 学习笔记之 MiniKube 安装](https://ehlxr.me/2018/01/12/kubernetes-minikube-installation/)  
 [Minikube体验](http://www.cnblogs.com/cocowool/p/minikube_setup_and_first_sample.html)  
 [kubernetes安装](https://blog.csdn.net/chang_li/article/details/81185631)  
-[CentOS 7.2 配置Golang 1.11开发环境](https://yq.aliyun.com/articles/645569)
+[CentOS 7.2 配置Golang 1.11开发环境](https://yq.aliyun.com/articles/645569)  
+[Minikube_CN](https://gitee.com/ijustyce/minikube_cn)  
 
 
 ## Reference
