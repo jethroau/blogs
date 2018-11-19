@@ -119,6 +119,9 @@ docker login registry.jethro.io
 Copy the registry.jethro.crt file to /etc/docker/certs.d/registry.jethro.crt/ca.crt on every Docker host.  
 You do not need to restart Docker.
 
+## delete registry
+https://blog.csdn.net/l6807718/article/details/52886546  
+https://github.com/burnettk/delete-docker-registry-image  
 
 # Reference
 https://docs.docker.com/registry/deploying/#support-for-lets-encrypt  
