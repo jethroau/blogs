@@ -49,7 +49,7 @@ vi harbor.cfg
 EOF
 ```
 
-4. enable TLS for harbor
+4. enable TLS for harbor  
 [Generate SSL cert](https://github.com/jethroau/blogs/blob/master/Docker/tls-auth-registry.md#server-side)  
 [Configuring Harbor with HTTPS Access](https://github.com/goharbor/harbor/blob/master/docs/configure_https.md)
 
@@ -67,7 +67,7 @@ docker-compose down -v
 docker-compose up -d
 ```
 
-7. config/test docker client connection
+7. config/test docker client connection  
 [install cert for docker client](https://github.com/jethroau/blogs/blob/master/Docker/tls-auth-registry.md#install-cert-for-docker-client)  
 ```
 docker login  yourdomain.com:port
