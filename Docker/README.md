@@ -17,10 +17,11 @@ docker images -a | grep "pattern" | awk '{print $3}' | xargs docker rmi
 docker run -it name:tag bash
 docker run --name webserver -d -p 80:80 nginx
 docker exec -it webserver/<container id> bash
-docker ps -a
 docker container rm <container id>
 docker logs <container id>
 docker rm $(docker ps -a -f status=exited -q)
+docker ps -a
+docker ps | grep "vmware" | awk '{print $1}' | xargs docker stop
 ```
 > **-t**， terminal  
 > **bash**， first execute command when container starts  
