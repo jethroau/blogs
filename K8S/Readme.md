@@ -6,6 +6,7 @@ kubectl get pods
 ## Deplopyment 
 ```
 kubectl apply -f xxx.yml
+kubectl set image deployment azure-vote-front azure-vote-front=<acrLoginServer>/azure-vote-front:v2
 ```
 
 ## Scale
