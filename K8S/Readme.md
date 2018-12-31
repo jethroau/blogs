@@ -3,12 +3,17 @@
 kubectl get pods
 kubectl get service
 kubectl get deployments
+kubectl describe deployments
+kubectl get namespaces
+
 ```
 
 ## Deplopyment 
 ```
 kubectl apply -f xxx.yml
 kubectl set image deployment azure-vote-front azure-vote-front=<acrLoginServer>/azure-vote-front:v2
+kubectl set image deployment nginx-deployment nginx=nginx:1.9.1
+
 ```
 
 ## Scale
