@@ -2,6 +2,7 @@
 ```
 kubectl get pods
 kubectl get service
+kubectl get deployments
 ```
 
 ## Deplopyment 
