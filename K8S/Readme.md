@@ -23,4 +23,5 @@ kubectl autoscale deployment <container-name> --cpu-percent=50 --min=2 --max=10
 kubectl get hpa
 ```
 ## Official reference. 
-[Workload/Controller/Deployment](https://kubernetes.io/zh/docs/concepts/workloads/controllers/deployment/)  
+[Kubernetes Concepts]https://kubernetes.io/docs/concepts/
+[Kubernetes Workload/Controller/Deployment](https://kubernetes.io/zh/docs/concepts/workloads/controllers/deployment/)  
