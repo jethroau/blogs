@@ -3,7 +3,7 @@
 kubectl get nodes
 kubectl describe node <node-name> 
 
-kubectl get pods
+kubectl get pods [--namespace=xxx]
 kubectl describe pod <pod-name>
 
 kubectl get endpoints
