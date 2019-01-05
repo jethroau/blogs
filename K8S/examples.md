@@ -1,0 +1,20 @@
+## Pod
+### PHP and Redis
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-php
+  labels:
+    name: redis-php
+spec:
+  containers:
+  - name: frontend
+    image: kubeguide/guestbook-php-frontend:localredis
+    ports:
+    - containerPort: 80
+  - name: redis
+    image: kubeguide/redis-master
+    ports:
+
+```
