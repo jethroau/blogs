@@ -16,9 +16,9 @@ kubectl get namespaces
 ```
 >  PodIP + containerPort = endpoint  
 >  Pod Volume = all containers volume in a Pod  
->  resource:{request:{cpu:?m, memory:?Mi}, limit:{cpe:?m, memory:?Mi}}, CPU: 100m = 0.1 CPU,  Memory: 128Mi = 128Mib 
->  Label and Label Selector {matchLabeles, matchExpressions} 
->  ReplicaSet and RelicationController, ReplicaSet label support Selector
+>  resource:{request:{cpu:?m, memory:?Mi}, limit:{cpe:?m, memory:?Mi}}, CPU: 100m = 0.1 CPU,  Memory: 128Mi = 128Mib   
+>  Label and Label Selector {matchLabeles, matchExpressions}   
+>  ReplicaSet and RelicationController, ReplicaSet label support Selector  
 
 
 ## Deplopyment 
