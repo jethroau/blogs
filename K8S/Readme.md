@@ -23,10 +23,10 @@ kubectl get namespaces
 >  resource:{request:{cpu:?m, memory:?Mi}, limit:{cpe:?m, memory:?Mi}}, CPU: 100m = 0.1 CPU,  Memory: 128Mi = 128Mib   
 >  Label and Label Selector {matchLabeles, matchExpressions}   
 >  ReplicaSet and RelicationController, ReplicaSet label support Selector  
->  Deployment replace ReplicaSet and RC 
-> NodeIP: physical ip address and can be access by public
-> PodIP: endpoints ip address and can be access within Pod 
-> ClusterIP： service ip address and can be access within cluster. 
+>  Deployment replace ReplicaSet and RC  
+> NodeIP: physical ip address and can be access by public  
+> PodIP: endpoints ip address and can be access within Pod   
+> ClusterIP： service ip address and can be access within cluster.   
 >
 
 ## Deplopyment 
