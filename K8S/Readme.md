@@ -1,3 +1,11 @@
+## Key compoents 
+### Node
+### Pod
+### ReplicationControler (RC), ReplicaSet, Deployment
+### Service
+### Volume & Persistent Volume (PV)
+### Namespace
+
 ## Get
 ```
 kubectl get nodes
