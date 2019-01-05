@@ -1,9 +1,14 @@
 ## Get
 ```
+kubectl get nodes
+kubectl describe node <node-name> 
+
 kubectl get pods
 kubectl get service
+
 kubectl get deployments
 kubectl describe deployments
+
 kubectl get namespaces
 
 ```
