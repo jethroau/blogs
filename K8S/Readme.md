@@ -6,14 +6,17 @@ kubectl describe node <node-name>
 kubectl get pods
 kubectl describe pod <pod-name>
 
+kubectl get endpoints
+
 kubectl get deployments
 kubectl get rs
 kubectl describe deployments
 
+kubectl get service
+kubectl get service <service-name> -o yaml
+
 kubectl get namespaces
 
-
-kubectl get service
 ```
 >  PodIP + containerPort = endpoint  
 >  Pod Volume = all containers volume in a Pod  
@@ -21,7 +24,10 @@ kubectl get service
 >  Label and Label Selector {matchLabeles, matchExpressions}   
 >  ReplicaSet and RelicationController, ReplicaSet label support Selector  
 >  Deployment replace ReplicaSet and RC 
-
+> NodeIP: physical ip address and can be access by public
+> PodIP: endpoints ip address and can be access within Pod 
+> ClusterIP： service ip address and can be access within cluster. 
+>
 
 ## Deplopyment 
 ```
@@ -30,8 +36,8 @@ kubectl create -f xxx.yaml
 kubectl get deployments
 kubectl set image deployment azure-vote-front azure-vote-front=<acrLoginServer>/azure-vote-front:v2
 kubectl set image deployment nginx-deployment nginx=nginx:1.9.1
-
 ```
+
 
 ## Scale
 ```
