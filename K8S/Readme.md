@@ -4,6 +4,8 @@ kubectl get nodes
 kubectl describe node <node-name> 
 
 kubectl get pods
+kubectl describe pod <pod-name>
+
 kubectl get service
 
 kubectl get deployments
