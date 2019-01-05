@@ -12,8 +12,8 @@ kubectl describe deployments
 kubectl get namespaces
 
 ```
->  PodIP + containerPort = endpoint
->  Pod Volume = all containers volume in a Pod
+>  PodIP + containerPort = endpoint  
+>  Pod Volume = all containers volume in a Pod  
 >
 
 
