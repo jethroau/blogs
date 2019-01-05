@@ -14,7 +14,8 @@ kubectl describe node <node-name>
 kubectl get pods [--namespace=xxx]
 kubectl describe pod <pod-name>
 kubectl exec -ti <pod-name> -c <container-name> /bin/bash
-
+kubectl log <pod-name>
+kubectl log <pod-name> -c <container-name>
 
 kubectl get endpoints
 
