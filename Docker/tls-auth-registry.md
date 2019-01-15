@@ -64,7 +64,8 @@ docker run -d \
 cd /etc/docker/certs.d/
 mkdir registry.jethro.io
 cd registry.jethro.io
-scp root@192.168.x.x:/etc/docker/ssl/root-ca.crt ./ca.crt
+scp root@192.168.x.x:/etc/docker/ssl/root-ca.crt ./ca.crt 
+#or scp root@192.168.x.x:/etc/docker/ssl/root-ca.crt ./client.crt
 ```
 
 ### test docker push & pull
