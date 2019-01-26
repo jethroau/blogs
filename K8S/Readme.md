@@ -23,12 +23,20 @@ Kubelet是Kubernetes集群中每个node和Api-server的连接点，负责容器�
 ### kube-proxy  
 为pod提供代理服务，用来实现 kubernetes 的 service 机制。
 
-### Node
-### Pod
-### ReplicationControler (RC), ReplicaSet, Deployment
-### Service
-### Volume & Persistent Volume (PV)
-### Namespace
+### node
+A node is a worker machine in Kubernetes, previously known as a minion. A node may be a VM or physical machine, depending on the cluster. Each node contains the services necessary to run pods and is managed by the master components
+
+### pod
+A pod (as in a pod of whales or pea pod) is a group of one or more containers (such as Docker containers), with shared storage/network, and a specification for how to run the containers.   
+
+### replicationControler (RC), ReplicaSet, Deployment
+* A ReplicationController ensures that a specified number of pod replicas are running at any one time.  
+* ReplicaSet is the next-generation Replication Controller. The only difference between a ReplicaSet and a Replication Controller right now is the selector support. 
+* A Deployment controller provides declarative updates for Pods and ReplicaSets.  
+
+### service
+### volume & Persistent Volume (PV)
+### namespace
 
 ## Kubectl operation samples 
 ### Create
