@@ -35,8 +35,14 @@ A pod (as in a pod of whales or pea pod) is a group of one or more containers (s
 * A Deployment controller provides declarative updates for Pods and ReplicaSets.  
 
 ### service
+A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service.     
+
 ### volume & Persistent Volume (PV)
+The PersistentVolume subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed.   
+
 ### namespace
+Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called namespaces.  
+
 
 ## Kubectl operation samples 
 ### Create
