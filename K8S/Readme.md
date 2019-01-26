@@ -1,3 +1,8 @@
+## Kubeneters Architecture
+![kubearchitecture](images/kubernetes-overview.png)
+        
+      
+
 ## Key compoents 
 ### Node
 ### Pod
@@ -5,6 +10,25 @@
 ### Service
 ### Volume & Persistent Volume (PV)
 ### Namespace
+
+## Create
+```
+kubectl create -f xxx-service.yaml -f xxx-rc.yaml
+kubectl create -f <directory> //auto load *.yaml 
+```
+
+## Get
+```
+kubectl get node
+kubectl get pods
+kubectl get rc
+kubectl get service
+```
+
+## Describe
+```
+kubectl describe nodes <node-name>
+kubectl describe pod <pod-name>
 
 ## Get
 ```
