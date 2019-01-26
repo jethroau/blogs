@@ -33,7 +33,7 @@ kubectl describe pod redis-php
 # Share volumen in POD
 
 ### pod-volume-applogs.yaml
-create volumes 'app-logs' and mounts to `/usr/local/tomcat/logs` in **tomcat container** and `/logs` in **logreader**
+create volumes `app-logs` and mounts to `/usr/local/tomcat/logs` in **tomcat container** and `/logs` in **logreader**
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -62,7 +62,7 @@ spec:
 ### logs and enter container
 ```
 kubectl logs volumne-pod -c busybox
-
+kubectl exec -ti volume-pod -c tomcat -- ls /usr/local/tomcat/logs
 kubectl exec -ti volume-pod -c tomcat -- tail /usr/local/tomcat/logs
 ```
 
