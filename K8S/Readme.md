@@ -51,6 +51,24 @@ kubectl describe node <node-name>
 kubectl describe pod <pod-name>
 ```
 
+### Delete 
+```
+kubectl delete -f pod.yaml
+kubectl delete pods, service -l name=<label-name>
+kubectl delete pods --all
+```
+
+### Exec
+```
+kubectl exec <pod-name> date
+kubectl exec -ti <pod-name> -c <container-name> /bin/bash  //login container
+```
+
+### Logs
+```
+kubectl logs <pod-name>
+```
+
 ### Misc 
 ```
 kubectl get nodes
