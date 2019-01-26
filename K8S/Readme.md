@@ -30,13 +30,14 @@ Kubelet是Kubernetes集群中每个node和Api-server的连接点，负责容器�
 ### Volume & Persistent Volume (PV)
 ### Namespace
 
-## Create
+## Kubectl operation samples 
+### Create
 ```
 kubectl create -f xxx-service.yaml -f xxx-rc.yaml
 kubectl create -f <directory> //auto load *.yaml 
 ```
 
-## Get
+### Get
 ```
 kubectl get node
 kubectl get pods
@@ -44,12 +45,13 @@ kubectl get rc
 kubectl get service
 ```
 
-## Describe
+### Describe
 ```
-kubectl describe nodes <node-name>
+kubectl describe node <node-name>
 kubectl describe pod <pod-name>
+```
 
-## Get
+### Misc 
 ```
 kubectl get nodes
 kubectl describe node <node-name> 
@@ -83,7 +85,7 @@ kubectl get namespaces
 > ClusterIP： service ip address and can be access within cluster.   
 >
 
-## Deplopyment 
+### deploy 
 ```
 kubectl apply -f xxx.yml
 kubectl create -f xxx.yaml
@@ -93,7 +95,7 @@ kubectl set image deployment nginx-deployment nginx=nginx:1.9.1
 ```
 
 
-## Scale
+### Scale
 ```
 kubectl scale --replica=3 deployment/<container-name>  
 kubectl sacle rc <rc-name> --replica=? 
