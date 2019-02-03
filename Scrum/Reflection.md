@@ -32,6 +32,19 @@ Scrum Teams deliver products iteratively and incrementally, maximizing opportuni
 • Ensuring the Development Team understands items in the Product Backlog to the level needed.  
 The Product Owner may do the above work, or have the Development Team do it. However,`` the Product Owner remains accountable.  ``
 
-**The Product Owner is one person, not a committee.** The Product Owner may represent the desires of a committee in the Product Backlog, but `those wanting to change a Product Backlog item’s priority must address the Product Owner.`  
+**The Product Owner is one person, not a committee.** The Product Owner may represent the desires of a committee in the Product Backlog, but `those wanting to change a Product Backlog item’s priority must address the Product Owner.`  The Product Owner’s decisions are visible in the content and ordering of the Product Backlog. `No one can force the Development Team to work from a different set of requirements. `
+
+The Development Team consists of professionals who do the work of **delivering a potentially releasable Increment of “Done” product at the end of each Sprint.** A _“Done”_ increment is required at the Sprint Review. Only members of the Development Team create the Increment.  
+
+* They are self-organizing. No one (not even the Scrum Master) tells the Development Team how to turn Product Backlog into Increments of potentially releasable functionality;  
+* Scrum recognizes no titles for Development Team members, regardless of the work being performed by the person;   
+* Scrum recognizes no sub-teams in the Development Team, regardless of domains that need to be addressed like testing, architecture, operations, or business analysis; and,
+* Individual Development Team members may have specialized skills and areas of focus, but accountability belongs to the Development Team as a whole.
+
+
+
+
+
+
 
 
