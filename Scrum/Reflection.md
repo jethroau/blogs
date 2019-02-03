@@ -32,6 +32,6 @@ Scrum Teams deliver products iteratively and incrementally, maximizing opportuni
 • Ensuring the Development Team understands items in the Product Backlog to the level needed.  
 The Product Owner may do the above work, or have the Development Team do it. However,`` the Product Owner remains accountable.  ``
 
-
+**The Product Owner is one person, not a committee.** The Product Owner may represent the desires of a committee in the Product Backlog, but `those wanting to change a Product Backlog item’s priority must address the Product Owner.`  
 
 
