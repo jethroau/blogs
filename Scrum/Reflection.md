@@ -9,7 +9,9 @@ Empiricism asserts that knowledge comes from experience and making decisions bas
 Those performing the work and those inspecting the resulting increment must share **a common definition of “Done”.**
 
 Scrum prescribes **four formal events** for inspection and adaptation, as described in the Scrum Events section of this document:
-• Sprint Planning  8 hours or less
-• Daily Scrum   15 minutes
-• Sprint Review   4 hours or less
-• Sprint Retrospective  3 hours or lesss
+• Sprint Planning  8 hours or less  
+• Daily Scrum   15 minutes  
+• Sprint Review   4 hours or less  
+• Sprint Retrospective  3 hours or lesss   
+ 
+
