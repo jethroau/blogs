@@ -123,6 +123,6 @@ The Development Team is responsible for all estimates. The Product Owner may inf
 
 An increment is a body of inspectable, done work that supports empiricism at the end of the Sprint. The increment is a step toward a vision or goal. The increment must be in useable condition regardless of whether the Product Owner decides to release it.  
 
-The Scrum Master’s job is to work with the Scrum Team and the organization to increase the transparency of the artifacts.  
+The Scrum Master’s job is to work with the Scrum Team and the organization to increase the transparency of the artifacts.   
 
 
