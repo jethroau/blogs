@@ -125,4 +125,10 @@ An increment is a body of inspectable, done work that supports empiricism at the
 
 The Scrum Master’s job is to work with the Scrum Team and the organization to increase the transparency of the artifacts.   
 
+The same definition guides the Development Team in knowing how many Product Backlog items it can select during a Sprint Planning. The purpose of each Sprint is to deliver Increments of **potentially releasable functionality** that adhere to the Scrum Team’s current definition of “Done.”   
+
+If there are multiple Scrum Teams working on the system or product release, the Development Teams on `all the Scrum Teams must mutually define the definition of “Done.”`
+
+
+
 
