@@ -77,7 +77,7 @@ Sprints contain and consist of the Sprint Planning, Daily Scrums, the developmen
 During the Sprint:
 * No changes are made that would endanger the Sprint Goal; 
 * Quality goals do not decrease; and,
-* Scope may be clarified and re-negotiated between the Product Owner and Development Team as more is learned.
+* `Scope may be clarified and re-negotiated between the Product Owner and Development Team` as more is learned.
 
 A Sprint can be cancelled before the Sprint time-box is over. **Only the Product Owner has the authority to cancel the Sprint**.  
 
