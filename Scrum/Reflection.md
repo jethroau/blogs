@@ -38,7 +38,7 @@ The Product Owner may do the above work, or have the Development Team do it. How
 * They are self-organizing. No one (not even the Scrum Master) tells the Development Team how to turn Product Backlog into Increments of potentially releasable functionality;  
 * Scrum recognizes no titles for Development Team members, regardless of the work being performed by the person;   
 * Scrum recognizes no sub-teams in the Development Team, regardless of domains that need to be addressed like testing, architecture, operations, or business analysis; and,
-* Individual Development Team members may have specialized skills and areas of focus, but accountability belongs to the Development Team as a whole.
+* Individual Development Team members may have specialized skills and areas of focus, but `accountability belongs to the Development Team as a whole`.
 
 Optimal Development Team size **(3 ~ 9 members)** is small enough to remain nimble and large enough to complete significant work within a Sprint. The Product Owner and Scrum Master roles are not included in this count unless they are also executing the work of the Sprint Backlog.  
 
