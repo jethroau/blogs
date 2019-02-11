@@ -36,6 +36,8 @@ After the Development Team forecasts the Product Backlog items it will deliver i
 * Ensuring the Development Team understands items in the Product Backlog to the level needed.  
 The Product Owner may do the above work, or have the Development Team do it. However,`` the Product Owner remains accountable.  ``
 
+The Product Owner is the sole person responsible for the Product Backlog. However,` he or she can delegate some work related to product backlog management to the Development Team.`
+
 **The Product Owner is one person, not a committee.** The Product Owner may represent the desires of a committee in the Product Backlog, but `those wanting to change a Product Backlog item’s priority must address the Product Owner.`  The Product Owner’s decisions are visible in the content and ordering of the Product Backlog. `No one can force the Development Team to work from a different set of requirements. `
 
 **The Development Team** consists of professionals who do the work of **delivering a potentially releasable Increment of “Done” product at the end of each Sprint.** A _“Done”_ increment is required at the Sprint Review. Only members of the Development Team create the Increment.  
@@ -94,6 +96,8 @@ The number of items selected from the Product Backlog for the Sprint is **solely
 Work planned for the first days of the Sprint by the Development Team is decomposed by the end of this meeting, **often to units of one day or less**. The Development Team self-organizes to undertake the work in the Sprint Backlog, both during Sprint Planning and as needed throughout the Sprint.  
 
 Sprint Goal is created during the Sprint Planning meeting. The Sprint Goal can be any other coherence that causes the Development Team to work together rather than on separate initiatives.  If the work turns out to be different than the Development Team expected,` they collaborate with the Product Owner to negotiate the scope of Sprint Backlog` within the Sprint.   
+
+The input to **sprint planing** meeting is ·the Product Backlog, the latest product Increment, projected capacity of the Development Team during the Sprint, and past performance of the Development Team`.
 
 The Daily Scrum is **a 15-minute time-boxed event** for the Development Team. The Daily Scrum is held every day of the Sprint.
 
