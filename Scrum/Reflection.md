@@ -24,6 +24,8 @@ Scrum Teams deliver products iteratively and incrementally, maximizing opportuni
 
 The team model in Scrum is designed to optimize **flexibility, creativity, and productivity**
 
+After the Development Team forecasts the Product Backlog items it will deliver in the Sprint, **the Scrum Team** crafts a Sprint Goal.
+
 **The Product Owner** is responsible for ``maximizing the value of the product resulting`` from work of the Development Team.   
 
 **The Product Owner** is the ``sole person responsible for managing the Product Backlog``. Product Backlog management includes:
