@@ -48,9 +48,15 @@ The Product Owner is the sole person responsible for the Product Backlog. Howeve
 
 Optimal Development Team size **(3 ~ 9 members)** is small enough to remain nimble and large enough to complete significant work within a Sprint. The Product Owner and Scrum Master roles are not included in this count unless they are also executing the work of the Sprint Backlog.  
 
+**Only members of the Development Team** create the Increment.
+
+`The Development Team is responsible for all estimates in the Product Backlog.` The Product Owner may influence the Development Team by helping it understand and select trade-offs, but the people who will perform the work make the final estimate.
+
 **The Scrum Master** is responsible for promoting and supporting Scrum as defined in the Scrum Guide. Scrum Masters do this by ``helping everyone understand Scrum theory, practices, rules, and values. ``  
 
 The Scrum Master is `a servant-leader` for the Scrum Team. The Scrum Master `helps everyone change these interactions to maximize the value created by the Scrum Team.`  
+
+The Scrum Master is a servant-leader for the Scrum Team. `he Scrum Master helps those outside the Scrum Team `understand which of their interactions with the Scrum Team are helpful and which aren’t.
 
 **The Scrum Master serves the Product Owner** in several ways, including:
 * Ensuring that goals, scope, and product domain are `understood by everyone` on the Scrum Team as well as possible;
