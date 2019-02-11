@@ -22,6 +22,8 @@ Scrum Teams are **self-organizing and cross-functional.** ``Self-organizing team
 
 Scrum Teams deliver products iteratively and incrementally, maximizing opportunities for feedback. ``Incremental deliveries of “Done” `` product ensure **a potentially useful version of working product** is always available.  [not necessary to release production for each sprint]  
 
+The team model in Scrum is designed to optimize **flexibility, creativity, and productivity**
+
 **The Product Owner** is responsible for ``maximizing the value of the product resulting`` from work of the Development Team.   
 
 **The Product Owner** is the ``sole person responsible for managing the Product Backlog``. Product Backlog management includes:
