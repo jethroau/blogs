@@ -105,8 +105,11 @@ Sprint Goal is created during the Sprint Planning meeting. The Sprint Goal can b
 
 The input to **sprint planing** meeting is the ``Product Backlog, the latest product Increment, projected capacity of the Development Team during the Sprint, and past performance of the Development Team``.
 
-**The Sprint Backlog** is the set of Product Backlog items selected for the Sprint, ``plus a plan for delivering the product Increment and realizing the Sprint Goal``.
+**Sprint Planning** answers the following:
+- What can be delivered in the Increment resulting from the upcoming Sprint?
+- How will the work needed to deliver the Increment be achieved?
 
+**The Sprint Backlog** is the set of Product Backlog items selected for the Sprint, ``plus a plan for delivering the product Increment and realizing the Sprint Goal``.
 
 The Daily Scrum is **a 15-minute time-boxed event** for the Development Team. The Daily Scrum is held every day of the Sprint.
 
