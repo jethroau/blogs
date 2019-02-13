@@ -103,9 +103,10 @@ Work planned for the first days of the Sprint by the Development Team is decompo
 
 Sprint Goal is created during the Sprint Planning meeting. The Sprint Goal can be any other coherence that causes the Development Team to work together rather than on separate initiatives.  If the work turns out to be different than the Development Team expected,` they collaborate with the Product Owner to negotiate the scope of Sprint Backlog` within the Sprint.   
 
-The input to **sprint planing** meeting is the Product Backlog, the latest product Increment, projected capacity of the Development Team during the Sprint, and past performance of the Development Team`.
+The input to **sprint planing** meeting is the ``Product Backlog, the latest product Increment, projected capacity of the Development Team during the Sprint, and past performance of the Development Team``.
 
-The Sprint Backlog is the set of Product Backlog items selected for the Sprint, `plus a plan for delivering the product Increment and realizing the Sprint Goal`.
+**The Sprint Backlog** is the set of Product Backlog items selected for the Sprint, ``plus a plan for delivering the product Increment and realizing the Sprint Goal``.
+
 
 The Daily Scrum is **a 15-minute time-boxed event** for the Development Team. The Daily Scrum is held every day of the Sprint.
 
