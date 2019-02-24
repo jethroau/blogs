@@ -127,7 +127,7 @@ The Development Team or team members often meet immediately after the Daily Scru
 
 A Sprint Review is held at **the end of the Sprint** to inspect the Increment and adapt the Product Backlog if needed. During the Sprint Review, **the Scrum Team and stakeholders** collaborate about what was done in the Sprint. This is an informal meeting, not a status meeting, and the presentation of the Increment is intended to elicit feedback and foster collaboration. `This is at most a four-hour meeting for one-month Sprints. For shorter Sprints, the event is usually shorter. ` `The Scrum Master ensures` that `the event takes place` and that attendees understand its purpose. The Scrum Master teaches everyone involved to `keep it within the time-box.`  
 
-The result of the Sprint Review is a revised Product Backlog that defines the probable Product Backlog items for the next Sprint. The Product Backlog may also be adjusted overall to meet new opportunities.  
+**The result of the Sprint Review** is `a revised Product Backlog that defines the probable Product Backlog items for the next Sprint`. The Product Backlog may also be adjusted overall to meet new opportunities.  
 
 The **Sprint Retrospective** is an opportunity for the `Scrum Team to inspect itself` and create a plan for improvements to be enacted during the next Sprint.  `The Sprint Retrospective occurs after the Sprint Review and prior to the next Sprint Planning.`  This is at most a three-hour meeting for one-month Sprints. For shorter Sprints, the event is usually shorter.  `The Scrum Master participates as a peer team member` in the meeting from the accountability over the Scrum process.
 
