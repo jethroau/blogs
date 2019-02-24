@@ -16,6 +16,8 @@ Scrum prescribes **four formal events** for inspection and adaptation, as descri
  
 When "scrum values" of **commitment, courage, focus, openness and respect** are embodied and lived by the Scrum Team, the Scrum pillars of transparency, inspection, and adaptation come to life and build trust for everyone.   
 
+The Scrum framework consists of Scrum Teams and their associated `roles, events, artifacts, and rules`. 
+
 The Scrum Team consists of **a Product Owner, the Development Team, and a Scrum Master.**  
 
 Scrum Teams are **self-organizing and cross-functional.** ``Self-organizing teams`` choose how best to accomplish their work, rather than being directed by others outside the team. ``Cross-functional teams`` have all competencies needed to accomplish the work without depending on others not part of the team.  
