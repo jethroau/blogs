@@ -138,6 +138,8 @@ The purpose of the **Sprint Retrospective** is to:
 2. Identify and order the major items that went well and potential improvements; and,
 3. Create a plan for implementing improvements to the way the Scrum Team does its work.
 
+During each Sprint Retrospective, the Scrum Team plans ways to `increase product quality by improving work processes or adapting the definition of “Done”`, if appropriate and not in conflict with product or organizational standards.
+
 The Product Backlog is an ordered list of everything that is known to be needed in the product. It is **the single source of requirements** for any changes to be made to the product. `The Product Owner is responsible for the Product Backlog`, including its content, availability, and ordering.  
 
 A Product Backlog is never complete. The earliest development of it lays out the initially known and best-understood requirements. If a product exists, its Product Backlog also exists.  
