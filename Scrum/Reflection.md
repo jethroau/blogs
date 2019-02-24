@@ -113,6 +113,8 @@ Sprint Goal is created during the Sprint Planning meeting. The Sprint Goal can b
 
 The input to **sprint planing** meeting is the ``Product Backlog, the latest product Increment, projected capacity of the Development Team during the Sprint, and past performance of the Development Team``.
 
+By the end of the Sprint Planning, `the Development Team should be able to explain to the Product Owner and Scrum Master how it intends to work as a self-organizing team to accomplish the Sprint Goal and create the anticipated Increment.`
+
 **Sprint Planning** answers the following:
 - What can be delivered in the Increment resulting from the upcoming Sprint?
 - How will the work needed to deliver the Increment be achieved?
