@@ -95,7 +95,9 @@ During the Sprint:
 
 A Sprint can be cancelled before the Sprint time-box is over. **Only the Product Owner has the authority to cancel the Sprint**.  
 
-A Sprint would be cancelled if the Sprint Goal becomes obsolete.    
+A Sprint would be cancelled if the Sprint Goal becomes obsolete.  
+
+When a Sprint is cancelled, `any completed and “Done” Product Backlog items are reviewed. If part of the work is potentially releasable, the Product Owner typically accepts it. All incomplete Product Backlog Items are re-estimated and put back on the Product Backlog.`
 
 The work to be performed in the Sprint is planned at the Sprint Planning. This plan is created by the collaborative work of the entire Scrum Team. Sprint Planning is time-boxed to **a maximum of eight hours for a one-month Sprint**. For shorter Sprints, the event is usually shorter. The Scrum Master ensures that the event takes place and that attendants understand its purpose. The Scrum Master teaches the Scrum Team to keep it within the time-box.  
 
