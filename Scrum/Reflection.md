@@ -99,19 +99,21 @@ A Sprint would be cancelled if the Sprint Goal becomes obsolete.
 
 The work to be performed in the Sprint is planned at the Sprint Planning. This plan is created by the collaborative work of the entire Scrum Team. Sprint Planning is time-boxed to **a maximum of eight hours for a one-month Sprint**. For shorter Sprints, the event is usually shorter. The Scrum Master ensures that the event takes place and that attendants understand its purpose. The Scrum Master teaches the Scrum Team to keep it within the time-box.  
 
+**The Sprint Backlog** is the set of Product Backlog items selected for the Sprint, ``plus a plan for delivering the product Increment and realizing the Sprint Goal``.
+
 The number of items selected from the Product Backlog for the Sprint is **solely up to the Development Team**. Only the Development Team can assess what it can accomplish over the upcoming Sprint. The Product Backlog items selected for this Sprint plus the plan for delivering them is called the Sprint Backlog.   
 
 Work planned for the first days of the Sprint by the Development Team is decomposed by the end of this meeting, **often to units of one day or less**. The Development Team self-organizes to undertake the work in the Sprint Backlog, both during Sprint Planning and as needed throughout the Sprint.  
 
 Sprint Goal is created during the Sprint Planning meeting. The Sprint Goal can be any other coherence that causes the Development Team to work together rather than on separate initiatives.  If the work turns out to be different than the Development Team expected,` they collaborate with the Product Owner to negotiate the scope of Sprint Backlog` within the Sprint.   
 
+**Only the Development Team can change its Sprint Backlog during a Sprint**. The Sprint Backlog is a highly visible, real-time picture of the work that the Development Team plans to accomplish during the Sprint, and it belongs solely to the Development Team.
+
 The input to **sprint planing** meeting is the ``Product Backlog, the latest product Increment, projected capacity of the Development Team during the Sprint, and past performance of the Development Team``.
 
 **Sprint Planning** answers the following:
 - What can be delivered in the Increment resulting from the upcoming Sprint?
 - How will the work needed to deliver the Increment be achieved?
-
-**The Sprint Backlog** is the set of Product Backlog items selected for the Sprint, ``plus a plan for delivering the product Increment and realizing the Sprint Goal``.
 
 The Daily Scrum is **a 15-minute time-boxed event** for the Development Team. The Daily Scrum is held every day of the Sprint.
 
