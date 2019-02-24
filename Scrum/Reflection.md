@@ -125,9 +125,14 @@ A Sprint Review is held at **the end of the Sprint** to inspect the Increment an
 
 The result of the Sprint Review is a revised Product Backlog that defines the probable Product Backlog items for the next Sprint. The Product Backlog may also be adjusted overall to meet new opportunities.  
 
-The Sprint Retrospective is an opportunity for the `Scrum Team to inspect itself` and create a plan for improvements to be enacted during the next Sprint.  `The Sprint Retrospective occurs after the Sprint Review and prior to the next Sprint Planning.`  This is at most a three-hour meeting for one-month Sprints. For shorter Sprints, the event is usually shorter.  The Scrum Master participates as a peer team member in the meeting from the accountability over the Scrum process.
+The **Sprint Retrospective** is an opportunity for the `Scrum Team to inspect itself` and create a plan for improvements to be enacted during the next Sprint.  `The Sprint Retrospective occurs after the Sprint Review and prior to the next Sprint Planning.`  This is at most a three-hour meeting for one-month Sprints. For shorter Sprints, the event is usually shorter.  `The Scrum Master participates as a peer team member` in the meeting from the accountability over the Scrum process.
 
-the Sprint Retrospective provides a formal opportunity to focus on inspection and adaptation.   
+the **Sprint Retrospective** provides a formal opportunity to focus on inspection and adaptation. 
+
+The purpose of the **Sprint Retrospective** is to:
+1. Inspect how the last Sprint went with regards to people, relationships, process, and tools;
+2. Identify and order the major items that went well and potential improvements; and,
+3. Create a plan for implementing improvements to the way the Scrum Team does its work.
 
 The Product Backlog is an ordered list of everything that is known to be needed in the product. It is **the single source of requirements** for any changes to be made to the product. `The Product Owner is responsible for the Product Backlog`, including its content, availability, and ordering.  
 
