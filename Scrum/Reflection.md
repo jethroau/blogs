@@ -146,6 +146,8 @@ Product Backlog items often include test descriptions that will prove its comple
 
 Multiple Scrum Teams often work together on the same product. **One Product Backlog is used to describe** the upcoming work on the product.  
 
+Product Backlog refinement usually consumes no more than **10%** of the capacity of the Development Team.
+
 Higher ordered Product Backlog items are usually clearer and more detailed than lower ordered ones. More precise estimates are made based on the greater clarity and increased detail; the lower the order, the less detail.  
 
 The Development Team is responsible for all estimates. The Product Owner may influence the Development Team by helping it understand and select trade-offs, but the people who will perform the work make the final estimate.  
