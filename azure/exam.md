@@ -31,3 +31,13 @@ when VM is ready, we may receive following repsonse from Azure CLI
   "zones": ""
 }
 ```
+### install Nginx in the VM 
+```
+az vm extension set \
+-g 56c7a8f8-185d-4560-8628-bb0248fcfd3c \
+--vm-name myVM1 \
+--name customScript \
+--publisher Microsoft.Azure.Extensions \
+--settings "{'fileUris':['https://raw.githubusercontent.com/MicrosoftDocs/mslearn-welcome-to-azure/master/configure-nginx.sh']}" \
+--protected-settings "{'commandToExecute': './configure-nginx.sh'}"
+```
