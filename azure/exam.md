@@ -5,7 +5,7 @@
 > 考试范围
 > https://www.microsoft.com/zh-cn/learning/exam-AZ-203.aspx   
 
-## Azure fundmential
+## Azure fundmental
 ### create VM
 ```
 az vm create \
