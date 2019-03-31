@@ -41,3 +41,13 @@ az vm extension set \
 --settings "{'fileUris':['https://raw.githubusercontent.com/MicrosoftDocs/mslearn-welcome-to-azure/master/configure-nginx.sh']}" \
 --protected-settings "{'commandToExecute': './configure-nginx.sh'}"
 ```
+
+### open 80 port in firewall
+```
+az vm open-port \
+--name myVM \
+--resource-group 56c7a8f8-185d-4560-8628-bb0248fcfd3c \
+--port 80
+```
+
+
