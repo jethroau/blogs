@@ -12,7 +12,7 @@
 # Key content and Practice
 ## Azure Search
 The process of creating an Azure Search index using C# and the .NET SDK. Index creation is accomplished by performing these tasks:
-> 1.Create a SearchServiceClient object to connect to a search service.  
-> 2.Create an Index object to pass as a parameter to Indexes.Create.  
-> 3.Call the Indexes.Create method on SearchServiceClient to send the Index to a service. 
+> * Create a SearchServiceClient object to connect to a search service.  
+> * Create an Index object to pass as a parameter to Indexes.Create.  
+> * Call the Indexes.Create method on SearchServiceClient to send the Index to a service. 
 
