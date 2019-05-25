@@ -112,3 +112,16 @@ public static async Task<CustomerEntity> InsertOrMergeEntityAsync(CloudTable tab
        CustomerEntity insertedCustomer = result.Result as CustomerEntity;
 }
 ```
+
+**Get an entity from a partition**
+You can get entity from a partition by using the Retrieve method under the TableOperation class. The following code example gets the partition key row key, email and phone number of a customer entity. 
+```C#
+public static async Task<CustomerEntity> RetrieveEntityUsingPointQueryAsync(CloudTable table, string partitionKey, string rowKey)
+        
+        TableOperation retrieveOperation = TableOperation.Retrieve<CustomerEntity>(partitionKey, rowKey);
+        TableResult result = await table.ExecuteAsync(retrieveOperation);
+        CustomerEntity customer = result.Result as CustomerEntity;
+
+        return customer;
+}
+```
