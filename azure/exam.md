@@ -61,3 +61,8 @@ The time interval (T) by which the reads might lag behind the writes
 
 * Eventual: There's no ordering guarantee for reads. In the absence of any further writes, **the replicas eventually converge.** 
 > https://docs.microsoft.com/en-us/azure/cosmos-db/consistency-levels
+
+
+## Azure Table Storage SDK (.NET)
+
+
