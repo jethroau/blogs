@@ -64,5 +64,97 @@ The time interval (T) by which the reads might lag behind the writes
 
 
 ## Azure Table Storage SDK (.NET)
+**Create a Table**
+The CloudTableClient class enables you to retrieve tables and entities stored in Table storage. Because we don’t have any tables in the Cosmos DB Table API account, let’s add the CreateTableAsync method to the Common.cs class to create a table:
+```C#
+public static async Task<CloudTable> CreateTableAsync(string tableName)
+  {
+    string storageConnectionString = AppSettings.LoadAppSettings().StorageConnectionString;
 
+    // Retrieve storage account information from connection string.
+    CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(storageConnectionString);
 
+    // Create a table client for interacting with the table service
+    CloudTableClient tableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
+
+    Console.WriteLine("Create a Table for the demo");
+
+    // Create a table client for interacting with the table service 
+    CloudTable table = tableClient.GetTableReference(tableName);
+    if (await table.CreateIfNotExistsAsync())
+    {
+      Console.WriteLine("Created Table named: {0}", tableName);
+    }
+    else
+    {
+      Console.WriteLine("Table {0} already exists", tableName);
+    }
+
+    Console.WriteLine();
+    return table;
+}
+```
+**Define the entity**
+Entities map to C# objects by using a custom class derived from TableEntity. To add an entity to a table, create a class that defines the properties of your entity.
+```C#
+public static async Task<CloudTable> CreateTableAsync(string tableName)
+  {
+    string storageConnectionString = AppSettings.LoadAppSettings().StorageConnectionString;
+
+    // Retrieve storage account information from connection string.
+    CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(storageConnectionString);
+
+    // Create a table client for interacting with the table service
+    CloudTableClient tableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
+
+    Console.WriteLine("Create a Table for the demo");
+
+    // Create a table client for interacting with the table service 
+    CloudTable table = tableClient.GetTableReference(tableName);
+    if (await table.CreateIfNotExistsAsync())
+    {
+      Console.WriteLine("Created Table named: {0}", tableName);
+    }
+    else
+    {
+      Console.WriteLine("Table {0} already exists", tableName);
+    }
+
+    Console.WriteLine();
+    return table;
+}
+```
+**Insert or merge an entity**
+The following code example creates an entity object and adds it to the table. The InsertOrMerge method within the TableOperation class is used to insert or merge an entity. The **CloudTable.ExecuteAsync** method is called to execute the operation.
+```C#
+public static async Task<CustomerEntity> InsertOrMergeEntityAsync(CloudTable table, CustomerEntity entity)
+    {
+      if (entity == null)
+    {
+       throw new ArgumentNullException("entity");
+    }
+    try
+    {
+       // Create the InsertOrReplace table operation
+       TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(entity);
+
+       // Execute the operation.
+       TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
+       CustomerEntity insertedCustomer = result.Result as CustomerEntity;
+        
+        // Get the request units consumed by the current operation. RequestCharge of a TableResult is only applied to Azure CosmoS DB 
+        if (result.RequestCharge.HasValue)
+          {
+            Console.WriteLine("Request Charge of InsertOrMerge Operation: " + result.RequestCharge);
+          }
+
+        return insertedCustomer;
+        }
+        catch (StorageException e)
+        {
+          Console.WriteLine(e.Message);
+          Console.ReadLine();
+          throw;
+        }
+    }
+```
