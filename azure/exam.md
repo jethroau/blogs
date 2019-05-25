@@ -69,61 +69,36 @@ The CloudTableClient class enables you to retrieve tables and entities stored in
 ```C#
 public static async Task<CloudTable> CreateTableAsync(string tableName)
   {
-    string storageConnectionString = AppSettings.LoadAppSettings().StorageConnectionString;
-
-    // Retrieve storage account information from connection string.
-    CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(storageConnectionString);
-
     // Create a table client for interacting with the table service
     CloudTableClient tableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
-
-    Console.WriteLine("Create a Table for the demo");
-
-    // Create a table client for interacting with the table service 
     CloudTable table = tableClient.GetTableReference(tableName);
-    if (await table.CreateIfNotExistsAsync())
-    {
-      Console.WriteLine("Created Table named: {0}", tableName);
-    }
-    else
-    {
-      Console.WriteLine("Table {0} already exists", tableName);
-    }
-
-    Console.WriteLine();
-    return table;
+    await table.CreateIfNotExistsAsync()
 }
 ```
 **Define the entity**
-Entities map to C# objects by using a custom class derived from TableEntity. To add an entity to a table, create a class that defines the properties of your entity.
+This code defines an entity class that uses the customer's first name as the row key and last name as the partition key. Together,**an entity's partition and row key uniquely identify it in the table**. Entities with the same partition key can be queried faster than entities with different partition keys but using diverse partition keys allows for greater scalability of parallel operations. Entities to be stored in tables must be of a supported type, for example **derived from the TableEntity class**. Entity properties you'd like to store in a table must be public properties of the type, and support both getting and setting of values. Also, your entity type must expose a parameter-less constructor.
 ```C#
-public static async Task<CloudTable> CreateTableAsync(string tableName)
-  {
-    string storageConnectionString = AppSettings.LoadAppSettings().StorageConnectionString;
-
-    // Retrieve storage account information from connection string.
-    CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(storageConnectionString);
-
-    // Create a table client for interacting with the table service
-    CloudTableClient tableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
-
-    Console.WriteLine("Create a Table for the demo");
-
-    // Create a table client for interacting with the table service 
-    CloudTable table = tableClient.GetTableReference(tableName);
-    if (await table.CreateIfNotExistsAsync())
+namespace CosmosTableSamples.Model
+{
+    using Microsoft.Azure.Cosmos.Table;
+    public class CustomerEntity : TableEntity
     {
-      Console.WriteLine("Created Table named: {0}", tableName);
-    }
-    else
-    {
-      Console.WriteLine("Table {0} already exists", tableName);
-    }
+        public CustomerEntity()
+        {
+        }
 
-    Console.WriteLine();
-    return table;
+        public CustomerEntity(string lastName, string firstName)
+        {
+            PartitionKey = lastName;
+            RowKey = firstName;
+        }
+
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+    }
 }
 ```
+
 **Insert or merge an entity**
 The following code example creates an entity object and adds it to the table. The InsertOrMerge method within the TableOperation class is used to insert or merge an entity. The **CloudTable.ExecuteAsync** method is called to execute the operation.
 ```C#
