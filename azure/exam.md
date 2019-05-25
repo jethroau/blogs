@@ -9,3 +9,10 @@
 1 Region, Geographies and Availability Zones
 
 
+# Key content and Practice
+## Azure Search
+1. open [Azure search tutorial]https://docs.microsoft.com/zh-cn/azure/search/search-create-service-portal
+2. create sandbox [active sandbox]https://docs.microsoft.com/en-us/learn/modules/create-cosmos-db-for-scale/2-create-an-account
+3. open https://portal.azure.com
+4. in sandbox rource group, + Azure search, url: jethro-search, create
+5. 
