@@ -51,9 +51,9 @@ A string containing the formatted filter condition.
 
 * Strong: **Strong consistency offers a linearizability guarantee**. The reads are guaranteed to return the most recent committed version of an item. A client never sees an uncommitted or partial write. Users are always guaranteed to read the latest committed write. 
 
-* Bounded staleness: The reads are guaranteed to honor the consistent-prefix guarantee. The reads might lag behind writes by at most "K" versions (i.e., "updates") of an item or by "T" time interval. In other words, when you choose bounded staleness, the "staleness" can be configured in two ways: 
-The number of versions (K) of the item 
-The time interval (T) by which the reads might lag behind the writes 
+* Bounded staleness: The reads are guaranteed to honor the consistent-prefix guarantee. The reads might lag behind writes by at most "K" versions (i.e., "updates") of an item or by "T" time interval. In other words, when you choose bounded staleness, the "staleness" can be configured in two ways:  
+The number of versions (K) of the item  
+The time interval (T) by which the reads might lag behind the writes  
 
 * Session: The reads are guaranteed to honor the consistent-prefix (assuming a single “writer” session), monotonic reads, monotonic writes, read-your-writes, and write-follows-reads guarantees. **Session consistency is scoped to a client session.** 
 
