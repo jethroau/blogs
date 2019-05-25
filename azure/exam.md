@@ -21,4 +21,23 @@ Import data into an Azure Search index using C# and the .NET SDK. Pushing docume
 * Create an IndexBatch object containing the documents to be added, modified, or deleted. 
 * Call the Documents.Index method on SearchIndexClient to upload documents to an index. 
 
-[https://docs.microsoft.com/en-us/azure/search/search-import-data-dotnet] 
+> https://docs.microsoft.com/en-us/azure/search/search-import-data-dotnet 
+
+## Azure Table Storage
+Generates a property filter condition string for the string value.
+```C#
+public static string GenerateFilterCondition (string propertyName, string operation, string givenValue);
+
+Parameters
+propertyName
+String
+A string containing the name of the property to compare.
+
+operation
+String
+A string containing the comparison operator to use.
+
+givenValue
+String
+A string containing the value to compare with the property.
+```
