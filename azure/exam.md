@@ -64,7 +64,7 @@ The time interval (T) by which the reads might lag behind the writes
 
 
 ## Azure Table Storage SDK (.NET)
-**Create a Table**
+**Create a Table**  
 The CloudTableClient class enables you to retrieve tables and entities stored in Table storage. Because we don’t have any tables in the Cosmos DB Table API account, let’s add the CreateTableAsync method to the Common.cs class to create a table:
 ```C#
 public static async Task<CloudTable> CreateTableAsync(string tableName)
@@ -75,7 +75,7 @@ public static async Task<CloudTable> CreateTableAsync(string tableName)
     await table.CreateIfNotExistsAsync()
 }
 ```
-**Define the entity**
+**Define the entity**  
 This code defines an entity class that uses the customer's first name as the row key and last name as the partition key. Together,**an entity's partition and row key uniquely identify it in the table**. Entities with the same partition key can be queried faster than entities with different partition keys but using diverse partition keys allows for greater scalability of parallel operations. Entities to be stored in tables must be of a supported type, for example **derived from the TableEntity class**. Entity properties you'd like to store in a table must be public properties of the type, and support both getting and setting of values. Also, your entity type must expose a parameter-less constructor.
 ```C#
 namespace CosmosTableSamples.Model
@@ -100,36 +100,15 @@ namespace CosmosTableSamples.Model
 ```
 
 **Insert or merge an entity**
-The following code example creates an entity object and adds it to the table. The InsertOrMerge method within the TableOperation class is used to insert or merge an entity. The **CloudTable.ExecuteAsync** method is called to execute the operation.
+The following code example creates an entity object and adds it to the table. The **InsertOrMerge** method within the **TableOperation** class is used to insert or merge an entity. The **CloudTable.ExecuteAsync** method is called to execute the operation.
 ```C#
-public static async Task<CustomerEntity> InsertOrMergeEntityAsync(CloudTable table, CustomerEntity entity)
-    {
-      if (entity == null)
-    {
-       throw new ArgumentNullException("entity");
-    }
-    try
-    {
+public static async Task<CustomerEntity> InsertOrMergeEntityAsync(CloudTable table, CustomerEntity entity)    {
        // Create the InsertOrReplace table operation
        TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(entity);
-
+       
        // Execute the operation.
        TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
+       
        CustomerEntity insertedCustomer = result.Result as CustomerEntity;
-        
-        // Get the request units consumed by the current operation. RequestCharge of a TableResult is only applied to Azure CosmoS DB 
-        if (result.RequestCharge.HasValue)
-          {
-            Console.WriteLine("Request Charge of InsertOrMerge Operation: " + result.RequestCharge);
-          }
-
-        return insertedCustomer;
-        }
-        catch (StorageException e)
-        {
-          Console.WriteLine(e.Message);
-          Console.ReadLine();
-          throw;
-        }
-    }
+}
 ```
