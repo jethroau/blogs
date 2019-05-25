@@ -11,8 +11,8 @@
 
 # Key content and Practice
 ## Azure Search
-1. [Azure search tutorial](https://docs.microsoft.com/zh-cn/azure/search/search-create-service-portal)
-2. [activate sandbox](https://docs.microsoft.com/en-us/learn/modules/create-cosmos-db-for-scale/2-create-an-account)
-3. open https://portal.azure.com
-4. in sandbox rource group, + Azure search, url: jethro-search, create
+The process of creating an Azure Search index using C# and the .NET SDK. Index creation is accomplished by performing these tasks:
+> 1.Create a SearchServiceClient object to connect to a search service.
+> 2.Create an Index object to pass as a parameter to Indexes.Create.
+> 3.Call the Indexes.Create method on SearchServiceClient to send the Index to a service.
 
