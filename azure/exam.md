@@ -134,3 +134,4 @@ public static async Task DeleteEntityAsync(CloudTable table, CustomerEntity dele
     TableResult result = await table.ExecuteAsync(deleteOperation);
 }
 ```
+> https://docs.microsoft.com/en-us/azure/cosmos-db/tutorial-develop-table-dotnet
