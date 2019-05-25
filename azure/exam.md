@@ -27,7 +27,6 @@ Import data into an Azure Search index using C# and the .NET SDK. Pushing docume
 Generates a property filter condition string for the string value.
 ```C#
 public static string GenerateFilterCondition (string propertyName, string operation, string givenValue);
-```
 
 Parameters
 propertyName
@@ -45,7 +44,7 @@ A string containing the value to compare with the property.
 Returns
 String
 A string containing the formatted filter condition.
-
+```
 > https://docs.azure.cn/zh-cn/dotnet/api/microsoft.windowsazure.storage.table.tablequery.generatefiltercondition?view=azure-dotnet
 
 
