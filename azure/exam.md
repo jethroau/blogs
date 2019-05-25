@@ -99,7 +99,7 @@ namespace CosmosTableSamples.Model
 }
 ```
 
-**Insert or merge an entity**
+**Insert or merge an entity**  
 The following code example creates an entity object and adds it to the table. The **InsertOrMerge** method within the **TableOperation** class is used to insert or merge an entity. The **CloudTable.ExecuteAsync** method is called to execute the operation.
 ```C#
 public static async Task<CustomerEntity> InsertOrMergeEntityAsync(CloudTable table, CustomerEntity entity)    {
@@ -113,7 +113,7 @@ public static async Task<CustomerEntity> InsertOrMergeEntityAsync(CloudTable tab
 }
 ```
 
-**Get an entity from a partition**
+**Get an entity from a partition**  
 You can get entity from a partition by using the Retrieve method under the TableOperation class. The following code example gets the partition key row key, email and phone number of a customer entity. 
 ```C#
 public static async Task<CustomerEntity> RetrieveEntityUsingPointQueryAsync(CloudTable table, string partitionKey, string rowKey)
@@ -123,5 +123,14 @@ public static async Task<CustomerEntity> RetrieveEntityUsingPointQueryAsync(Clou
         CustomerEntity customer = result.Result as CustomerEntity;
 
         return customer;
+}
+```
+
+**Delete an entity**  
+```C#
+public static async Task DeleteEntityAsync(CloudTable table, CustomerEntity deleteEntity)
+{
+    TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
+    TableResult result = await table.ExecuteAsync(deleteOperation);
 }
 ```
