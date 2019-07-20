@@ -82,7 +82,9 @@ docker pull hello:1.0
 
 ## Reference
 [基于 Harbor 搭建 Docker 私有镜像仓库](https://zhuanlan.zhihu.com/p/31483386)  
-[搭建Harbor企业级docker仓库](https://www.cnblogs.com/pangguoping/p/7650014.html)
+[搭建Harbor企业级docker仓库](https://www.cnblogs.com/pangguoping/p/7650014.html)  
+[Openshift 和Harbor的集成](https://www.cnblogs.com/ericnie/p/10099856.html)
+
 
 ## Github
 https://github.com/goharbor/harbor  
