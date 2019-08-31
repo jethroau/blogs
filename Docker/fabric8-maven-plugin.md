@@ -54,9 +54,20 @@
 </build>
 ```
 
+## build
+```
+mvn clean package docker:build
+```
 
+## check build and run
+```
+docker image ls
+docker run -it -p 8080:80 ja-springboot-hello
+
+```
 
 ## reference 
 http://dmp.fabric8.io/  
+https://blog.csdn.net/alinyua/article/details/81094240  
 http://www.cnblogs.com/fairjm/p/docker_maven_springboot.html  
 https://blog.csdn.net/wangfei0904306/article/details/72643456  
