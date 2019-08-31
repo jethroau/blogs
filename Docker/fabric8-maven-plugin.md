@@ -66,6 +66,9 @@ docker run -it -p 8080:80 ja-springboot-hello
 
 ```
 
+## check run result
+open browser and input http://192.168.50.104:8080/sayHello  
+
 ## reference 
 http://dmp.fabric8.io/  
 https://blog.csdn.net/alinyua/article/details/81094240  
