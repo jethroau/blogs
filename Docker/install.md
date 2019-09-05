@@ -9,3 +9,8 @@ https://blog.csdn.net/kamputer/article/details/79047765
 ```bash
 systemctl enable docker
 ```
+
+## Start docker service
+```bash
+systemctl start docker
+```
