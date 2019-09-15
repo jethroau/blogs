@@ -23,5 +23,12 @@ kubectl config view | grep namespace:
 
 ```
 
+## Remove node info from etcd and redeploy
+```
+docker volume rm etcd
+```
+https://www.jianshu.com/p/3a492440c89b  
+
+
 ## Reference.
 https://www.cnrancher.com/
