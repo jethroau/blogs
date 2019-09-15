@@ -1,3 +1,15 @@
+## Namespace
+```
+kubectl create namespace <new-namespace>
+kubectl get namespace
+#check current namespace
+kubectl config view | grep namespace:
+#change default namespace 
+kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+
+```
+
+
 ## Node
 ```
 kubectl get nodes
@@ -45,35 +57,36 @@ kubectl scale rc redis-slave --replicas=2
 
 ## Deployment
 ```
-kubectl create -f deployment.yaml
+kubectl create/apply -f deployment.yaml
 kubectl get deployments
 kubectl describe deployment <deploy_name>
+kubectl delete deployment <deploy_name>
 ```
 
 YAML template:
 ```yaml
 apiVersion: extensions/v1beta1
- kind: Deployment
- metadata:
-   name: xxx-system ##system name 
- spec:
-   replicas: 2
-   template:
-     metadata:
-       labels:
-         app: xxx-system #system name          
-         release: YYYYMMDD # release date time or version 
-         environment: production # or uat or dev
-     spec:
-       containers:
-         - name: web-xxx-frontend #git project name 
-           image: <docker image path>
-           ports:
-             - containerPort: 8443
-         - name: web-xxx-api #git project name
-           image: <docker image path>
-           ports:
-             - containerPort: 8444
+kind: Deployment
+metadata:
+    name: xxx-system ##system name 
+spec:
+    replicas: 2
+    template:
+        metadata:
+            labels:
+              app: xxx-system #system name          
+              release: YYYYMMDD # release date time or version 
+              environment: production # or uat or dev
+        spec:
+            containers:
+                - name: web-xxx-frontend #git project name 
+                  image: <docker image path>
+                  ports:
+                    - containerPort: 8443
+                - name: web-xxx-api #git project name
+                  image: <docker image path>
+                  ports:
+                    - containerPort: 8444
 ```
 
 
