@@ -31,6 +31,14 @@ docker ps | grep "vmware" | awk '{print $1}' | xargs docker stop
 > **exec**, enter terminal mode and its exit will not stop container   
 > **-a**, show all container (default shows running container)
 
+## Clean all image, container and volume
+```
+docker ps | awk '{print $1}' | xargs docker stop
+docker rm -f $(docker ps -qa)
+docker rmi -f $(docker images -q)
+docker volume rm $(docker volume ls -q)
+```
+
 ## build
 ```Docker
 docker build -t name:tag . 
