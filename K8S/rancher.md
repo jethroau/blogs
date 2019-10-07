@@ -34,11 +34,11 @@ https://rancher.com/docs/rancher/v2.x/en/installation/air-gap-single-node/config
 ## Deploy your first app to k8s
 ```
 kubectl version
-kubectl create namespace uat-online
+kubectl create namespace uat
 kubectl get namespace
 
 # set default namespace
-kubectl config set-context --current --namespace=uat-online
+kubectl config set-context --current --namespace=uat
 # Validate it
 kubectl config view | grep namespace:
 
