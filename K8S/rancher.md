@@ -30,8 +30,7 @@ https://www.cnrancher.com/docs/rancher/v2.x/cn/overview/quick-start-guide/
 https://rancher.com/docs/rancher/v2.x/en/installation/air-gap-single-node/config-rancher-for-private-reg/  
 
 
-
-## Deploy your first app to k8s
+## create new namespace 
 ```
 kubectl version
 kubectl create namespace uat
@@ -41,9 +40,60 @@ kubectl get namespace
 kubectl config set-context --current --namespace=uat
 # Validate it
 kubectl config view | grep namespace:
+```
 
+## prepare your deployment.yaml and service.yaml
+deployment.yaml
+```yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: web-hello ##system name
+spec:
+    replicas: 1
+    template:
+        metadata:
+          labels:
+            app: ja-springboot-hello
+            release: "20190907"
+            environment: "uat"
+        spec:
+          containers:
+            - name: ja-springboot-hello
+              image: repo.jethro.io/demo/ja-springboot-hello:1.0
+              ports:
+                 - containerPort: 80
 
 ```
+
+servie.yaml
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-hello-service-on-node3
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 30003
+  selector:
+    app: ja-springboot-hello
+```
+
+## Deploy your first app to k8s
+```
+# ensure your springboot docker image was uploaded to haror, refer to springboot & docker chapter. 
+kubectl create -f deployment.yaml
+kubectl get pod
+kubectl get deployment
+
+kubectl create -f service.yaml
+```
+open browser and enter http://rancher-node.jethro.io:30003/sayHello and it will display  
+"Hello world!"  
+
 
 ## Remove node info from etcd and redeploy
 ```
