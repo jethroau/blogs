@@ -104,6 +104,12 @@ docker volume rm $(docker volume ls -q)
 ```
 https://www.jianshu.com/p/3a492440c89b  
 
+## Clarify k8s delopyment, service and network ip concept 
+Deployment = ReplicaSet = RC 用于创建和管理POD, 他们yaml中的template等同于POD的yaml.   
+POD: POD IP + Container Port = endpoint, IP随着POD的创建和消忙而改变的。  
+Service：ClusterIP 一旦service被创建，ClusterIP在整个Service生命周期内不会发生改变。是K8S内部全局唯一的虚拟IP  
+NodePort: 提供给外部访问的途径，　一旦创建，每个Node上的NodePort都提过这个服务。前面只需有一个loadbalancer做负载均衡。可以是Nginx或者HAProxy. 
+
 
 ## Reference.
 https://www.cnrancher.com/  
