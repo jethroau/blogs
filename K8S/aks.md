@@ -1,4 +1,4 @@
-Some guide lines in Azure folder.
+Some guide lines in Azure folder.  
 [aks guideline](https://github.com/jethroau/blogs/blob/master/azure/aks.md)  
 
 ## reference
