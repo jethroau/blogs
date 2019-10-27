@@ -7,5 +7,7 @@ mvn deploy:deploy-file \
     -Dversion=3.12 \
     -Dpackaging=jar \
     -DrepositoryId=myID \
-    -Durl=http://localhost:8081/repository/my-hosted/
+    -Durl=http://localhost:8081/repository/my-hosted/   # xxx-hosted is mandatory for Nexus
 ```
+
+
