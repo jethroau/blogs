@@ -75,3 +75,4 @@ server.port=80
 
 ## reference
 https://www.cnblogs.com/ityouknow/p/5662753.html  
+https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/  
