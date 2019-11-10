@@ -109,7 +109,7 @@ Deployment = ReplicaSet = RC 用于创建和管理POD, 他们yaml中的template�
 POD: POD IP + Container Port = endpoint, POD IP是k8s内部的随机分配的IP,　随着POD的创建和消忙而改变的。  
 Service：ClusterIP 一旦service被创建，ClusterIP在整个Service生命周期内不会发生改变。是K8S内部全局唯一的虚拟IP  
 NodePort: 提供给外部访问的途径，一旦创建，每个Node上的NodePort都提过这个服务。前面只需有一个loadbalancer做负载均衡。可以是Nginx或者HAProxy. 
-NodeIP: Node的物理IP 
+NodeIP: Node的物理IP  
 
 
 ## Reference.
