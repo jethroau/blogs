@@ -88,8 +88,15 @@ spec:
 - cpu requests: requests是设置资源的一个最小保证
 - cpu limits: limits 是设置资源的一个最大值
 
+## Node CPU and Memory utilization
+```
+kubectl get node
+kubectl describe node <Node-Name>
 
-## Container Limits
+```
+
+
+## Per Container Limits
 若要使用自动缩放程序，你的 Pod 中的所有容器和你的 Pod 必须定义了 CPU 请求和限制。
 在部署中，前端容器已请求了 0.25 个 CPU，内存256Mb，限制为 0.5 个 CPU，内存512Mb。 这些资源请求和限制的定义方式如以下示例代码片段所示：  
 ```
