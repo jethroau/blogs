@@ -1,4 +1,4 @@
-## Memory limit for a Namespace
+## Memory limit for a Namespace (单个容器而不是所有容器进行限制，就请使用 LimitRange)
 https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/  
 ```
 kubectl create namespace uat-jethro-io
@@ -23,14 +23,28 @@ spec:
 kubectl create -f https://k8s.io/examples/admin/resource/memory-defaults-pod.yaml --namespace=uat-jethro-io
 kubectl get pod default-mem-demo --output=yaml --namespace=uat-jethro-io
     
----
-
-
 
 ```
 
-
-
+## CPE and Memory limit for a namespace  (所有容器进行限制)
+```
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: limit-cpu-memory
+spec:
+  hard: 
+    requests.cpu: "1"
+    requests.memory 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+    
+```
+- 每个容器必须有内存请求和限制，以及 CPU 请求和限制。
+- 所有容器的内存请求总和不能超过1 GiB。
+- 所有容器的内存限制总和不能超过2 GiB。
+- 所有容器的 CPU 请求总和不能超过1 cpu。
+- 所有容器的 CPU 限制总和不能超过2 cpu。
 
 
 
