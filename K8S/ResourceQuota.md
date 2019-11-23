@@ -3,6 +3,7 @@ https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-defa
 ```
 kubectl create namespace uat-jethro-io
 kubectl apply -f limit-memory-range.yaml --namespace uat-jethro-io
+kubectl get limit-range --namespace=uat-jethro-io --output=yaml
 
 --- limit-memory-range.yaml
 
@@ -28,6 +29,12 @@ kubectl get pod default-mem-demo --output=yaml --namespace=uat-jethro-io
 
 ## CPE and Memory limit for a namespace  (所有容器进行限制)
 ```
+kubectl create namespace uat-jethro-io
+kubectl apply -f limit-cpu-memory.yaml
+kubectl get resourcequota --namespace uat-jethro-io --output=yaml
+
+--- limit-cpu-memory.yaml
+
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -35,10 +42,15 @@ metadata:
 spec:
   hard: 
     requests.cpu: "1"
-    requests.memory 1Gi
+    requests.memory: 1Gi
     limits.cpu: "2"
     limits.memory: 2Gi
-    
+   
+-- check Quota
+
+
+
+
 ```
 - 每个容器必须有内存请求和限制，以及 CPU 请求和限制。
 - 所有容器的内存请求总和不能超过1 GiB。
