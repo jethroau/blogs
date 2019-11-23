@@ -1,8 +1,8 @@
 ## Memory limit for a Namespace
 https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/  
 ```
-kubectl create namesacpe uat-jethro.io
-kubectl apply -f limts-memory-range.yaml --namespace uat-jethro.io
+kubectl create namespace uat-jethro-io
+kubectl apply -f limit-memory-range.yaml --namespace uat-jethro-io
 
 ---
 
