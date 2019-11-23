@@ -4,7 +4,7 @@ https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-defa
 kubectl create namespace uat-jethro-io
 kubectl apply -f limit-memory-range.yaml --namespace uat-jethro-io
 
----
+--- limit-memory-range.yaml
 
 apiVersion: v1
 kind: LimitRange
@@ -18,12 +18,17 @@ spec:
       memory: 256Mi
     type: Container
     
----
+--- check memory quota from a new container in the namespace 
 
 kubectl create -f https://k8s.io/examples/admin/resource/memory-defaults-pod.yaml --namespace=uat-jethro-io
 kubectl get pod default-mem-demo --output=yaml --namespace=uat-jethro-io
     
+---
+
+
+
 ```
+
 
 
 
