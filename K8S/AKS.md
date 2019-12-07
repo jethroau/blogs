@@ -71,7 +71,7 @@ kubectl apply -f azure-vote-all-in-one-redis.yaml
 
 ```
 
-7. Sacling 
+7. Scaling 
 ```
 --- manual scale
 kubectl scale --replicas=5 deployment/azure-vote-front
