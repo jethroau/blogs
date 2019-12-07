@@ -92,7 +92,7 @@ NAME               REFERENCE                     TARGETS    MINPODS   MAXPODS   
 azure-vote-front   Deployment/azure-vote-front   0% / 50%   3         10        3          2m
 ```
 
-8. Upgrade k8s version
+8. Upgrade k8s version 
 ```
 az aks get-upgrades --resource-group myResourceGroup --name myAKSCluster --output table
 
