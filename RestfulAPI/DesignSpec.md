@@ -1,0 +1,661 @@
+<section class="ouvJEz">
+
+# API设计思考与实践
+<div class="rEsl9f"><div class="_2mYfmT">[![](https://cdn2.jianshu.io/assets/default_avatar/1-04bbeead395d74921af6a4e8214b4f61.jpg)](/u/1547a852edf2)<div style="margin-left: 8px;"><div class="_3U4Smb"><span class="FxYr8x">[有涯逐无涯](/u/1547a852edf2)</span><button data-locale="zh-CN" type="button" class="_3kba3h _1OyPqC _3Mi9q9 _34692-"><span>关注</span></button></div><div class="s-dsoj"><span class="_3tCVn5">_<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-diamond"></use></svg>_<span>0.053</span></span><time datetime="2017-04-25T10:43:24.000Z">2017.04.25 18:43:24</time><span>字数 16,854</span><span>阅读 1,113</span></div></div></div></div><article class="_2rhmJa">
+
+# API定义规范
+
+本规范设计基于如下使用场景：
+
+1.  **请求频率不是非常高**：如果产品的使用周期内请求频率非常高，建议使用双通道的长连接，例如 socket/websocket，避免不必要的请求头浪费资源以及重建连接带来的性能损耗；
+2.  **服务器不需要主动推送消息**：如果需要服务器主动发起推送，也需要双通道的长连接，例如 socket/websocket。
+
+实践题要：
+
+1.  API 定义应该遵循 REST 理念
+2.  服务端应该为每份资源提供 Etag/Last-Modifies，针对 GET 请求校验 ETag，分别响应200（响应头带上 ETag）或者 304
+3.  客户端发起 GET 请求时，若非首次请求，要在请求中携带If-Modified-Since和/或If-None-Match，两个头的值分别是响应中Last-Modified和ETag头的值
+4.  客户端在发起 POST 请求时应生成 UUID 提交给服务器，若首次请求超时，**执行“重试”提交时**，应继续使用上次生成的 UUID
+5.  客户端在发起 PUT 请求时，应使用 Conditional PUT 的机制，用 ETag 和 Last-Modified 的值确保沒有覆盖冲突，若有冲突则服务端应响应 409，客户端可根据业务需要提示用户更新数据之后重试，或者自动更新之后重试
+6.  服务端在处理 POST 请求时应该校验 UUID 是否存在，若不存在则创建资源后响应201，若存在则直接响应201
+7.  客户端的网络层应按照 HTTP 协议处理 response 中的缓存指令
+
+下面将简单介绍下 REST 设计理念和 HTTP 协议
+
+## REST 设计
+
+1.  协议
+
+    API与用户的通信协议，总是使用HTTPs协议，由于 HTTP2.0对资源的压缩及链路复用机制的巨大优势，如果可以将使用 HTTP2.0 协议版本。
+
+    如果请求头中没有特殊说明，所有响应头的 Content-Type 应均为 application/json
+
+1.  域名
+
+    应该尽量将API部署在专用域名之下。
+
+2.  版本
+
+    对于版本控制目前有两种方案，一种是放在标头中的Accept字段里，这种思路是将 URI 所标注的资源视作唯一的资源，将版本视作该资源的不同版本。另一种是将版本放在 URL 中，将不同版本的资源视作不同资源。具体实践中使用哪种方式可自行决断，但切勿两种方式混用。
+
+3.  路径（Endpoint）
+
+    路径又称"终点"（endpoint），表示API的具体网址。
+
+    在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应（非严格要求）。一般来说，数据库中的表都是同种记录的"集合"（collection），所以API中的名词也应该使用复数。
+
+    举例来说，有一个API提供动物园（zoo）的信息，还包括各种动物和雇员的信息，则它的路径应该设计成下面这样。
+
+    [https://api.example.com/v1/zoos](https://link.jianshu.com?t=https://api.example.com/v1/zoos)
+
+    [https://api.example.com/v1/animals](https://link.jianshu.com?t=https://api.example.com/v1/animals)
+
+    [https://api.example.com/v1/employees](https://link.jianshu.com?t=https://api.example.com/v1/employees)
+
+    对“资源”的 URI 定义应使用“路径描述”的方式；例如，获取某个动物园里的某个动物时应该使用 GET 方式去如下 [URI](https://link.jianshu.com?t=https://tools.ietf.org/html/rfc2616#page-18) 获取这份“资源”：
+
+    [https://api.example.com/v1/zoos/ID/animals/ID](https://link.jianshu.com?t=https://api.example.com/v1/zoos/ID/animals/ID)
+
+    这是对路径描述；
+
+    “查询式”示例：[https://api.example.com/v1/animal?zoo_id=ID&amp;anima_id=ID](https://link.jianshu.com?t=https://api.example.com/v1/animal?zoo_id=ID&amp;anima_id=ID)
+
+    这是条件查询式的表述，服务端可以在执行效果上与路径描述性 URI 达到一致效果，但更推荐前者。
+
+4.  HTTP动词
+
+    客户端和服务端之间的信息交流均被视作对资源的操作（增删改查四个动作）
+
+    常用的HTTP动词有下面五个（括号里是对应的SQL命令）。
+
+        *   GET（SELECT）：从服务器取出资源（一项或多项）。
+
+            *   该操作是幂等的
+        *   服务器应该对该请求返回 Etag/Last-Modifies
+        *   若非首次请求某资源，则应该携带首次请求时拿到的 Etag/Last-Modifies
+        *   若非请求中包含 If-Modified-Since和/或If-None-Match 匹配成功，则服务器应该返回 304 指示客户端继续使用之前的缓存
+        *   若请求未携带 If-Modified-Since和/或If-None-Match （缓存被清空、首次请求），则服务器应该返回完整的资源，响应头中应包含当前该资源的 Etag和/或Last-Modifies
+
+        *   POST（CREATE）：在服务器新建一个资源。
+
+            *   若动作执行成功，则服务器应当返回201
+        *   为防止重复提交的情况发生，提交请求时应额外增加一个 UUID 参数，其由客户端生成，由服务器记录；当客户端提交的数据收到 408（请求超时）再次执行提交时，要将上次提交的 UUID 再次提交，服务器可检索该 UUID 是否存在，若存在则直接返回201，若不存在则创建资源并返回201。
+
+        *   PUT（UPDATE）：在服务器更新资源（客户端提供改变后的完整信息）。
+
+            *   客户端在发起 PUT 请求时，应使用 Conditional PUT 的机制，用 ETag 和 Last-Modified 的值确保沒有覆盖冲突，若有冲突则服务端应响应 409，客户端可根据业务需要提示用户更新数据之后重试，或者自动更新之后重试
+
+        *   PATCH（UPDATE）：在服务器更新部分资源（客户端提供需要改变的信息）。
+
+            *   同 PUT
+
+        *   DELETE（DELETE）：从服务器删除资源。
+
+还有两个不常用的HTTP动词。
+
+        *   HEAD：获取资源的元数据。
+    *   OPTIONS：获取信息，关于资源的哪些属性是客户端可以改变的。
+
+例子如下
+
+        *   GET /zoos：列出所有动物园
+    *   POST /zoos：新建一个动物园
+    *   GET /zoos/ID：获取某个指定动物园的信息
+    *   PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）
+    *   PATCH /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）
+    *   DELETE /zoos/ID：删除某个动物园
+    *   GET /zoos/ID/animals：列出某个指定动物园的所有动物
+    *   DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物
+
+5.  过滤信息（Filtering）
+
+    如果记录数量很多，服务器不可能都将它们返回给用户。API应该提供参数，过滤返回结果。
+
+    下面是一些常见的参数。
+
+        *   ?limit=10：指定返回记录的数量
+    *   ?offset=10：指定返回记录的开始位置。
+    *   ?page=2&amp;per_page=100：指定第几页，以及每页的记录数。
+    *   ?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序。
+    *   ?animal_type_id=1：指定筛选条件
+
+参数的设计允许存在冗余，即允许API路径和URL参数偶尔有重复。比如，GET /zoo/ID/animals 与 GET /animals?zoo_id=ID 的含义是相同的，但推荐使用前者来定位资源；过滤条件是用来辅助定位资源的。例如当获取某动物时推荐使用 /animals/ID，而不是 ?animal_id=ID；但是当不知道该动物 ID 不能通过唯一标识精确定位时，可以使用过滤条件来辅助定位：/animals? stature=xxx&amp;weight=xxx&amp;......等
+
+    当通过唯一标识符（ID）或者过滤条件来获取资源，如果没有符合条件的资源时，服务器应当返回 404（410？416？204？custom code?具体使用哪种 code 待议；需不需要 body 待议） 给客户端。
+
+## HTTP 协议简介
+
+> 超文本传输​​协议（HTTP）是应用程序级分布式，协作式，超媒体信息协议系统。关于 HTTP 协议请参考 [W3C官方文档](https://link.jianshu.com?t=https://tools.ietf.org/html/rfc2616)
+
+### HTTP协议版本选择
+
+当前 HTTP 协议已经升级到2.0，该版本相较于上一版（1.1）有了非常大的进步，对于高并发状态下优势明显，具体资料请参考 [HTTP 官网](https://link.jianshu.com?t=https://http2.github.io/)、 [HTTP: HTTP/2](https://link.jianshu.com?t=https://hpbn.co/http2/)、[HTTP/2 简介](https://link.jianshu.com?t=https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn)、[HTTP/2 资料汇总](https://link.jianshu.com?t=https://imququ.com/post/http2-resource.html) 等，对于实践来说，比较推荐直接查看[HTTP/2 资料汇总](https://link.jianshu.com?t=https://imququ.com/post/http2-resource.html)，里面有较为详尽的资料。如果条件允许，建议直接使用HTTP2.0协议。鉴于2.0和1.1的差异性，以下介绍依然基于1.1版本。
+
+### HTTP 协议头
+
+> 参考[HTTP RFC2616 HeaderField](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.32)
+
+HTTP（HyperTextTransferProtocol）是超文本传输协议的缩写，它用于传送WWW方式的数据，关于HTTP 协议的详细内容请参 考RFC2616。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求，请求头包含请求的方法、URI、协议版本、以及包含请求修饰符、客户 信息和内容的类似于MIME的消息结构。服务器以一个状态行作为响应，相应的内容包括消息协议的版本，成功或者错误编码加上包含服务器信息、实体元信息以 及可能的实体内容。
+
+通常HTTP消息包括客户端向服务器的请求消息和服务器向客户端的响应消息。这两种类型的消息由一个起始行，一个或者多个标头，一个只是标头结束的空行和可 选的消息体组成。HTTP的标头包括通用头，请求头，响应头和实体头四个部分。每个标头由一个域名，冒号（:）和域值三部分组成。域名是大小写无关的，域 值前可以添加任何数量的空格符，标头可以被扩展为多行，在每行开始处，使用至少一个空格或制表符。
+
+1.  通用头(General Header)
+
+    通用头即可以包含在HTTP请求中，也可以包含在HTTP响应中。通用头的作用是描叙HTTP协议本身。比如描叙HTTP是否持续连接的Connection头，HTTP发送日期的Date头，描述HTTP所在的TCP连接时间的Keep-Alive头，用于缓存控制的Cache-Control头等。
+
+    > **Cache-Control标头**
+> 
+>     Cache -Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置 Cache-Control并不会修改另一个消息处理过程中的缓存处理过程。请求时的缓存指令包括no-cache、no-store、max-age、 max-stale、min-fresh、only-if-cached，响应消息中的指令包括public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age。各个消息中的指令含义如 下：
+> 
+>     Public指示响应可被任何缓存区缓存。
+> 
+>     Private指示对于单个用户的整个或部分响应消息，不能被共享缓存处理。这允许服务器仅仅描述当用户的部分响应消息，此响应消息对于其他用户的请求无效。
+> 
+>     no-cache指示请求或响应消息不能缓存
+> 
+>     no-store用于防止重要的信息被无意的发布。在请求消息中发送将使得请求和响应消息都不使用缓存。
+> max-age指示客户端可以接收生存期不大于指定时间（以秒为单位）的响应。
+> min-fresh指示客户端可以接收响应时间小于当前时间加上指定时间的响应。
+> max-stale指示客户端可以接收超出超时期间的响应消息。如果指定max-stale消息的值，那么客户端可以接收超出超时期指定值之内的响应消息。
+> **Date标头**
+> Date标头表示消息发送的时间，时间的描述格式由rfc822定义。例如，Date:Mon,31Dec200104:25:57GMT。Date描述的时间表示世界标准时，换算成本地时间，需要知道用户所在的时区。
+> **Pragma标头**
+> Pragma标头用来包含实现特定的指令，最常用的是Pragma:no-cache。在HTTP/1.1协议中，它的含义和Cache- Control:no-cache相同。
+> **Host标头**
+> Host标头指定请求资源的Intenet主机和端口号，必须表示请求url的原始服务器或网关的位置。HTTP/1.1请求必须包含主机标头，否则系统会以400状态码返回。
+> **Referer标头**
+> Referer 标头允许客户端指定请求uri的源资源地址，这可以允许服务器生成回退链表，可用来登陆、优化cache等。他也允许废除的或错误的连接由于维护的目的被 追踪。如果请求的uri没有自己的uri地址，Referer不能被发送。如果指定的是部分uri地址，则此地址应该是一个相对地址。
+> **Range标头**
+> Range标头可以请求实体的一个或者多个子范围。例如，
+> 
+>     表示头500个字节：bytes=0-499
+> 
+>     表示第二个500字节：bytes=500-999
+> 
+>     表示最后500个字节：bytes=-500
+> 
+>     表示500字节以后的范围：bytes=500-
+> 
+>     第一个和最后一个字节：bytes=0-0,-1
+> 
+>     同时指定几个范围：bytes=500-600,601-999
+> 但是服务器可以忽略此请求头，如果无条件GET包含Range请求头，响应会以状态码206（PartialContent）返回而不是以200 （OK）。
+
+**User-Agent标头**
+
+User-Agent标头的内容包含发出请求的用户信息。
+
+1.  实体头 (Entity Header)
+
+    请求消息和响应消息都可以包含实体信息，实体信息一般由实体标头和实体组成。实体标头包含关于实体的原信息，实体头包括Allow、Content- Base、Content-Encoding、Content-Language、 Content-Length、Content-Location、Content-MD5、Content-Range、Content-Type、 Etag、Expires、Last-Modified、extension-header。extension-header允许客户端定义新的实体 头，但是这些域可能无法未接受方识别。实体可以是一个经过编码的字节流，它的编码方式由Content-Encoding或Content-Type定 义，它的长度由Content-Length或Content-Range定义。
+
+    > **常见的实体头**
+> 
+>     Allow：服务器支持哪些请求方法（如GET、POST、PUT、DELETE等）；
+> Content-Encoding：文档的编码（Encode）方法，例如：gzip，见“2.5 响应头”；
+> Content-Language：内容的语言类型，例如：zh-cn；
+> Content-Length：表示内容长度，eg：80，可参考“响应头”；
+> Content-Location：表示客户应当到哪里去提取文档
+> Content-MD5：MD5 实体的一种MD5摘要，用作校验和。发送方和接受方都计算MD5摘要，接受方将其计算的值与此头标中传递的值进行比较。Eg1：Content-MD5: &lt;base64 of 128 MD5 digest&gt;。Eg2：dfdfdfdfdfdfdff==；
+> Content-Range：随部分实体一同发送；标明被插入字节的低位与高位字节偏移，也标明此实体的总长度。Eg1：Content-Range: 1001-2000/5000，eg2：bytes 2543-4532/7898
+> Content-Type：标明发送或者接收的实体的MIME类型。EG：text/html; charset=GB2312 主类型/子类型；
+> Expires：资源失效时间。HTTP1.0中定义，使用的时间为服务器的绝对时间。为0证明不允许缓存；
+> Last-Modified：WEB 服务器认为对象的最后修改时间，比如文件的最后修改时间，动态页面的最后产生时间等等。例如：Last-Modified：Tue, 06 May 2008 02:42:43 GMT.
+
+2.  请求头
+
+    请求头是那些由客户端发往服务器端以便帮助服务器端更好的满足客户端请求的头。请求头只能出现在HTTP请求中。比如告诉服务器只接收某种响应内容的Accept头，发送Cookies的Cookie头，显示请求主机域的HOST头，用于缓存的If-Match,If-Match-Since,If-None-Match头，用于只取HTTP响应信息中部分信息的Range头，用于附属HTML相关请求引用的Referee头等。
+
+    > 常见请求头如下：
+> Accept：浏览器可接受的MIME
+> Accept-Charset：浏览器可接受的字符集；
+> Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。Servlet能够向支持gzip的浏览器返回经gzip编码的HTML页面。许多情形下这可以减少5到10倍的下载时间；
+> Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到；
+> Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中；
+> Connection：表示是否需要持久连接。如果 Servlet 看到这里的值为 “Keep-Alive”，或者看到请求使用的是 HTTP 1.1（HTTP 1.1 默认进行持久连接），它就可以利用持久连接的优点，当页面包含多个元素时（例如Applet，图片），显著地减少下载所需要的时间。要实现这一点，Servlet 需要在应答中发送一个 Content-Length 头，最简单的实现方法是：先把内容写入 ByteArrayOutputStream，然后在正式写出内容之前计算它的大小；
+> Content-Length：表示请求消息正文的长度；
+> Cookie：这是最重要的请求头信息之一；
+> From：请求发送者的 email 地址，由一些特殊的 Web 客户程序使用，浏览器不会用到它；
+> Host：初始URL中的主机和端口；
+> If-Modified-Since：只有当所请求的内容在指定的日期之后又经过修改才响应200（带有完整内容），否则返回 304“Not Modified” 应答；
+> Pragma：指定“no-cache”值表示服务器必须返回一个刷新后的文档，即使它是代理服务器而且已经有了页面的本地拷贝；
+> Referer：包含一个URL，用户从该URL代表的页面出发访问当前请求的页面。
+> User-Agent：浏览器类型，如果Servlet返回的内容与浏览器类型有关则该值非常有用；
+> UA-Pixels，UA-Color，UA-OS，UA-CPU：由某些版本的IE浏览器所发送的非标准的请求头，表示屏幕大小、颜色深度、操作系统和CPU类型。
+
+3.  响应头
+
+    HTTP 响应头是那些描述 HTTP 响应本身的头，这里并不包含描述 HTTP 响应中第三部分也就是 HTTP 信息的头（这部分由entity-headers负责）。比如说定时刷新的 Refresh 头，当遇到 503 错误时自动重试的 Retry-After 头，显示服务器信息的 Server 头，设置 cookie 的 Set-Cookie 头，告诉客户端可以部分请求的 Accept-Ranges 头等。
+
+    > 常见响应头如下：
+> Allow：服务器支持哪些请求方法（如GET、POST等）；
+> Content-Encoding：文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader("Accept-Encoding")）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面；
+> Content-Length：表示内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入ByteArrayOutputStram，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容；
+> Content-Type： 表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentTyep。 可在web.xml文件中配置扩展名和MIME类型的对应关系；
+> Date：Sun, 21 Sep 2014 06:18:21 GMT; 当前的GMT时间。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦；
+> Server：服务器软件名称及版本。
+> Age：响应给客户端的文档可以缓存多长时间
+> Vary：Accept-Encoding 告诉缓存服务器，缓存压缩文件和非压缩文件两个版本，现在这个字段用处并不大，因为现在的浏览器都是支持压缩的。
+> Expires：Sun, 1 Jan 2000 01:00:00 GMT 这个响应头也是跟缓存有关的，告诉客户端在这个时间前，可以直接访问缓存副本，很显然这个值会存在问题，因为客户端和服务器的时间不一定会都是相同的，如果时间不同就会导致问题。所以这个响应头是没有Cache-Control：max-age=***这个响应头准确的，因为max-age=date中的date是个相对时间，不仅更好理解，也更准确。该字段是 在HTML 1.0 协议规定的，在1.1中已经被功能更强大更好用的 Cache-Control 所代替；如果 Expires 和 Cache-Control 同时存在，则Cache-Control 的设置会覆盖 Expires。
+> Last-Modified：文档的最后改动时间。客户端可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个GET类型的[条件请求](https://link.jianshu.com?t=https://tools.ietf.org/html/rfc7232#page-4)，只有改动时间迟于指定时间的文档才会返回，否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置；
+> Location：表示客户应当到哪里去提取文档。Location 通常不是直接设置的，而是通过 HttpServletResponse的sendRedirect 方法，该方法同时设置状态代码为302；
+> Refresh：表示浏览器应该在多少时间之后刷新文档，以秒计。除了刷新当前文档之外，你还可以通过 setHeader("Refresh", "5; URL=[http://host/path](https://link.jianshu.com?t=http://host/path)") 让浏览器读取指定的页面。注意这种功能通常是通过设置 HTML 页面 HEAD 区的 &lt;META HTTP-EQUIV="Refresh" CONTENT="5;URL=http://host/path"&gt; 实现，这是因为，自动刷新或重定向对于那些不能使用 CGI 或 Servlet 的 HTML 编写者十分重要。但是，对于 Servlet 来说，直接设置 Refresh 头更加方便。注意Refresh的意义是“N秒之后刷新本页面或访问指定页面”，而不是“每隔N秒刷新本页面或访问指定页面”。因此，连续刷新要求每次都发送一个 Refresh 头，而发送204状态代码则可以阻止浏览器继续刷新，不管是使用 Refresh 头还是 &lt;META HTTP-EQUIV="Refresh" ...&gt;。注意 Refresh 头不属于 HTTP 1.1 正式规范的一部分，而是一个扩展，但 Netscape 和 IE 都支持它。
+> Transfer-Encoding：chunked
+> 
+>     这个响应头告诉客户端，服务器发送的资源的方式是分块发送的。一般分块发送的资源都是服务器动态生成的，在发送时还不知道发送资源的大小，所以采用分块发送，每一块都是独立的，独立的块都能标示自己的长度，最后一块是0长度的，当客户端读到这个0长度的块时，就可以确定资源已经传输完了。
+
+4.  扩展头
+
+    在HTTP消息中，也可以使用一些在 HTTP1.1 正式规范里没有定义的头字段，这些头字段统称为自定义的HTTP头或者扩展头，他们通常被当作是一种实体头处理。
+
+    现在流行的浏览器实际上都支持 Cookie,Set-Cookie,Refresh和Content-Disposition等几个常用的扩展头字段。
+
+        *   Refresh：1;url=[http://www.dfdf.org](https://link.jianshu.com?t=http://www.dfdf.org)  //过1秒跳转到指定
+    *   Content-Disposition：头字段,可参考“2.5响应头”；
+    *   Content-Type：WEB 服务器告诉浏览器自己响应的对象的类型。
+    *   eg1：Content-Type：application/json ；
+    *   eg2：applicaiton/octet-stream；
+    *   Content-Disposition：attachment; filename=aaa.zip。
+
+### HTTP缓存机制
+
+> 这里有一份谷歌的[缓存实践指南](https://link.jianshu.com?t=https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn)
+
+1.  什么是Web缓存
+
+    WEB缓存(cache)位于Web服务器和客户端之间。
+
+    缓存会根据请求保存输出内容的副本，例如html页面，图片，文件，当下一个请求来到的时候：如果是相同的URL，缓存直接使用副本响应访问请求，而不是向源服务器再次发送请求。
+
+    HTTP协议定义了相关的消息头来使WEB缓存尽可能好的工作。
+
+2.  缓存的优点
+
+        *   减少相应延迟：因为请求从缓存服务器（离客户端更近）而不是源服务器被相应，这个过程耗时更少，让web服务器看上去相应更快。
+    *   减少网络带宽消耗：当副本被重用时会减低客户端的带宽消耗；客户可以节省带宽费用，控制带宽的需求的增长并更易于管理。
+
+3.  与缓存相关的HTTP扩展消息头
+
+        *   Expires：指示响应内容过期的时间，格林威治时间GMT
+    *   [Cache-Control](https://link.jianshu.com?t=https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn)：更细致的控制缓存的内容
+    *   Last-Modified：响应中资源最后一次修改的时间
+    *   ETag：响应中资源的校验值，在服务器上某个时段是唯一标识的。
+    *   Date：服务器的时间
+    *   If-Modified-Since：客户端存取的该资源最后一次修改的时间，同Last-Modified。
+    *   If-None-Match：客户端存取的该资源的检验值，同ETag。
+
+4.  客户端缓存生效的常见流程
+
+    服务器收到请求时，会在 “200 OK” 中回送该资源的Last-Modified和ETag头，客户端将该资源保存在cache中，并记录这两个属性。当客户端需要发送相同的请求时，会在请求中携带If-Modified-Since和If-None-Match两个头。两个头的值分别是响应中Last-Modified和ETag头的值。服务器通过这两个头判断本地资源未发生变化，客户端不需要重新下载，返回304响应。常见流程如下图所示：
+
+1.  Web缓存机制
+
+    HTTP/1.1中缓存的目的是为了在很多情况下减少发送请求，同时在许多情况下可以不需要发送完整响应。对于客户端，可以减少不必要的请求数量，HTTP利用一个“过期（expiration）”机制达到此目的。对于服务端，可以减少响应带宽，HTTP用“验证（validation）”机制达到此目的。
+
+    HTTP定义了3种缓存机制：
+
+    1）Freshness：允许一个回应消息可以在源服务器不被重新检查，并且可以由服务器和客户端来控制。例如，Expires回应头给了一个文档不可用的时间。Cache-Control中的max-age标识指明了缓存的最长时间；
+
+    2）Validation：用来检查以一个缓存的回应是否仍然可用。例如，如果一个回应有一个Last-Modified回应头，缓存能够使用If-Modified-Since来判断是否已改变，以便判断根据情况发送请求；
+
+    3）Invalidation： 在另一个请求通过缓存的时候，常常有一个副作用。例如，如果一个URL关联到一个缓存回应，但是其后跟着POST、PUT和DELETE的请求的话，缓存就会过期。
+
+2.  断点续传和多线程下载的实现原理
+
+        *   HTTP协议的GET方法，支持只请求某个资源的某一部分；
+    *   206 Partial Content 部分内容响应；
+    *   Range 请求的资源范围；
+    *   Content-Range 响应的资源范围；
+    *   在连接断开重连时，客户端只请求该资源未下载的部分，而不是重新请求整个资源，来实现断点续传。
+
+分块请求资源实例：
+
+    Eg1：Range: bytes=306302- ：请求这个资源从306302个字节到末尾的部分；
+
+    Eg2：Content-Range: bytes 306302-604047/604048：响应中指示携带的是该资源的第306302-604047的字节，该资源共604048个字节；
+
+    客户端通过并发的请求相同资源的不同片段，来实现对某个资源的并发分块下载。从而达到快速下载的目的。目前流行的FlashGet和迅雷基本都是这个原理。
+
+    多线程下载的原理：
+
+        *   下载工具开启多个发出HTTP请求的线程；
+    *   每个http请求只请求资源文件的一部分：Content-Range: bytes 20000-40000/47000；
+    *   合并每个线程下载的文件。
+
+### HTTP响应
+
+1.  响应
+
+2.  状态码定义（[官方文档](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)）
+
+    每个状态代码如下所述，包括可以遵循哪些方法以及响应中需要的任何元信息的描述。
+
+    信息1xx
+
+    这类状态代码指明了一个备用的响应，包含一个Status-Line和可选的标头，并且一一个空行结束（译注：空行就是CRLF）。没有必须的标头对这类状态码。因为HTTP/1.0没有定义任何1xx状态码，所以服务器不能发送一个1xx响应给一个HTTP/1.1客户端，除了实验性的目的。
+
+    客户端必须能准备去接受一个或多个1xx状态响应优先于一个常规响应，即使客户端不期望100（继续）状态响应。不被客户端期望的1xx状态响应可能会被用户代理忽略。
+
+    代理服务器必须能转发1xx响应，除非代理服务器和它的客户端的连接关闭了，或者除非代理服务器自己响应请求并产生1xx响应。（例如：如果代理服务器添加了”Expect:100-continue”标头当转发请求时，那么它不必转发相应的100（继续）响应。）
+
+    2.1.1 100 继续 （Continue）
+
+    客户应该继续请求。该临时响应用于通知客户端请求的初始部分已被接收，并且尚未被服务器拒绝。客户端应继续发送请求的其余部分，如果请求已经完成，则忽略该响应。服务器必须在请求完成后发送最终响应。有关使用和处理此状态代码的详细讨论，请参见[第8.2.3节](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html#sec8.2.3)。
+
+    2.1.2 101切换协议 （Switching Protocols）
+
+    服务器已经理解了客户端的请求，并将通过 Upgrade 消息标头（[第14.42节](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.42)）通知客户端采用不同的协议来完成这个请求。在发送完这个响应最后的空行后，服务器将会切换到在Upgrade 消息头中定义的那些协议。只有在切换新的协议更有好处的时候才应该采取类似措施。例如，切换到新的HTTP 版本比旧版本更有优势，或者切换到一个实时且同步的协议以传送利用此类特性的资源。
+
+    2.2成功2xx
+
+    此类状态码表示客户端的请求已成功接收，理解并被接受。
+
+    2.2.1 200 OK
+
+    此状态码指明客户端请求已经成功了。响应返回的信息依赖于请求里的方法，例如：
+
+    GET 请求资源的相应的实体已经包含在响应里并返回给客户端。
+
+    HEAD    相应于请求资源实体的实体标头已经被包含在无消息主体的响应里。
+
+    POST    响应里已经包含一个实体，此实体描述或者包含此POST动作执行的结果
+
+    TRACE   响应里包含一个实体，此实体包含终端对服务器接的请求消息。
+
+    2.2.2 201 已创建（Created）
+
+    请求已经被服务器满足了并且已经产生了一个新的资源。新创建的资源的URI在响应的实体里返回，但是此资源最确定的URI是在Location标头里给出的。响应应该含有一实体，此实体包含此资源的特性和位置，用户或用户代理能从这些特性和位置里选择最合适的。实体格式被Content-Type标头里媒体类型指定。源服务器必须能在返回201状态码之前建立资源。如果动作（译注：这里指能创建资源的方法，如POST方法）不能被立即执行，那么服务器应该以202（接受）响应代替。
+
+    一个201响应可以包含一个ETag响应标头，此标头为请求的变量（译注：变量的含义见第[1.3节“变量”](https://link.jianshu.com?t=https://tools.ietf.org/html/rfc2616#section-1.3)的解释）指明当前的实体标签（entity tag）值，当资源被创建时，见[14.19节](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19)。
+
+    > 场景详解：因为 POST 请求对应着 Create 操作，因此201通常用于 POST 请求。
+
+2.2.3 202 接受（Accepted）
+
+    请求已经被接受了，但是还没有对此请求处理完。请求可能执行也可能没有不会执行，因为当执行发生的时候服务器可能会发现此请求不能被执行。
+
+    返回202状态码的响应的目的是允许服务器接受其他过程的请求（例如某个每天只执行一次的基于批处理的操作），而不必让客户端一直保持与服务器的连接直到批处理操作全部完成。在接受请求处理并返回202状态码的响应应当在返回的实体中包含一些指示处理当前状态的信息，以及指向处理状态监视器或状态预测的指针，以便用户能够估计操作是否已经完成。
+
+    2.2.4 203 非权威信息（Non-Authoritative information）
+
+    服务器已成功处理了请求，但返回的实体头部元信息不是在原始服务器上有效的确定集合，而是来自本地或者第三方的拷贝。当前的信息可能是原始版本的子集或者超集。例如，包含资源的元数据可能是原始服务器元信息的超集。使用此状态码不是必须的，而且只有在响应不使用此状态码便会返回200 OK的情况下才是合适的。
+
+    2.2.5 204 无内容 （No Content）
+
+    服务器成功处理了请求，但不需要返回任何实体内容，并且希望返回更新了的元信息。响应可能通过实体头部的形式，返回新的或更新后的元信息。如果存在这些头部信息，则应当与所请求的变量相呼应。
+
+    如果客户端是浏览器的话，那么用户浏览器应保留发送了该请求的页面，而不产生任何文档视图上的变化，即使按照规范新的或更新后的元信息应当被应用到用户浏览器活动视图中的文档。
+
+    由于204响应被禁止包含任何消息体，因此它始终以消息头后的第一个空行结尾。
+
+    > 场景详解：需要提交数据到服务器，只需要返回是否成功的情况下，可以使用状态码204来作为返回，而浏览器不会刷新不会跳转；该状态码相较于200状态码因为没有消息体更省流量，且200状态码可能会浏览器刷新、跳转等副作用。适用于 PATCH、DELETE，PUT，如果是 POST 操作，应返回201。
+
+2.2.6 205 重置内容（Reset Content）
+
+    205状态响应是服务器告诉用户代理应该重置引起请求被发送的文档视图。此响应主要的目的是清空文档视图表单里的输入框以便用户能输入其它信息。此响应不能包含一个实体。
+
+    > 205和204的区别在于205需要用户代理重置输入表单，以便用户继续输入
+
+2.2.7 206 部分内容（Partial Content）
+
+    服务器已经成功处理了部分 GET 请求。类似于 FlashGet 或者迅雷这类的 HTTP 下载工具都是使用此类响应实现断点续传或者将一个大文档分解为多个下载段同时下载。
+
+    该请求必须包含 Range 标头（[第14.35节](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35)）信息来指示客户端希望得到的内容范围，并且可能包含 If-Range （见[第14.27节](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.27)）来作为请求条件。
+
+    > 206状态的响应必须包含以下的标头：
+> 1.  Content-Range 用以指示本次响应中返回的内容的范围；如果是 Content-Type 为 multipart/byteranges 的多段下载，则每一 multipart 段中都应包含 Content-Range 域用以指示本段的内容范围。假如响应中包含 Content-Length，那么它的数值必须匹配它返回的内容范围的真实字节数。
+> 1.  Date标头
+> 1.  ETag 和/或 Content-Location标头，假如请求一样应该返回200响应。
+> 1.  Expire，Cache-Control，和/或者Vary标头，假如其值可能与之前相同变量的其他响应对应的值不同的话。
+
+如果206响应是使用了强缓存验证（见[第13.3.3节](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.3.3)）的If-Range请求的结果，那么此响应不应该包含其他的实体标头。如果响应是使用了弱缓存验证的If-Range请求的结果，那么响应不能包含其他的实体标头；这能防止出现在缓存的实体主体和更新的标头之间的不一致性。其他的情况下，响应必须包含所有的实体标头，这些标头可能已经在以前的相同请求的200响应里返回过。
+
+    缓存不能把206响应和以前的缓存内容结合如果ETag或Last-Modified标头并不能精确匹配，见[第13.5.4节](https://link.jianshu.com?t=https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.5.4)。
+
+    假如本响应请求使用了 If-Range 强缓存验证，那么本次响应不应该包含其他实体头；假如本响应的请求使用了 If-Range 弱缓存验证，那么本次响应禁止包含其他实体头；这避免了缓存的实体内容和更新了的实体头信息之间的不一致。否则，本响应就应当包含所有本应该返回200响应中应当返回的所有实体头部域。 　　
+
+    假如 ETag 或 Last-Modified 头部不能精确匹配的话，则客户端缓存应禁止将206响应返回的内容与之前任何缓存过的内容组合在一起。
+
+    任何不支持 Range 以及 Content-Range 头的缓存都禁止缓存206响应返回的内容。
+
+    2.3 重新定向 3xx
+
+    这类状态码指明用户代理需要更进一步的动作去完成请求。进一步的动作可能被用户代理自动执行而不需要用户的交互，并且进一步动作请求的方法必须为GET或HEAD。客户端应该发现无限的重定向回路，因为此回路能产生网络拥挤。
+
+    被请求的资源有一系列可供选择的回馈信息，每个都有自己特定的地址和客户端驱动的商议信息。客户端能够自行选择一个首选的地址进行重定向。
+
+    除非这是一个 HEAD 请求，否则该响应应当包括一个资源特性及地址的列表的实体，以便用户代理从中选择最合适的重定向地址。这个实体的格式由 Content-Type 定义的格式所决定。用户代理可能根据响应的格式以及用户代理自身能力，自动作出最合适的选择。当然，RFC 2616规范并没有规定这样的自动选择该如何进行。
+
+    如果服务器本身已经有了首选的回馈选择，那么在 Location 中应当指明这个回馈的 URI；用户代理可能会将这个 Location 值作为自动重定向的地址。此外，除非额外指定，否则这个响应也是可缓存的。
+
+    > 注意：以前此规范版本建议一个资源最多能有五个重定向。内容开发者应该知道客户端可能存在这个限制。
+
+2.3.1 300 多个选择.（Multiple Choices）
+
+    资源对应有多个表现形式，客户端请求资源的表现形式对应于其中的一个，每个表现形式都有一个指向自己的位置(location)，并且代理驱动协商（agent-driven negotiation）能选择一个更适的表现形式并重定向请求到那个表现形式的位置。
+
+    除非是HEAD请求，否则300状态响应应该包含一个实体，此实体包含一个资源特性和位置列表，从这个列表里用户或用户代理能选择最合适的资源的表现形式。实体格式被Content-Type标头里的媒体类型指定。依赖于此格式和用户代理的能力，用户代理选择最合适的表现形式的行为可能会被自动执行。然而，此规范并没有定义自动执行行为的标准。
+
+    如果服务器能确定更好的表现形式，它应该为此表现形式在Location标头里包含一个特定的URI来指明此表现形式的位置；用户代理可能会利用此Location标头自动重定向。300状态响应是可缓存的除非被特别指明。
+
+    2.3.2 301 永久移动 （Moved Permanently）
+
+    请求资源被赋于一个新的永久的URI，并且任何将来对此资源的引用都会利用此301状态响应返回的URI。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。此响应是能缓存的除非另外声明。
+
+    新的永久性的 URI 应当在响应的 Location 域中返回。除非这是一个 HEAD 请求，否则响应的实体中应当包含指向新的 URI 的超链接及简短说明。
+
+    如果这不是一个 GET 或者 HEAD 请求，用户代理不能自动进行重定向，除非得到用户的确认，因为请求的条件可能因此发生变化。
+
+    > 注意：对于某些使用 HTTP/1.0 协议的浏览器，当它们发送的 POST 请求得到了一个301响应的话，接下来的重定向请求将会错误的变成 GET 方式。
+
+2.3.3 302 发现(Found)
+
+    请求的资源现在临时从不同的 URI 响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。
+
+    新的临时性的 URI 应当在响应的 Location 域中返回。除非这是一个 HEAD 请求，否则响应的实体中应当包含指向新的 URI 的超链接及简短说明。
+
+    如果这不是一个 GET 或者 HEAD 请求，那么浏览器禁止自动进行重定向，除非得到用户的确认，因为请求的条件可能因此发生变化。
+
+    > 注意：虽然RFC 1945和RFC 2068规范不允许客户端在重定向时改变请求的方法，但是很多现存的浏览器将302响应视作为303响应，并且使用 GET 方式访问在 Location 中规定的 URI，而无视原先请求的方法。状态码303和307被添加了进来，用以明确服务器期待客户端进行何种反应。
+
+2.3.4 303 见其他(See Other)
+
+    对应当前请求的响应可以在另一个 URI 上被找到，而且客户端应当采用 GET 的方式访问那个资源。这个方法的存在主要是为了允许由脚本激活的POST请求输出重定向到一个新的资源。这个新的 URI 不是原始资源的替代引用。同时，303响应禁止被缓存。当然，第二个请求（重定向）可能被缓存。
+
+    新的 URI 应当在响应的 Location 域中返回。除非这是一个 HEAD 请求，否则响应的实体中应当包含指向新的 URI 的超链接及简短说明。
+
+    > 注意：许多 HTTP/1.1 版以前的 浏览器不能正确理解303状态。如果需要考虑与这些浏览器之间的互动，302状态码应该可以胜任，因为大多数的浏览器处理302响应时的方式恰恰就是上述规范要求客户端处理303响应时应当做的。
+
+2.3.5 304 没有被改变(Not Modified)
+
+    如果客户端发送了一个[带条件的 GET 请求](https://link.jianshu.com?t=https://tools.ietf.org/html/rfc7232#page-4)且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。304响应禁止包含消息体，因此始终以消息头后的第一个空行结尾。
+
+    > 此响应必须包含下面的标头：
+> 1.  Date，除非这个服务器没有时钟。假如没有时钟的服务器也遵守这些规则，那么代理服务器以及客户端可以自行将 Date 字段添加到接收到的响应头中去（这在RFC 2086里声明了，见14.19节），缓存机制将会正常工作。
+> 1.  ETag 和/或 Content-Location，假如同样的请求本应返回200响应。
+> 1.  Expires, Cache-Control，和/或Vary，假如其值可能与之前相同变量的其他响应对应的值不同的话。
+
+假如本响应请求使用了强缓存验证，那么本次响应不应该包含其他实体头；否则（例如，某个[带条件的 GET 请求](https://link.jianshu.com?t=https://tools.ietf.org/html/rfc7232#page-4)使用了弱缓存验证），本次响应禁止包含其他实体头；这避免了缓存了的实体内容和更新了的实体头信息之间的不一致。
+
+    假如某个304响应指明了当前某个实体没有缓存，那么缓存系统必须忽视这个响应，并且重复发送不包含限制条件的请求。
+
+    假如接收到一个要求更新某个缓存条目的304响应，那么缓存系统必须更新整个条目以反映所有在响应中被更新的字段的值。
+
+    > 使用场景：所有 GET 请求都建议遵循该协议，实践中，对于资源类的请求建议使用 ETag 做标记；对于数据类的可以使用 ETag 也可以使用Last-Modified
+
+2.3.6 305 使用代理服务器 （User Proxy）
+
+    被请求的资源必须通过指定的代理才能被访问。Location 域中将给出指定的代理所在的 URI 信息，接收者需要重复发送一个单独的请求，通过这个代理才能访问相应资源。只有原始服务器才能建立305响应。
+
+    > 注意：RFC 2068并没有说明305响应的目的是重定向一个独立请求，并且只能被源服务器产生。不注意这些限制会有重要的安全后果。
+
+2.3.7 306没有使用的（unused）
+
+    306状态码被用于此规范以前的版本，是不再使用的意思，并且此状态码被保留。
+
+    2.3.8 307临时重发（Temporary Redirect）
+
+    请求的资源现在临时从不同的URI 响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。
+
+    新的临时性的URI 应当在响应的 Location 域中返回。除非这是一个HEAD 请求，否则响应的实体中应当包含指向新的URI 的超链接及简短说明。因为部分浏览器不能识别307响应，因此需要添加上述必要信息以便用户能够理解并向新的 URI 发出访问请求。
+
+    如果这不是一个GET 或者 HEAD 请求，那么用户代理禁止自动进行重定向，除非得到用户的确认，因为请求的条件可能因此发生变化。
+
+    2.4 客户端错误 4xx
+
+    4xx类的状态代码适用于客户端似乎有错误的情况。除了响应HEAD请求之外，服务器应该包含一个包含错误情况说明的实体，以及它是一个临时的还是永久的。这些状态码适用于任何请求方式。用户代理应该向用户显示任何包含的实体。
+
+    如果客户端正在发送数据，则在服务器关闭输入连接之前，使用TCP的服务器实现应该小心，以确保客户端确认收到包含响应的数据包。如果客户端在关闭后继续向服务器发送数据，则服务器的TCP堆栈将向客户端发送重置数据包，这可能会擦除客户端未确认的输入缓冲区，然后才能被HTTP应用程序读取和解释。
+
+    2.4.1 400 坏请求（Bad Request）
+
+    由于语义或参数错误，服务器无法理解该请求。除非进行修改，否则客户端不应该重复提交这个请求。
+
+    2.4.2 401 未授权的 （Unauthorized）
+
+    当前请求需要用户验证。该响应必须包含一个适用于被请求资源的 WWW-Authenticate（见14.47） 信息头用以询问用户信息。客户端可以重复提交一个包含恰当的 Authorization 头信息的请求。如果当前请求已经包含了 Authorization 证书，那么401响应代表着服务器验证已经拒绝了那些证书。如果401响应包含了与前一个响应相同的身份验证询问，且浏览器已经至少尝试了一次验证，那么浏览器应当向用户展示响应中包含的实体信息，因为这个实体信息中可能包含了相关诊断信息。参见RFC 2617。
+
+    > 应用场景：凡是需要授权才能进行的操作，而验签失败时均可返回该状态码。例如 token 错误、token 失效、令牌错误、证书错误、用户名密码错误等。
+
+2.4.3 402 支付需要 （Payment Required）
+
+    此代码保留供将来使用。
+
+    2.4.4 403 禁用 （Forbidden）
+
+    服务器已经理解请求，但是拒绝执行它。与401响应不同的是，身份验证并不能提供任何帮助，而且这个请求也不应该被重复提交。如果这不是一个 HEAD 请求，而且服务器希望能够讲清楚为何请求不能被执行，那么就应该在实体内描述拒绝的原因。如果它不希望让客户端获得被拒原因，服务器也可以返回一个404响应。
+
+    2.4.5 404 没有找到（Not Found）
+
+    请求失败，请求所希望得到的资源未被在服务器上发现。没有信息能够告诉用户这个状况到底是暂时的还是永久的。假如服务器知道情况的话，应当使用410状态码来告知旧资源因为某些内部的配置机制问题，已经永久的不可用，而且没有任何可以跳转的地址。404这个状态码被广泛应用于当服务器不想揭示到底为何请求被拒绝或者没有其他适合的响应可用的情况下。
+
+    2.4.6 405 不被允许的方法（Method Not Allowed）
+
+    请求行中指定的请求方法不能被用于请求相应的资源。该响应必须返回一个 Allow 头信息用以表示出当前资源能够接受的请求方法的列表。
+
+    鉴于 PUT，DELETE 方法会对服务器上的资源进行写操作，因而绝大部分的网页服务器都不支持或者在默认配置下不允许上述请求方法，对于此类请求均会返回405错误。
+
+    2.4.7 406 不接受的 （Not Acceptable）
+
+    如果响应是不可接受的，用户代理应该暂时停止更多的数据的接收并且询问用户去决定进一步的动作。
+
+    请求的资源的内容特性无法满足请求头中的条件，因而无法生成响应实体。
+
+    除非这是一个 HEAD 请求，否则该响应就应当返回一个包含可以让用户或者浏览器从中选择最合适的实体特性以及地址列表的实体。实体的格式由 Content-Type 头中定义的媒体类型决定。浏览器可以根据格式及自身能力自行作出最佳选择。但是，规范中并没有定义任何作出此类自动选择的标准。
+
+    注意：HTTP/1.1服务器被允许返回这样的响应，此响应根据接受标头（如：Accept, Accept-Charset, Accept-Encoding, or Accept-Language）是不可接受的。在一些情况下，这可能更倾向于发送一个406响应。用户代理被鼓励观察响应来决定是否此响应是可接受的。
+
+    2.4.8 407 代理服务器授权所需（Proxy Authentication Required）
+
+    与401响应类似，只不过客户端必须在代理服务器上进行身份验证。代理服务器必须返回一个 Proxy-Authenticate（见14.33节）用以进行身份询问。客户端可以返回一个 Proxy-Authorization 信息头用以验证（第14.34节）。HTTP访问认证在“HTTP认证：基本和摘要访问认证” [43]中进行了说明。
+
+    2.4.9 408 请求超时（Request Timeout）
+
+    请求超时。客户端没有在服务器预备等待的时间内完成一个请求的发送。客户端可以随时再次提交这一请求而无需进行任何更改。
+
+    2.4.10 409 冲突 （Confilict）
+
+    由于和被请求的资源的当前状态之间存在冲突，请求无法完成。这个代码只允许用在这样的情况下才能被使用：用户被认为能够解决冲突，并且会重新提交新的请求。该响应应当包含足够的信息以便用户发现冲突的源头。
+
+    冲突通常发生于对 PUT 请求的处理中。例如，在采用版本检查的环境下，某次 PUT 提交的对特定资源的修改请求所附带的版本信息与之前的某个（第三方）请求向冲突，那么此时服务器就应该返回一个409错误，告知用户请求无法完成。此时，响应实体中很可能会包含两个冲突版本之间的差异比较，以便用户重新提交归并以后的新版本。
+
+    2.4.11 410 不存在（gone）
+
+    被请求的资源在服务器上已经不再可用，而且没有任何已知的转发地址。这样的状况应当被认为是永久性的。如果可能，拥有链接编辑功能的客户端应当在获得用户许可后删除所有指向这个地址的引用。如果服务器不知道或者无法确定这个状况是否是永久的，那么就应该使用404状态码。除非额外说明，否则这个响应是可缓存的。
+
+    410响应的目的主要是帮助网站管理员维护网站，通知用户该资源已经不再可用，并且服务器拥有者希望所有指向这个资源的远端连接也被删除。这类事件在限时、增值服务中很普遍。同样，410响应也被用于通知客户端在当前服务器站点上，原本属于某个个人的资源已经不再可用。当然，是否需要把所有永久不可用的资源标记为'410 Gone'，以及是否需要保持此标记多长时间，完全取决于服务器拥有者。
+
+    2.4.12 411 必需的长度 （Length Required）
+
+    服务器拒绝在没有定义 Content-Length 头的情况下接受请求。在添加了表明请求消息体长度的有效 Content-Length 头之后，客户端可以再次提交该请求。
+
+    2.4.13 412 先决条件失败 （Precondition Failed）
+
+    服务器在验证在请求的头字段中给出先决条件时，没能满足其中的一个或多个。这个状态码允许客户端在获取资源时在请求的元信息（请求头字段数据）中设置先决条件，以此避免该请求方法被应用到其希望的内容以外的资源上。
+
+    2.4.14 413 请求实体太大
+
+    服务器拒绝处理当前请求，因为该请求提交的实体数据大小超过了服务器愿意或者能够处理的范围。此种情况下，服务器可以关闭连接以免客户端继续发送此请求。
+
+    如果这个状况是临时的，服务器应当返回一个 Retry-After 的响应头，以告知客户端可以在多长时间以后重新尝试。
+
+    2.4.15 414 请求URI太长（Request-URI Too Long）
+
+    请求的URI 长度超过了服务器能够解释的长度，因此服务器拒绝对该请求提供服务。这比较少见，通常的情况包括：
+
+    本应使用POST方法的表单提交变成了GET方法，导致查询字符串（Query String）过长。
+
+    重定向URI “黑洞”，例如每次重定向把旧的 URI 作为新的 URI 的一部分，导致在若干次重定向后 URI 超长。
+
+    客户端正在尝试利用某些服务器中存在的安全漏洞攻击服务器。这类服务器使用固定长度的缓冲读取或操作请求的 URI，当 GET 后的参数超过某个数值后，可能会产生缓冲区溢出，导致任意代码被执行[1]。没有此类漏洞的服务器，应当返回414状态码。
+
+    2.4.16 415 不被支持的媒体类型（Unsupported Media Type）
+
+    对于当前请求的方法和所请求的资源，请求中提交的实体并不是服务器中所支持的格式，因此请求被拒绝。
+
+    2.4.17 416 请求范围不满足 （Requested Range Not Satisfiable）
+
+    如果请求中包含了 Range 请求头，并且 Range 中指定的任何数据范围都与当前资源的可用范围不重合，同时请求中又没有定义 If-Range 请求头，那么服务器就应当返回416状态码。
+
+    假如 Range 使用的是字节范围，那么这种情况就是指请求指定的所有数据范围的首字节位置都超过了当前资源的长度。服务器也应当在返回416状态码的同时，包含一个 Content-Range 实体头，用以指明当前资源的长度。这个响应也被禁止使用 multipart/byteranges 作为其 Content-Type。
+
+    2.4.18 417期望失败
+
+    在请求头 Expect （见第14.20节）中指定的预期内容无法被服务器满足，或者这个服务器是一个代理服务器，它有明显的证据证明在当前路由的下一个节点上，Expect 的内容无法被满足。
+
+    2.4.19 422 Unprocessable Entity
+
+    无法处理的请求实体。
+
+    2.4.20 423 Locked
+
+    当前资源被锁定。（RFC 4918 WebDAV）
+
+    2.4.21 424 Failed Dependency
+
+    由于之前的某个请求发生的错误，导致当前请求失败，例如 PROPPATCH。（RFC 4918 WebDAV）
+
+    2.5 服务器错误 5xx （Server Error）
+
+    这类状态码指明服务器处理请求时产生错误或不能处理请求。除了HEAD请求，服务器应该包含一个实体，此实体用来解释错误，和是否是暂时或长期条件。用户代理应该展示实体给用户。此响应状态码能应用于任何请求方法。
+
+    2.5.1 500 服务器内部错误 （Internal Server Error）
+
+    服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器的程序码出错时出现。
+
+    2.5.2 501 不能实现 （Not Implemented）
+
+    服务器不支持当前请求所需要的某个功能。当服务器无法识别请求的方法，并且无法支持其对任何资源的请求。
+
+    2.5.3 502 坏网关 （Bad Gateway）
+
+    作为网关或者代理工作的服务器尝试执行请求时，从上游服务器接收到无效的响应。
+
+    2.5.4 503 服务不可用.（Service Unavailable）
+
+    由于临时的服务器维护或者过载，服务器当前无法处理请求。这个状况是临时的，并且将在一段时间以后恢复。如果能够预计延迟时间，那么响应中可以包含一个 Retry-After 头用以标明这个延迟时间。如果没有给出这个 Retry-After 信息，那么客户端应当以处理500响应的方式处理它。
+
+    > 注意：503状态码的存在并不意味着服务器在重载时必须使用它。有些服务器可能希望简单地拒绝连接。
+
+2.5.5 504 网关超时（Gateway Timeout）
+
+    作为网关或者代理工作的服务器尝试执行请求时，未能及时从上游服务器（URI标识出的服务器，例如HTTP、FTP、LDAP）或者辅助服务器（例如DNS）收到响应。
+
+    > 注意：某些代理服务器在DNS查询超时时会返回400或者500错误
+
+2.5.6 505 HTTP版本不支持（HTTP version Not Supported）
+
+    服务器不支持，或者拒绝支持在请求中使用的 HTTP 版本。这暗示着服务器不能或不愿使用与客户端相同的版本。响应中应当包含一个描述了为何版本不被支持以及服务器支持哪些协议的实体。
+
+    2.5.7 507
+
+    服务器无法存储完成请求所必须的内容。这个状况被认为是临时的。WebDAV (RFC 4918)
+
+    2.5.8 509
+
+    服务器达到带宽限制。这不是一个官方的状态码，但是仍被广泛使用。
+
+    2.5.9 510
+
+    获取资源所需要的策略并没有没满足。（RFC 2774）
+</article><div></div><div class="_1kCBjS"><div class="_18vaTa"><div class="_3BUZPB"><div class="_2Bo4Th" role="button" tabindex="-1" aria-label="给文章点赞">_<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-like"></use></svg>_</div><span class="_1LOh_5" role="button" tabindex="-1" aria-label="查看点赞列表">4人点赞_<svg viewBox="64 64 896 896" focusable="false" class="" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg>_</span></div><div class="_3BUZPB"><div class="_2Bo4Th" role="button" tabindex="-1">_<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-dislike"></use></svg>_</div></div></div><div class="_18vaTa">[_<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-notebook"></use></svg>_<span>计算机笔记</span>](/nb/3901054)<div class="_3BUZPB ant-dropdown-trigger"><div class="_2Bo4Th">_<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-others"></use></svg>_</div></div></div></div><div class="_19DgIp" style="margin-top:24px;margin-bottom:24px"></div><div class="_13lIbp"><div class="_191KSt">"小礼物走一走，来简书关注我"</div><button type="button" class="_1OyPqC _3Mi9q9 _2WY0RL _1YbC5u"><span>赞赏支持</span></button><span class="_3zdmIj">还没有人赞赏，支持一下</span></div><div class="d0hShY">[![  ](https://cdn2.jianshu.io/assets/default_avatar/1-04bbeead395d74921af6a4e8214b4f61.jpg)](/u/1547a852edf2)<div class="Uz-vZq"><div class="Cqpr1X">[有涯逐无涯](/u/1547a852edf2 "有涯逐无涯")<span class="_2WEj6j" title=""></span></div><div class="lJvI3S"><span>总资产2 (约0.19元)</span><span>共写了3.0W字</span><span>获得8个赞</span><span>共13个粉丝</span></div></div><button data-locale="zh-CN" type="button" class="_1OyPqC _3Mi9q9"><span>关注</span></button></div></section>
