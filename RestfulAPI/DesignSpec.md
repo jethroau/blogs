@@ -1,5 +1,4 @@
-
-# 转自 API设计思考与实践 https://www.jianshu.com/p/2fd232980f9b
+### 转自 API设计思考与实践 https://www.jianshu.com/p/2fd232980f9b
 
 # API定义规范
 
