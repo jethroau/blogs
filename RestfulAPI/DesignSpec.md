@@ -1,7 +1,5 @@
-<section class="ouvJEz">
 
-# API设计思考与实践
-<div class="rEsl9f"><div class="_2mYfmT">[![](https://cdn2.jianshu.io/assets/default_avatar/1-04bbeead395d74921af6a4e8214b4f61.jpg)](/u/1547a852edf2)<div style="margin-left: 8px;"><div class="_3U4Smb"><span class="FxYr8x">[有涯逐无涯](/u/1547a852edf2)</span><button data-locale="zh-CN" type="button" class="_3kba3h _1OyPqC _3Mi9q9 _34692-"><span>关注</span></button></div><div class="s-dsoj"><span class="_3tCVn5">_<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-diamond"></use></svg>_<span>0.053</span></span><time datetime="2017-04-25T10:43:24.000Z">2017.04.25 18:43:24</time><span>字数 16,854</span><span>阅读 1,113</span></div></div></div></div><article class="_2rhmJa">
+# 转自 API设计思考与实践 https://www.jianshu.com/p/2fd232980f9b
 
 # API定义规范
 
