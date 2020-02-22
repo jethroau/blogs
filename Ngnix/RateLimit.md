@@ -1,3 +1,6 @@
+## Concept
+https://www.cnblogs.com/biglittleant/p/8979915.html 
+
 ## one example, Limit access by ip address.  
 1. enable limit_req_zone 
 2. Get customers real ip address  
