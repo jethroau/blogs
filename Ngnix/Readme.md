@@ -30,6 +30,24 @@
 
 ```
 
+## worker connections
+
+```
+worker_processes  2; #cpu核数，建议不大于8
+events {
+    worker_connections  10240;
+}
+ 
+server {
+listen 80 default_server;
+default_type application/json;
+server_name _;
+return 200 '{"date":"$time_local","host":"web-test1","result":"nginx json"}';
+access_log  /usr/local/nginx/logs/default.log;
+}
+```
+nginx作为反向代理服务器的时候：max_clients = worker_processes * worker_connections/4
+
 
 
 ## yum install ngnix 
