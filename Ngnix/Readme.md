@@ -48,6 +48,7 @@ access_log  /usr/local/nginx/logs/default.log;
 ```
 nginx作为反向代理服务器的时候：max_clients = worker_processes * worker_connections/4
 
+## Keepalive 0 
 
 
 ## yum install ngnix 
