@@ -17,3 +17,6 @@ https://www.jianshu.com/p/9066b2d547bf
 
 ## Limit Connection VS Request 
 https://www.sundayle.com/nginx-limit-modules/  
+
+## High volume setting
+https://blog.csdn.net/DavidStar1988/article/details/80506775?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task
