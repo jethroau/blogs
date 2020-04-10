@@ -34,3 +34,8 @@ docker push <jfrog.domain>:8081/<REPOSITORY_KEY>/<IMAGE>:<TAG>
 ```
 3. Paste Apache virtual host setting to httpd.conf.  
 4. Remove apache orginal SSL <virtual host> stting  
+ 
+# Pull docker image from remote repo.
+```docker
+docker pull <jfrog.domain>/<REPOSITORY_KEY>/<IMAGE>:<TAG> 
+```
