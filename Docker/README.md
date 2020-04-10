@@ -5,12 +5,14 @@ docker image ls/rm
 docker image ls -f dangling=true
 docker image prune
 docker image rm <name:tag>/<IMAGE ID>
+docker rmi [OPTIONS] IMAGE [IMAGE...]
 docker images -a | grep "pattern" | awk '{print $3}' | xargs docker rmi
 ```
 > **pull**, download image to local 
 > **-f dangling=true**， list all <none> images  
 > **prune**， remove all <none> images  
 > **-i**， interactive  
+> rmi = image rm 
 
 ## container 
 ```Docker
@@ -19,6 +21,7 @@ docker run --name webserver -d -p 80:80 nginx
 docker exec -it webserver/<container id> bash
 docker container rm <container id>
 docker logs <container id>
+docker rm [OPTIONS] CONTAINER [CONTAINER...]
 docker rm $(docker ps -a -f status=exited -q)
 docker ps -a
 docker ps | grep "vmware" | awk '{print $1}' | xargs docker stop
