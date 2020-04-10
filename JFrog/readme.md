@@ -39,3 +39,13 @@ docker push <jfrog.domain>:8081/<REPOSITORY_KEY>/<IMAGE>:<TAG>
 ```docker
 docker pull <jfrog.domain>/<REPOSITORY_KEY>/<IMAGE>:<TAG> 
 ```
+
+# maven mirror URLs
+```
+http://<jforg.domain>/artifactory/<REPOSITORY_KEY>
+```
+
+#npm repo URL
+```
+http://<jforg.domain>/artifactory/api/npm/<repository key>
+```
