@@ -13,6 +13,8 @@ create service for pod
 ## create route
 host, http://xxxx.osapps.xxx.xx
 
+## Developer CLI commands. 
+https://docs.openshift.com/dedicated/4/cli_reference/openshift_cli/developer-cli-commands.html
 
 ## Official getting started doc. 
 https://docs.openshift.com/enterprise/3.0/getting_started/developers/developers_console.html   
