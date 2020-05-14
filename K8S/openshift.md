@@ -1,5 +1,51 @@
 ## create project 
 in GUI, create new project named [env-system]
+```
+oc new-project<ProjectName> --description="<description>' --display-name="<DisplayName>"
+
+example: 
+oc new-project mobile-app --descrption="Mobile App" --display-name="MOBILE-APP"
+```
+## create resourceQuota and limitRange for project
+```yaml
+--- ResourceQuota.yaml 
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+spec:
+  hard:
+    pods: 16
+    limits.cpu: 2
+    limits.memory: 8Gi
+    
+--- LimitRange.yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: container-limit
+spec:
+  hard:
+    requests.cpu: 0.125
+    requests.memory: 256Mi
+    limits.cpu: 1
+    limits.memory: 512Mi
+    type: Pod
+  limits:
+  - default:
+      cpu: 1
+      memory: 512Mi
+    defaultRequest:
+      cpu: 0.125
+      memory: 256Mi
+    type: Container
+```
+
+```
+oc project mobile-app
+oc create -f ResourceQuota.yaml
+oc create -f LimitRange.yam
+```
 
 ## create pod
 in GUI, select image from category
