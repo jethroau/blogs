@@ -5,7 +5,7 @@
 By default the plugin will try to connect to docker on localhost:xxxx. 
 Set the DOCKER_HOST environment variable to connect elsewhere.
 
-DOCKER_HOST=tcp://<host>:4243
+DOCKER_HOST=tcp://127.0.0.1:4243
 
 ## pom.xml
 ```maven
