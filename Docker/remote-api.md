@@ -14,6 +14,8 @@ rm /etc/systemd/system/docker.service.d/docker-sysconfig.conf
 ```
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+# check status and see if 4243 argurment has been added to daemon
+sudo systemctl status docker
 ```
 
 ## test remote access
