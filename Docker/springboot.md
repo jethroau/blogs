@@ -39,7 +39,7 @@ DOCKER_HOST=tcp://<host>:4243
 ```docker
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
-ADD spp_springboot_hello-1.0.jar app.jar
+ADD ja-springboot-hello-1.0.jar app.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 ```
 
