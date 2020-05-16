@@ -5,7 +5,7 @@
 By default the plugin will try to connect to docker on localhost:xxxx. 
 Set the DOCKER_HOST environment variable to connect elsewhere.
 
-DOCKER_HOST=tcp://<host>:2375
+DOCKER_HOST=tcp://<host>:4243
 
 ## pom.xml
 ```maven
@@ -43,17 +43,32 @@ ADD spp_springboot_hello-1.0.jar app.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 ```
 
+## set authenticiation for privite docker registry
+```
+docker login xxxx.domain.registry
+
+cd ~
+mkdir .docker
+cd .docker
+sudo cp  /root/.docker/config.json ./
+sudo chown ~(jenkins) config.json
+```
+
+
 ## $MAVEN_HOME/conf/setting.xml
 ```xml
 <pluginGroups>  
     <pluginGroup>com.spotify</pluginGroup>  
 </pluginGroups>
 ```
+* Since version 1.0.0, the docker-maven-plugin will automatically use any authentication present in the docker-cli configuration file at ~/.dockercfg or ~/.docker/config.json, without the need to configure anything   
+https://github.com/spotify/docker-maven-plugin#authenticating-with-private-registries  
 
 ## build docker image
 ````
 mvn clean package docker:build
 ````
+
 
 ## run docker image
 ```
