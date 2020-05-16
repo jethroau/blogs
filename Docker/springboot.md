@@ -53,6 +53,8 @@ cd .docker
 sudo cp  /root/.docker/config.json ./
 sudo chown ~(jenkins) config.json
 ```
+* Since version 1.0.0, the docker-maven-plugin will automatically use any authentication present in the docker-cli configuration file at ~/.dockercfg or ~/.docker/config.json, without the need to configure anything   
+https://github.com/spotify/docker-maven-plugin#authenticating-with-private-registries  
 
 
 ## $MAVEN_HOME/conf/setting.xml
@@ -61,8 +63,6 @@ sudo chown ~(jenkins) config.json
     <pluginGroup>com.spotify</pluginGroup>  
 </pluginGroups>
 ```
-* Since version 1.0.0, the docker-maven-plugin will automatically use any authentication present in the docker-cli configuration file at ~/.dockercfg or ~/.docker/config.json, without the need to configure anything   
-https://github.com/spotify/docker-maven-plugin#authenticating-with-private-registries  
 
 ## build docker image
 ````
