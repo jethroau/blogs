@@ -37,7 +37,7 @@ DOCKER_HOST=tcp://127.0.0.1:4243
 
 ## src/main/docker/Dockerfile
 ```docker
-FROM openjdk:8-jdk-alpine
+FROM <private.registry>/openjdk:8-jdk-alpine
 VOLUME /tmp
 ADD ja-springboot-hello-1.0.jar app.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
