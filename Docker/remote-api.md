@@ -2,9 +2,11 @@
 ```
 ExecStart=/usr/bin/dockerd-current \
           ...
-          -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock \
+          -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock -G xxx_linux_users \
           ...
 ```
+-G, for jenkins or none root to run docker build.   
+
 ## verify docker-sysconifg.conf and remove it. 
 ```
 rm /etc/systemd/system/docker.service.d/docker-sysconfig.conf
