@@ -5,11 +5,15 @@ ExecStart=/usr/bin/dockerd-current \
           -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock \
           ...
 ```
+## verify docker-sysconifg.conf and remove it. 
+```
+rm /etc/systemd/system/docker.service.d/docker-sysconfig.conf
+```
 
 ## reload daemon & start docker service
 ```
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 ## test remote access
