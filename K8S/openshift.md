@@ -46,6 +46,26 @@ oc project mobile-app
 oc create -f ResourceQuota.yaml
 oc create -f LimitRange.yam
 ```
+## docker login openshift internal registry
+```
+oc login
+## console.osxxx.xxx
+## username / password
+oc whoami -t
+## capture user access token
+docker login -u username -p token console.osxxx.xxx
+## auth info will be saved at /root/.docker/config.json.
+```
+
+
+## create secret before pulling private image from registry
+```
+oc create secret docker-registry sosecret --docker-server=docker.io --docker-username=user --docker-password=password --docker-email=email
+
+```
+https://github.com/openshift/origin/issues/18932   
+
+
 
 ## create pod
 in GUI, select image from category
