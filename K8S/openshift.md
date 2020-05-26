@@ -51,8 +51,10 @@ oc create -f LimitRange.yam
 oc login
 ## console.osxxx.xxx
 ## username / password
+
 oc whoami -t
 ## capture user access token
+
 docker login -u username -p token console.osxxx.xxx
 ## auth info will be saved at /root/.docker/config.json.
 ```
