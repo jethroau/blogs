@@ -58,13 +58,14 @@ oc whoami -t
 docker login -u username -p token console.osxxx.xxx
 ## auth info will be saved at /root/.docker/config.json.
 ```
-
+https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html  
 
 ## create secret before pulling private image from registry
 ```
 oc create secret docker-registry sosecret --docker-server=docker.io --docker-username=user --docker-password=password --docker-email=email
 
 ```
+https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html  
 https://github.com/openshift/origin/issues/18932   
 
 
