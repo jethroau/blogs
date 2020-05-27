@@ -88,6 +88,19 @@ https://docs.openshift.com/dedicated/4/cli_reference/openshift_cli/developer-cli
 ## Official getting started doc. 
 https://docs.openshift.com/enterprise/3.0/getting_started/developers/developers_console.html   
 
+## Importing Images from Insecure Registries
+```
+kind: ImageStream
+apiVersion: v1
+metadata:
+  name: ruby
+  annotations:
+    openshift.io/image.insecureRepository: "true"
+  spec:
+    dockerImageRepository: "my.repo.com:5000/myimage"
+```
+https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/builds_and_image_streams.html   
+
 ## Reference. 
 http://eco.hand-china.com/doc/hip/latest/user_guide/openshift.html 
 
