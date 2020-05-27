@@ -46,7 +46,7 @@ oc project mobile-app
 oc create -f ResourceQuota.yaml
 oc create -f LimitRange.yam
 ```
-## docker login openshift internal registry
+## docker login/push openshift internal registry
 ```
 oc login
 ## console.osxxx.xxx
@@ -55,10 +55,14 @@ oc login
 oc whoami -t
 ## capture user access token
 
-docker login -u username -p token console.osxxx.xxx
+docker login -u username -p token console.openshift.registry
 ## auth info will be saved at /root/.docker/config.json.
+
+docker tag hello:1.0 console.openshift.registry/hello:lastest
+docker push console.openshift.registry/hello:lastest
 ```
 https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html  
+https://blog.csdn.net/u012371097/article/details/83746111?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase   
 
 ## create secret before pulling private image from registry
 ```
