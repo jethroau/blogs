@@ -90,7 +90,8 @@ create service for pod
 host, http://xxxx.osapps.xxx.xx
 
 ## Developer CLI commands. 
-https://docs.openshift.com/dedicated/4/cli_reference/openshift_cli/developer-cli-commands.html
+https://docs.openshift.com/dedicated/4/cli_reference/openshift_cli/developer-cli-commands.html 
+https://www.jianshu.com/p/6cb3155716ac  
 
 ## Official getting started doc. 
 https://docs.openshift.com/enterprise/3.0/getting_started/developers/developers_console.html   
