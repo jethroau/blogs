@@ -60,6 +60,9 @@ docker login -u username -p token console.openshift.registry
 
 docker tag hello:1.0 console.openshift.registry/hello:lastest
 docker push console.openshift.registry/hello:lastest
+
+# list all inputsteam from CLI or can view from Openshift console "Builds => Input Streams"
+oc get is -n project-name
 ```
 https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html  
 https://blog.csdn.net/u012371097/article/details/83746111?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase   
