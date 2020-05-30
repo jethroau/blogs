@@ -75,7 +75,7 @@ oc secrets link builder openshfit2jfrog
 
 oc import-image springboot-hello:latest --from=xxxx-docker-registry/springboot-hello:latest --confirm --insecure=true
 ```
-https://docs.openshift.com/container-platform/3.7/dev_guide/managing_images.html#allowing-pods-to-reference-images-across-projects
+https://docs.openshift.com/container-platform/3.7/dev_guide/managing_images.html#allowing-pods-to-reference-images-across-projects  
 https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html  
 https://github.com/openshift/origin/issues/18932   
 
