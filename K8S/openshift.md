@@ -69,9 +69,13 @@ https://blog.csdn.net/u012371097/article/details/83746111?utm_medium=distribute.
 
 ## create secret before pulling private image from registry
 ```
-oc create secret docker-registry sosecret --docker-server=docker.io --docker-username=user --docker-password=password --docker-email=email
+oc secrets new openshfit2jfrog .dockerconfigjson=/home/opcjen_app01/.docker/config.json
+oc secrets link default openshfit2jfrog --for=pull
+oc secrets link builder openshfit2jfrog
 
+oc import-image springboot-hello:latest --from=xxxx-docker-registry/springboot-hello:latest --confirm --insecure=true
 ```
+https://docs.openshift.com/container-platform/3.7/dev_guide/managing_images.html#allowing-pods-to-reference-images-across-projects
 https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html  
 https://github.com/openshift/origin/issues/18932   
 
