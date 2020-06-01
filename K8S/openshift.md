@@ -79,6 +79,9 @@ https://docs.openshift.com/container-platform/3.7/dev_guide/managing_images.html
 https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html  
 https://github.com/openshift/origin/issues/18932   
 
+## Create / Apply Deploymentconfig
+
+https://docs.openshift.com/enterprise/3.0/dev_guide/deployments.html#start-deployment  
 
 
 ## create pod
