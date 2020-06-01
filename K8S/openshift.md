@@ -80,9 +80,7 @@ https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html
 https://github.com/openshift/origin/issues/18932   
 
 ## Create / Apply Deploymentconfig
-
-https://docs.openshift.com/enterprise/3.0/dev_guide/deployments.html#start-deployment  
-
+https://docs.openshift.com/container-platform/3.11/dev_guide/deployments/how_deployments_work.html
 
 ## create pod
 in GUI, select image from category
