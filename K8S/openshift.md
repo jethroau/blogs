@@ -69,7 +69,7 @@ https://blog.csdn.net/u012371097/article/details/83746111?utm_medium=distribute.
 
 ## create secret before pulling private image from registry
 ```
-oc secrets new openshfit2jfrog .dockerconfigjson=/home/opcjen_app01/.docker/config.json
+oc secrets new openshfit2jfrog .dockerconfigjson=/home/users/.docker/config.json
 oc secrets link default openshfit2jfrog --for=pull
 oc secrets link builder openshfit2jfrog
 
