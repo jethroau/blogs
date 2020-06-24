@@ -2,7 +2,7 @@
 For Each does not modify the current payload. The output payload is the same as the input.  
 https://docs.mulesoft.com/mule-runtime/4.3/for-each-scope-concept 
 
-# mainFlow vs subFlow
+## mainFlow vs subFlow
 1. Payload
    Payload will go thru both mainFlow and subFlow, if subFlow change the payload, then mainFlow response payload will be changed. 
 2. Variable
