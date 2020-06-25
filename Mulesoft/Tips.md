@@ -20,3 +20,19 @@ don't handle excpetion and throws exception to outside
 2. on-error-continue  
 handle this exception and return http code 200  
 https://docs.mulesoft.com/mule-runtime/4.3/try-scope-concept  
+
+
+## Configuring Properties
+use Ant-style property placeholders, likes ${xxx.xxx}
+1. create a properties file under src/main/resources, such as config.yaml
+```
+training: 
+  host: "127.0.0.1"
+  port: "8083"
+  basepath: "/"
+  protocol: "HTTP"
+  
+```
+2. in Global Elements sheet, create Global configurations and select file "config.yaml"  
+3. edit HTTP Listener config, input ${training.port} for port value.  
+
