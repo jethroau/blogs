@@ -30,8 +30,7 @@ training:
   host: "127.0.0.1"
   port: "8083"
   basepath: "/"
-  protocol: "HTTP"
-  
+  protocol: "HTTP"  
 ```
 2. in Global Elements sheet, create Global configurations and select file "config.yaml"  
 3. edit HTTP Listener config, input ${training.port} for port value.  
