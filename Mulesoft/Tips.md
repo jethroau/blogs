@@ -11,4 +11,10 @@ If Request, subFlow cannot retreieve mainFlow variable.
 3. QueryString and QueryParams  
 Subflow cannot retrieve mainFlow QueryString and QueryParams. Mainflow cannot retrieve QueryString and QueryParams if call subflow.   
 
-   
+## Erorr handling
+1. on-error-propagate  
+don't handle excpetion and throws exception to outside   
+
+2. on-error-continue  
+handle this exception and return http code 200  
+https://docs.mulesoft.com/mule-runtime/4.3/try-scope-concept  
