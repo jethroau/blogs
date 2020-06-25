@@ -4,7 +4,7 @@ https://docs.mulesoft.com/mule-runtime/4.3/for-each-scope-concept
 
 ## mainFlow vs subFlow
 In HTTP Request, subFlow can retrieve mainFlow `payload` only.   
-After HTTP request, mainFlow can still retrieve `payload` and `variable`. 
+After HTTP request, mainFlow can still retrieve subFlow `payload` and `variable`. 
 In FlowReference, MainFlow and SubFlow can retrieve `payload, variable and QueryString/Params`.   
 
 ## Erorr handling
