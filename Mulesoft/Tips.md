@@ -9,6 +9,6 @@ Payload will go thru both mainFlow and subFlow, if subFlow change the payload, t
 In FlowReference MainFlow and SubFlow can retrieve both mainFlow and subFlow variable. If variable name is the same, subFlow can change mainFlow variable.   
 If Request, subFlow cannot retreieve mainFlow variable.   
 3. QueryString and QueryParams  
-Subflow cannot retrieve mainFlow QueryString and QueryParams. Mainflow cannot retrieve QueryString and QueryParams if call subflow API.   
+Subflow cannot retrieve mainFlow QueryString and QueryParams. Mainflow cannot retrieve QueryString and QueryParams if call subflow.   
 
    
