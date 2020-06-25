@@ -35,3 +35,7 @@ training:
 2. in Global Elements sheet, create Global configurations and select file "config.yaml"  
 3. edit HTTP Listener config, input ${training.port} for port value.  
 
+## JMS publish vs publish comsume
+1. `publish` operation can be used also to publish a Message to a given Topic destination and `NO wait` for a reply
+2. `publish-consume` operation lets you publish a message to any destination, and then `wait for a reply` on a different destination.  
+https://docs.mulesoft.com/jms-connector/1.7/jms-publish-consume  
