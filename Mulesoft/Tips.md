@@ -18,6 +18,8 @@ don't handle excpetion and throws exception to outside
 handle this exception and return http code 200  
 https://docs.mulesoft.com/mule-runtime/4.3/try-scope-concept  
 
+https://docs.mulesoft.com/mule-runtime/4.2/intro-error-handlers#error_handlers 
+
 
 ## Configuring Properties
 use Ant-style property placeholders, likes ${xxx.xxx}
