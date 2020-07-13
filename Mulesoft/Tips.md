@@ -47,3 +47,27 @@ payload.user.@name
 ```
 
 https://docs.mulesoft.com/mule-runtime/4.2/dataweave-selectors  
+
+## FTP Connector 
+
+The “Read” operation of the FTP connector does not have function on deleting or moving files. It could only lock files but it is off by default. But the “On New or Updated File” operation is able to delete, move or rename the file after processing.  
+
+```xml
+<ftp:read path="#[path]"
+  lock="true|false"
+  outputEncoding="UTF-8"
+  outputMimeType="application/xml" />
+
+<flow name="onNewFile">
+    <ftp:listener config-ref="file" directory="test-data/in" autoDelete="true">
+      <scheduling-strategy>
+        <fixed-frequency frequency="1000"/>
+      </scheduling-strategy>
+    </ftp:listener>
+
+    <flow-ref name="processFile" />
+</flow>
+```
+
+https://docs.mulesoft.com/ftp-connector/1.5/ftp-read  
+https://docs.mulesoft.com/ftp-connector/1.5/ftp-on-new-file  
