@@ -2,6 +2,9 @@
 For Each does not modify the current payload. The output payload is the same as the input.  
 https://docs.mulesoft.com/mule-runtime/4.3/for-each-scope-concept 
 
+While "vars" is global scope, For Each will modify vars.   
+
+
 ## mainFlow vs subFlow
 In HTTP Request, subFlow can retrieve mainFlow `payload` only.   
 After HTTP request, mainFlow can still retrieve subFlow `payload` and mainFlow `variable`.  
