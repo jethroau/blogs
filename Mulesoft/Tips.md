@@ -7,7 +7,7 @@ While "vars" is global scope, For Each will modify vars.
 
 ## mainFlow vs subFlow
 In HTTP Request, subFlow can retrieve mainFlow `payload` only.   
-After HTTP request, mainFlow can still retrieve subFlow `payload` and mainFlow `variable`.  
+After HTTP request, subFlow will return subflow `payload` to mainFlow. mainFlow `variable` still exists but mainFlow attribute will be lost.   
 In FlowReference, MainFlow and SubFlow can retrieve `payload, variable and QueryString/Params`.   
 
 ## Erorr handling
