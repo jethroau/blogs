@@ -100,7 +100,15 @@ Mule::lookup('flow2', {test:'hello '})]]></ee:set-payload>
 https://docs.mulesoft.com/mule-runtime/4.3/dw-mule-functions-lookup  
 
 ## DataWeave
-QuickStart 
+### QuickStart 
 https://docs.mulesoft.com/mule-runtime/4.3/dataweave-quickstart#step_4  
 
-
+### define functions
+```
+%dw 2.0
+output application/json
+fun toUpper(aString) = upper(aString)
+---
+toUpper("h" ++ "el" ++ lower("LO") )
+```
+https://docs.mulesoft.com/mule-runtime/4.3/dataweave-functions  
