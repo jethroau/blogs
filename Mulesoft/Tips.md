@@ -42,16 +42,7 @@ training:
 2. `publish-consume` operation lets you publish a message to any destination, and then `wait for a reply` on a different destination.  
 https://docs.mulesoft.com/jms-connector/1.7/jms-publish-consume  
 
-## DataWeave2.0
-The DataWeave script selects the value of the name attribute from the input payload (<user name="Weave"/>). Notice that the @ indicates an attribute selection.
-```
-%dw 2.0
-output application/json
----
-payload.user.@name
-```
 
-https://docs.mulesoft.com/mule-runtime/4.2/dataweave-selectors  
 
 ## FTP Connector 
 
@@ -112,3 +103,14 @@ fun toUpper(aString) = upper(aString)
 toUpper("h" ++ "el" ++ lower("LO") )
 ```
 https://docs.mulesoft.com/mule-runtime/4.3/dataweave-functions  
+
+### XML selectors 
+The DataWeave script selects the value of the name attribute from the input payload (<user name="Weave"/>). Notice that the @ indicates an attribute selection.
+```
+%dw 2.0
+output application/json
+---
+payload.user.@name
+```
+
+https://docs.mulesoft.com/mule-runtime/4.2/dataweave-selectors  
