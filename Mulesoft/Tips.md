@@ -263,3 +263,21 @@ detail example without defined POST for the resource "/songs"
                 {"message": "Song not found"}
 ```
 https://raml.org/developers/raml-200-tutorial  
+
+## Database Connector 
+
+### Query
+you supply `input parameters as key-value pairs`, which you create by embedding `a DataWeave script`. The keys are used with the colon character `(:)` to reference a parameter value by name. This is the recommended approach for using parameters in your query.
+**For security reasons, do not directly write <db:sql>SELECT * FROM PLANET WHERE name = #[payload] </db:sql>.**
+```
+<flow name="selectParameterizedQuery">
+  <db:select config-ref="dbConfig">
+    <db:sql>SELECT * FROM PLANET WHERE name = :name</db:sql>
+    <db:input-parameters>
+      #[{'name' : payload}]
+    </db:input-parameters>
+  </db:select>
+</flow>
+```
+
+
