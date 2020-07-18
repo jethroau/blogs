@@ -170,6 +170,37 @@ items: payload.books map ((item, index) -> {
 https://docs.mulesoft.com/mule-runtime/4.3/dataweave-cookbook-map  
 https://blog.csdn.net/qq_29569183/article/details/88535442
 
+### Format
+as (in the second DataWeave script) to change the data type of the values to a Date type with a specific date format. 
+```
+%dw 2.0
+output text/xml
+fun normalize(date) date replace "/" with "-" replace "." with "-"
+---
+// Outputs date values as Date types in the specified format
+dates: (payload.dates mapObject {
+    normalized_as_date: normalize($.date) as Date {format: "d-MMM-yy"}
+})
+```
+```
+%dw 2.0
+import * from dw::core::Arrays
+var myVar=13.15
+fun toUser(obj) = {
+  firstName: obj.field1,
+  lastName: obj.field2
+}
+type Currency = String { format: “##“}
+ns ns0 http://www.abc.com
+output application/xml
+---
+/*
+ * Body here.
+ * /
+```
+```
+ 200.1234 as String {format: ".0#"}
+```
 ## API Manager, Proxy and Gateway. 
 Through the Autodiscovery scheme, API Manager can track the API throughout the life cycle as you modify, version, deploy, govern, and publish it. API Manager 2.x is tightly integrated with the following tools:
 
