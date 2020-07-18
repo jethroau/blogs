@@ -155,6 +155,7 @@ items: payload.books map ((item, index) -> {
 )
 ```
 https://docs.mulesoft.com/mule-runtime/4.3/dataweave-cookbook-map  
+https://blog.csdn.net/qq_29569183/article/details/88535442
 
 ## API Manager, Proxy and Gateway. 
 Through the Autodiscovery scheme, API Manager can track the API throughout the life cycle as you modify, version, deploy, govern, and publish it. API Manager 2.x is tightly integrated with the following tools:
