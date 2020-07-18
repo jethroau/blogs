@@ -396,3 +396,30 @@ The insert operation outputs a Statement Result object that contains two fields:
 </db:bulk-insert>
 ```
 
+## Scatter-Gather Router
+After all processing routes have finished execution, the Scatter-Gather component creates `a new Mule event that combines all resulting Mule events from each route`, and then passes the new Mule event to the next component in the flow.
+```
+<set-variable variableName="var1" value="var1"/>
+<set-variable variableName="var2" value="var2"/>
+<scatter-gather doc:name="Scatter-Gather" doc:id="abc665e0-6119-4ecb-9f8b-52dbcbb1d488" >
+	<route >
+		<set-variable variableName="var2" value="newValue"/>
+        <set-variable variableName="var3" value="appleVal"/>
+	</route>
+	<route >
+		<set-variable variableName="var3" value="bananaVal"/>
+	</route>
+	<route >
+		<set-variable variableName="var3" value="otherVal"/>
+        <set-variable variableName="var4" value="val4"/>
+	</route>
+</scatter-gather>
+```
+After aggregation, the variables are:
+```
+{var1: "var1", var2: "newValue", var3: ["appleVal, bananaVal, otherVal"], var4: "val4"}
+```
+
+
+
+
