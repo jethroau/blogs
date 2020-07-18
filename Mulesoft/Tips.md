@@ -42,7 +42,15 @@ training:
 2. `publish-consume` operation lets you publish a message to any destination, and then `wait for a reply` on a different destination.  
 https://docs.mulesoft.com/jms-connector/1.7/jms-publish-consume  
 
+## File Connector
+Use the List operation to list the files and folders in the path pointed to by the directoryPath parameter. The List operation returns an array of messages in which:
+* Each message holds the file’s content in its payload.
+* The file’s attributes section carries the file’s metadata (such as name, creation time, and size).
+* The payload is empty if the element is a folder.
 
+![alt text](img/fileconnector.png)
+
+https://docs.mulesoft.com/file-connector/1.3/file-list  
 
 ## FTP Connector 
 
