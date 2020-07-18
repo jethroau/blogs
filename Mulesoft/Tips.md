@@ -1,5 +1,5 @@
 ## payload, attributes, vars. 
-![alt text](img/payload-var.png "Mule Event and Message")
+![alt text](img/payload.png)
 
 ## For Each Scope 
 For Each does not modify the current payload. The output payload is the same as the input.  
