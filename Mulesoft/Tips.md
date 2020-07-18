@@ -114,6 +114,31 @@ payload.user.@name
 ```
 https://docs.mulesoft.com/mule-runtime/4.2/dataweave-selectors  
 
+### Creating and Using a Custom Module
+Assume that you have created the MyMapping.dwl file in /src/main/resources/modules that contains this script.  
+
+* A custom module file can only contain var, fun, type, and ns declarations
+* Imports the module MyModule through the import directive in the header. In this case, the imported module is stored in a Studio project path src/main/resources/modules/MyModule.dwl
+* Calls a function in MyModule by using MyModule::myFunc("dataweave").
+
+```
+##Example: Custom DataWeave Module
+%dw 2.0
+fun myFunc(myInput: String) = myInput ++ "_"
+var name = "MyData"
+ns mynamespace http://acme.com/bar
+
+## Example: Importing and Using a Custom DataWeave Module
+%dw 2.0
+import modules::MyModule
+output application/json
+---
+MyModule::myFunc("dataweave") ++ "name"
+```
+
+
+https://docs.mulesoft.com/mule-runtime/latest/dataweave-create-module  
+
 ## API Manager, Proxy and Gateway. 
 Through the Autodiscovery scheme, API Manager can track the API throughout the life cycle as you modify, version, deploy, govern, and publish it. API Manager 2.x is tightly integrated with the following tools:
 
