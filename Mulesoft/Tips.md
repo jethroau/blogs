@@ -177,4 +177,12 @@ An object store is a facility for storing objects in or across Mule applications
 https://docs.mulesoft.com/mule-runtime/4.3/mule-object-stores  
 
 
+## RAML 
+###
 
+### Using !include
+To modularize the API definition, RAML provides several mechanisms, one of which is the `!include` property. To keep the API definition concise, you can include external content, such as documentation, schemas, and frequently used patterns outside the definition itself. The parser interprets `!include` as if the content of the externally-hosted file or a URL were declared in-line.  
+```
+      application/json:
+        example: !include user-example.json
+```
