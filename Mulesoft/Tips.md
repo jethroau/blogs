@@ -267,8 +267,8 @@ https://raml.org/developers/raml-200-tutorial
 ## Database Connector 
 
 ### Query
-you supply `input parameters as key-value pairs`, which you create by embedding `a DataWeave script`. The keys are used with the colon character `(:)` to reference a parameter value by name. This is the recommended approach for using parameters in your query.
-**For security reasons, do not directly write <db:sql>SELECT * FROM PLANET WHERE name = #[payload] </db:sql>.**
+you supply `input parameters as key-value pairs`, which you create by embedding `a DataWeave script`. The keys are used with the colon character `(:)` to reference a parameter value by name. This is the recommended approach for using parameters in your query.  
+***For security reasons, do not directly write <db:sql>SELECT * FROM PLANET WHERE name = #[payload] </db:sql>.***
 ```
 <flow name="selectParameterizedQuery">
   <db:select config-ref="dbConfig">
@@ -279,5 +279,15 @@ you supply `input parameters as key-value pairs`, which you create by embedding 
   </db:select>
 </flow>
 ```
-
+### Dynamic Query
+An important thing to notice is that although some of the query text is dynamic ("SELECT * FROM $(vars.table)), the WHERE clause is still using the best practice of defining the WHERE condition using input parameters, in this case, WHERE name = :name:  
+```
+<set-variable variableName="table" value="PLANET"/>
+<db:select config-ref="dbConfig">
+    <db:sql>#["SELECT * FROM $(vars.table) WHERE name = :name"]</db:sql>
+    <db:input-parameters>
+        #[{'name' : payload}]
+    </db:input-parameters>
+</db:select>
+```
 
