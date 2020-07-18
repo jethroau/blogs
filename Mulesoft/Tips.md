@@ -117,8 +117,8 @@ https://docs.mulesoft.com/mule-runtime/4.2/dataweave-selectors
 ## API Manager, Proxy and Gateway. 
 Through the Autodiscovery scheme, API Manager can track the API throughout the life cycle as you modify, version, deploy, govern, and publish it. API Manager 2.x is tightly integrated with the following tools:
 
-* Design Center for creating the RAML structure of the API
-* Exchange for storing and publishing API assets
-* Studio for implementing the API
+* `Design Center` for creating the RAML structure of the API
+* `Exchange` for storing and publishing API assets
+* `Studio` for implementing the API
 
 https://dzone.com/articles/proxying-with-api-manager  
