@@ -188,53 +188,77 @@ To modularize the API definition, RAML provides several mechanisms, one of which
 ```
 
 ### RAML Example
-```yaml
-#%RAML 1.0
-title: placeholder
-version: 1.0.development
-baseUri: http://jsonplaceholder.typicode.com
-/users:
-  get:
-    description: Retrieve a list of all the users
-    responses:
-      200:
-        body:
-          application/json:
-            example: !include user-example.json
-/userbyid:
-  get:
-    description: Get information about a particular user
-    queryParameters:
-      id:
-        description: Specify the id of the user you want to retrieve
-        type:        integer
-        required:    false
-        example: 3
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              [{
-              "id": 3,
-              "name": "Clementine Bauch",
-              "username": "Samantha",
-              "email": "Nathan@yesenia.net",
-              "address": {
-                "street": "Douglas Extension",
-                "suite": "Suite 847",
-                "city": "McKenziehaven",
-                "zipcode": "59590-4157",
-                "geo": {
-                  "lat": "-68.6102",
-                  "lng": "-47.0653"
-                }
-              },
-              "phone": "1-463-123-4447",
-              "website": "ramiro.info",
-              "company": {
-                "name": "Romaguera-Jacobson",
-                "catchPhrase": "Face to face bifurcated interface",
-                "bs": "e-enable strategic applications"
-              } }]
+base RAML API definition
 ```
+/songs:
+  get:
+  post:
+  /{songId}:
+    get:
+    /file-content:
+      get:
+      post:
+/artists:
+  get:
+  post:
+  /{artistId}:
+    get:
+    /albums
+      get:
+/albums:
+  get:
+  post:
+  /{albumId}:
+    get:
+    /songs:
+      get:
+```
+detail example without defined POST for the resource "/songs"  
+```yaml
+/songs:
+  description: Collection of available songs in Jukebox
+  get:
+    description: Get a list of songs based on the song title.
+    queryParameters:
+      songTitle:
+        description: "The title of the song to search (it is case insensitive and doesn't need to match the whole title)"
+        required: true
+        minLength: 3
+        type: string
+        example: "Get L"
+    responses:
+      200:
+        body:
+          application/json:
+              example: !include user-example.json
+  /{songId}:
+    description: Song entity
+    get:
+      description: Get the song with `songId = {songId}`
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "songId": "550e8400-e29b-41d4-a716-446655440000",
+                  "songTitle": "Get Lucky",
+                  "duration": "6:07",
+                  "artist": {
+                    "artistId": "110e8300-e32b-41d4-a716-664400445500"
+                    "artistName": "Daft Punk",
+                    "imageURL": "http://travelhymns.com/wp-content/uploads/2013/06/random-access-memories1.jpg"
+                  },
+                  "album": {
+                    "albumId": "183100e3-0e2b-4404-a716-66104d440550",
+                    "albumName": "Random Access Memories",
+                    "imageURL": "http://upload.wikimedia.org/wikipedia/en/a/a7/Random_Access_Memories.jpg"
+                  }
+                }
+        404:
+          body:
+            application/json:
+              example: |
+                {"message": "Song not found"}
+```
+https://raml.org/developers/raml-200-tutorial  
