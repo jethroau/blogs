@@ -122,3 +122,5 @@ Through the Autodiscovery scheme, API Manager can track the API throughout the l
 * `Studio` for implementing the API
 
 https://dzone.com/articles/proxying-with-api-manager  
+https://docs.mulesoft.com/api-manager/2.x/api-proxy-landing-page  
+
