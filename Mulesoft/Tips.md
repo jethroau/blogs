@@ -1,3 +1,6 @@
+## payload, attributes, vars. 
+![alt text](img/payload-var.png "Mule Event and Message")
+
 ## For Each Scope 
 For Each does not modify the current payload. The output payload is the same as the input.  
 https://docs.mulesoft.com/mule-runtime/4.3/for-each-scope-concept 
@@ -73,3 +76,31 @@ The “Read” operation of the FTP connector does not have function on deleting
 
 https://docs.mulesoft.com/ftp-connector/1.5/ftp-read  
 https://docs.mulesoft.com/ftp-connector/1.5/ftp-on-new-file  
+
+## Lookup 
+```xml
+<flow name="flow1">
+  <http:listener doc:name="Listener" config-ref="HTTP_Listener_config"
+    path="/source"/>
+  <ee:transform doc:name="Transform Message" >
+    <ee:message >
+      <ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+Mule::lookup('flow2', {test:'hello '})]]></ee:set-payload>
+    </ee:message>
+  </ee:transform>
+</flow>
+<flow name="flow2" >
+  <set-payload value='#[payload.test ++ "world"]' doc:name="Set Payload" />
+  <logger level="INFO" doc:name="Logger" message='#[payload]'/>
+</flow>
+```
+
+https://docs.mulesoft.com/mule-runtime/4.3/dw-mule-functions-lookup  
+
+## DataWeave
+QuickStart 
+https://docs.mulesoft.com/mule-runtime/4.3/dataweave-quickstart#step_4  
+
+
