@@ -135,9 +135,26 @@ output application/json
 ---
 MyModule::myFunc("dataweave") ++ "name"
 ```
-
-
 https://docs.mulesoft.com/mule-runtime/latest/dataweave-create-module  
+
+### Map Data with DataWeave
+```
+%dw 2.0
+output application/json
+---
+items: payload.books map ((item, index) -> {
+      category: "book",
+      price: item.price as Number,
+      id: index,
+      properties: {
+        title: item.title,
+        author: item.author,
+        year: item.year as Number
+      }
+   }
+)
+```
+https://docs.mulesoft.com/mule-runtime/4.3/dataweave-cookbook-map  
 
 ## API Manager, Proxy and Gateway. 
 Through the Autodiscovery scheme, API Manager can track the API throughout the life cycle as you modify, version, deploy, govern, and publish it. API Manager 2.x is tightly integrated with the following tools:
