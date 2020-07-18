@@ -94,6 +94,9 @@ https://docs.mulesoft.com/mule-runtime/4.3/dw-mule-functions-lookup
 ### QuickStart 
 https://docs.mulesoft.com/mule-runtime/4.3/dataweave-quickstart#step_4  
 
+### Core (dw::Core)
+This module contains core DataWeave functions for data transformations. `It is automatically imported into any DataWeave script.`
+
 ### define functions
 ```
 %dw 2.0
