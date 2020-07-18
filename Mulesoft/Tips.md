@@ -1,3 +1,7 @@
+## Flow (Synchronous Flow), subFlows and AsyncScopes (Asynchronous Flow)
+https://dzone.com/articles/understanding-flows-sub-flows-with-anypoint-muleso   
+https://docs.mulesoft.com/mule-runtime/4.3/async-scope-reference  
+
 ## payload, attributes, vars. 
 ![alt text](img/payload.png)
 
