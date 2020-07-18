@@ -316,3 +316,35 @@ The insert operation outputs a Statement Result object that contains two fields:
   }
 }
 ```
+
+### Call procedure
+```
+<db:stored-procedure config-ref="dbConfig">
+    <db:sql>{ call multiplyInts(:int1, :int2, :result1, :int3, :result2) }</db:sql>
+    <db:input-parameters>
+        #[{
+            'int1' : 3,
+            'int2' : 4,
+            'int3' : 5
+        }]
+    </db:input-parameters>
+    <db:output-parameters>
+        <db:output-parameter key="result1" type="INTEGER"/>
+        <db:output-parameter key="result2" type="INTEGER"/>
+        <db:output-parameter key="myInt" type="INTEGER"/>
+    </db:output-parameters>
+</db:stored-procedure>
+```
+
+### Bulk Insert
+```
+<db:bulk-insert config-ref="dbConfig" >
+  <db:bulk-input-parameters>
+    #[[{'id': 2, 'name': 'George', 'lastName': 'Costanza'}, {'id': 3, 'name': 'Cosmo', 'lastName': 'Kramer'}]]
+  </db:bulk-input-parameters>
+  <db:sql>
+    insert into customers (id, name, lastName) values (:id, :name, :lastName)
+  </db:sql>
+</db:bulk-insert>
+```
+
