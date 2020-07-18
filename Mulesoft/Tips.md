@@ -420,6 +420,13 @@ After aggregation, the variables are:
 {var1: "var1", var2: "newValue", var3: ["appleVal, bananaVal, otherVal"], var4: "val4"}
 ```
 
+## Design Center
+Anypoint Design Center is a development environment that consists of two tools:
 
+### API Designer
+In API Designer, you can create API specifications in RESTful API Modeling Language (RAML) 0.8 or 1.0, or according to OpenAPI specification (OAS) 2.0 or 3.0. You can also create API fragments in RAML. After you create a specification or fragment, you can publish it to Anypoint Exchange, so that it can be used by anyone in your MuleSoft organization.
+
+### Flow Designer
+In Flow Designer, you create Mule applications to integrate systems into workflows
 
 
