@@ -178,11 +178,63 @@ https://docs.mulesoft.com/mule-runtime/4.3/mule-object-stores
 
 
 ## RAML 
-###
+
 
 ### Using !include
 To modularize the API definition, RAML provides several mechanisms, one of which is the `!include` property. To keep the API definition concise, you can include external content, such as documentation, schemas, and frequently used patterns outside the definition itself. The parser interprets `!include` as if the content of the externally-hosted file or a URL were declared in-line.  
 ```
       application/json:
         example: !include user-example.json
+```
+
+### RAML Example
+```yaml
+#%RAML 1.0
+title: placeholder
+version: 1.0.development
+baseUri: http://jsonplaceholder.typicode.com
+/users:
+  get:
+    description: Retrieve a list of all the users
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include user-example.json
+/userbyid:
+  get:
+    description: Get information about a particular user
+    queryParameters:
+      id:
+        description: Specify the id of the user you want to retrieve
+        type:        integer
+        required:    false
+        example: 3
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [{
+              "id": 3,
+              "name": "Clementine Bauch",
+              "username": "Samantha",
+              "email": "Nathan@yesenia.net",
+              "address": {
+                "street": "Douglas Extension",
+                "suite": "Suite 847",
+                "city": "McKenziehaven",
+                "zipcode": "59590-4157",
+                "geo": {
+                  "lat": "-68.6102",
+                  "lng": "-47.0653"
+                }
+              },
+              "phone": "1-463-123-4447",
+              "website": "ramiro.info",
+              "company": {
+                "name": "Romaguera-Jacobson",
+                "catchPhrase": "Face to face bifurcated interface",
+                "bs": "e-enable strategic applications"
+              } }]
 ```
