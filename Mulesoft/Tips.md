@@ -117,9 +117,9 @@ https://docs.mulesoft.com/mule-runtime/4.2/dataweave-selectors
 ### Creating and Using a Custom Module
 Assume that you have created the MyMapping.dwl file in /src/main/resources/modules that contains this script.  
 
-* A custom module file can only contain var, fun, type, and ns declarations
+* A custom module file can only contain `var, fun, type, and ns` declarations
 * Imports the module MyModule through the import directive in the header. In this case, the imported module is stored in a Studio project path src/main/resources/modules/MyModule.dwl
-* Calls a function in MyModule by using MyModule::myFunc("dataweave").
+* Calls a function in MyModule by using `MyModule::myFunc("dataweave")`.
 
 ```
 ##Example: Custom DataWeave Module
