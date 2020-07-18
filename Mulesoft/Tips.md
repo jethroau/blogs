@@ -99,6 +99,8 @@ Mule::lookup('flow2', {test:'hello '})]]></ee:set-payload>
 https://docs.mulesoft.com/mule-runtime/4.3/dw-mule-functions-lookup  
 
 ## DataWeave
+DataWeave is tightly integrated with the `Mule runtime engine`, which runs the scripts and expressions in your Mule app.  
+
 ### QuickStart 
 https://docs.mulesoft.com/mule-runtime/4.3/dataweave-quickstart#step_4  
 
