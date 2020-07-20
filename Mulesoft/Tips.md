@@ -171,6 +171,8 @@ items: payload.books map ((item, index) -> {
    }
 )
 ```
+The following example performs the same transformation as above, but it doesn’t explicitly define the properties "item" and "index". Instead, it calls them through the default names: `$` and `$$` respectively.  
+
 https://docs.mulesoft.com/mule-runtime/4.3/dataweave-cookbook-map  
 https://blog.csdn.net/qq_29569183/article/details/88535442
 
