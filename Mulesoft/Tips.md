@@ -11,6 +11,9 @@ https://docs.mulesoft.com/mule-runtime/4.3/for-each-scope-concept
 
 While "vars" is global scope, For Each will modify vars.   
 
+## For Each vs Batch
+For Each uses Single Thread processing.
+Batch uses multi thread processing.  
 
 ## mainFlow vs subFlow
 In HTTP Request, subFlow can retrieve mainFlow `payload` only.   
