@@ -419,6 +419,9 @@ After aggregation, the variables are:
 ```
 {var1: "var1", var2: "newValue", var3: ["appleVal, bananaVal, otherVal"], var4: "val4"}
 ```
+## Round Robin Router
+The Round Robin router iterates through a list of two or more routes in order, but it only routes to one of the routes each time it is executed. It keeps track of the previously selected route and never selects the same route consecutively. For example, the first time Round Robin executes, it selects the first route. The next time, it selects the second route. If the previously selected route is the last route in the list, Round Robin jumps to the first route. 
+https://docs.mulesoft.com/mule-runtime/latest/round-robin 
 
 ## Design Center
 Anypoint Design Center is a development environment that consists of two tools:
