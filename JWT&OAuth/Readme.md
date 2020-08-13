@@ -1,6 +1,8 @@
+## Authentication & Authorization
+
 Authentication指的是确定这个用户的身份，Authorization是确定该用户拥有什么操作权限。
 
-认证方式一般有三种
+Authentication 认证方式一般有三种
 
 ## Basic Authentication
 
@@ -16,4 +18,6 @@ Authentication指的是确定这个用户的身份，Authorization是确定该�
 
 一般项目中的RESTful API使用JWT来做认证就足够了。 
 
-## 
+## Reference
+https://www.xncoding.com/2017/07/09/spring/sb-jwt.html  
+
