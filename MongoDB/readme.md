@@ -8,4 +8,4 @@
  ## Open MongoDB compass 
  
  1. open compass and connect to local mongoDB by default setting
- 2. 
+ ![alt text](img/Mongo_2021-07-22_18-22-05 "Title Text")
