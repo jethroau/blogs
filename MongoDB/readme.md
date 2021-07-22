@@ -9,3 +9,4 @@
  
  1. open compass and connect to local mongoDB by default setting
  ![alt text](img/Mongo_2021-07-22_18-22-05.png "Title Text") 
+https://blog.csdn.net/mrjkzhangma/article/details/90082178  
