@@ -124,6 +124,49 @@ You do not need to restart Docker.
 https://blog.csdn.net/l6807718/article/details/52886546  
 https://github.com/burnettk/delete-docker-registry-image  
 
+# release registry space
+
+## stop register cr.jethro.io
+docker ps #copy register:2 container-id and stop it.
+docker stop <container-id>
+
+## remove repostiroy
+rm -rf /docker/tls-auth-registry/docker/registry
+
+## start register
+docker start <container-id>
+
+## verify register
+set <<HOST>> for local PC
+192.168.x.x cr.jethro.io
+
+https://cr.jethro.io/v2/_catalog
+
+if above not work, please remove container and start again.
+## stop and remove register.
+docker stop <container-id>
+docker rm <container-id>
+
+## start
+```
+docker run -d \
+  --restart=always \
+  --name tls-auth-registry  \
+  -v /home/tls-auth-registry:/var/lib/registry  \
+  -v /docker/auth:/auth \
+  -v /docker/certs:/certs \
+  -e "REGISTRY_AUTH=htpasswd" \
+  -e "REGISTRY_AUTH_HTPASSWD_REALM=registry-realm" \
+  -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+  -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
+  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/cr.jethro.io.crt \
+  -e REGISTRY_HTTP_TLS_KEY=/certs/cr.jethro.io.key \
+  -p 443:443 \
+  registry:2
+```
+
+
+
 # Reference
 https://docs.docker.com/registry/deploying/#support-for-lets-encrypt  
 https://docs.docker.com/registry/insecure/  
