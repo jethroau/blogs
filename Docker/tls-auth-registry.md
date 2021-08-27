@@ -127,8 +127,10 @@ https://github.com/burnettk/delete-docker-registry-image
 # release registry space
 
 ## stop register cr.jethro.io
+```
 docker ps #copy register:2 container-id and stop it.  
 docker stop <container-id>   
+````
 
 ## remove repostiroy
 rm -rf /docker/tls-auth-registry/docker/registry   
@@ -137,8 +139,10 @@ rm -rf /docker/tls-auth-registry/docker/registry
 docker start <container-id>   
 
 ## verify register
-set <<HOST>> for local PC   
+```
+ set <<HOST>> for local PC   
 192.168.x.x cr.jethro.io   
+```
 
 https://cr.jethro.io/v2/_catalog   
 
