@@ -133,10 +133,14 @@ docker stop <container-id>
 ````
 
 ## remove repostiroy
+```
 rm -rf /docker/tls-auth-registry/docker/registry   
+```
 
 ## start register
+```
 docker start <container-id>   
+```
 
 ## verify register
 ```
@@ -148,9 +152,11 @@ https://cr.jethro.io/v2/_catalog
 
 if above not work, please remove container and start again.   
 ## stop and remove register.
+```  
 docker stop <container-id>   
 docker rm <container-id>   
-
+```
+  
 ## start
 ```
 docker run -d \
