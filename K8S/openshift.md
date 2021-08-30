@@ -67,6 +67,20 @@ oc get is -n project-name
 https://docs.openshift.com/container-platform/3.6/dev_guide/managing_images.html  
 https://blog.csdn.net/u012371097/article/details/83746111?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase   
 
+## Apply deployment service, route to openshift
+try to get serivce from openshift. If no service is created, will create pod, service and route. 
+```
+oc get svc ${APP_NAME} -n=${OCP_PROJECT_NAME}
+
+sh "oc apply -f src/main/k8s/${ENV}/deploymentConfig.yaml"
+sh "oc apply -f src/main/k8s/${ENV}/service.yaml"
+sh "oc apply -f src/main/k8s/${ENV}/route.yaml"
+
+oc import-image ${APP_NAME}:${ENV}  --from=register.jethro.io/docker/${APP_NAME}/${ENV}:${VER} --insecure=true -n=${PROJECT_NAME}  --confirm
+
+```
+
+
 ## create secret before pulling private image from registry
 ```
 oc secrets new openshfit2jfrog .dockerconfigjson=/home/users/.docker/config.json
