@@ -19,7 +19,9 @@ Doctor summary (to see all details, run flutter doctor -v):
 ```
 - Install plugins in Andorid Studio. Files=>setting=>Plugins=>Marketplace=> Install Dart and Flutter. 
 
+https://book.flutterchina.club/chapter1/install_flutter.html#_1-3-2-ide%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8
 
+# First Flutter project
 
 
 
