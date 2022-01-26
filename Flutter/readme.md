@@ -17,6 +17,9 @@ Doctor summary (to see all details, run flutter doctor -v):
 ?No issues found!
 ****
 ```
+- Install plugins in Andorid Studio. Files=>setting=>Plugins=>Marketplace=> Install Dart and Flutter. 
+
+
 
 
 
