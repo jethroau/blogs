@@ -7,7 +7,7 @@
  
  ## Open MongoDB compass 
   open compass and connect to local mongoDB by default setting   
-![alt text](img/Mongo_2021-07-22_18-22-05.png "Title Text")   
+!(img/Mongo_2021-07-22_18-22-05.png)   
 https://blog.csdn.net/mrjkzhangma/article/details/90082178  
 
 ## Download Robo3T
@@ -16,7 +16,7 @@ https://robomongo.org/
 ## MongoDB concept VS SQL DB
 [MongoDB] database => collection => document => field  
 [SQL DB] database => table => row => column  
-![alt text](img/Capture-Mongo.PNG "Title Text")   
+!(img/Capture-Mongo.PNG)   
 
 
 
