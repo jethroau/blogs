@@ -14,8 +14,8 @@ https://blog.csdn.net/mrjkzhangma/article/details/90082178
 https://robomongo.org/  
 
 ## MongoDB concept VS SQL DB
-[MongoDB] database => collection => document => field
-[SQL DB] database => table => row => column
+[MongoDB] database => collection => document => field  
+[SQL DB] database => table => row => column  
 ![alt text](img/Capture-Mongo.PNG "Title Text")   
 
 
