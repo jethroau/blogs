@@ -141,3 +141,6 @@ kubectl get hpa
 ## Official reference. 
 [Kubernetes Concepts](https://kubernetes.io/docs/concepts/)  
 [Kubernetes Workload/Controller/Deployment](https://kubernetes.io/zh/docs/concepts/workloads/controllers/deployment/)  
+
+## Overview reference.
+[容器编排技术 Kubernetes 学习总结](https://xie.infoq.cn/article/d148aeda214dc2e5ca7a5dc30)
