@@ -30,6 +30,6 @@ https://book.flutterchina.club/chapter1/install_flutter.html#_1-3-2-ide%E9%85%8D
 4. 
 
 ## Change MVN repo from google to aliyun.com
-https://blog.csdn.net/a06_kassadin/article/details/72796696 
+https://blog.csdn.net/a06_kassadin/article/details/72796696   
 https://blog.csdn.net/lei7143/article/details/115617706  
 https://www.chengbinbin.cn/archives/1550795296099/  
