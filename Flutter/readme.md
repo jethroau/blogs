@@ -23,11 +23,14 @@ https://book.flutterchina.club/chapter1/install_flutter.html#_1-3-2-ide%E9%85%8D
 
 # First Flutter project
 
-## Android Studio
+## Create AVD via Android Studio
 1. open Android Studio
 2. Test Android simulator (Android AVD), click Android Studio>Tools>Android>AVD Manager 
 3. Ceate one new device if none device is found. 
-4. 
+
+## Installation VS code.   
+https://flutter.cn/docs/development/tools/vs-code  
+ 
 
 ## Change MVN repo from google to aliyun.com
 https://blog.csdn.net/a06_kassadin/article/details/72796696   
