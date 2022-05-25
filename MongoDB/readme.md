@@ -18,6 +18,8 @@ https://robomongo.org/
 [SQL DB] database => table => row => column  
 !(img/Capture-Mongo.PNG)   
 
+## MongoDB basic concept
+https://blog.csdn.net/qq_42022528/article/details/102794410
 
 
 ## Reference docs
